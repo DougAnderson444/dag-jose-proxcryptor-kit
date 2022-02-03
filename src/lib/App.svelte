@@ -1,0 +1,61 @@
+<script lang="ts">
+	import { onMount, setContext } from 'svelte';
+	import DagJose from './DAGJose.svelte';
+
+	export let wallet;
+	let inputUrl; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
+
+	let ipfsNode, CID;
+	let nodeId;
+
+	let Web3WalletMenu;
+
+	let start = Date.now();
+
+	onMount(async () => {
+
+		// load asyncs in parallel
+		if (!wallet) loadWallet();
+		if (!ipfsNode) loadIPFS();
+
+		async function loadWallet() {
+			({ Web3WalletMenu } = await import('@peerpiper/svelte-web3-wallet-connector'));
+		}
+
+		async function loadIPFS() {
+			// setup IPFS
+			const IPFSmodule = await import('../modules/ipfs-core-0.14.0/ipfs-core.js');
+			const IPFS = IPFSmodule.default;
+
+			// console.log({ IPFS });
+			CID = IPFS.CID;
+
+			ipfsNode = await IPFS.create({
+				// repo: 'dag-jose-proxcryptor'
+			});
+
+			console.log(`Loaded in ${(Date.now() - start) / 1000}s`, { ipfsNode });
+
+			const identity = await ipfsNode.id();
+			nodeId = identity.id;
+			console.info('NodeId', nodeId);
+		}
+
+		return () => ipfsNode.stop();
+	});
+</script>
+
+{#if Web3WalletMenu}
+	<svelte:component this={Web3WalletMenu} bind:wallet {inputUrl} />
+{:else}
+	Loading Web3 Wallet...<br />
+{/if}
+
+{#if wallet && ipfsNode && CID}
+	<DagJose proxcryptor={wallet.proxcryptor} {ipfsNode} {CID}>
+		<!-- TODO: slots -->
+		<slot />
+	</DagJose>
+{:else}
+	Loading IPFS...<br />
+{/if}

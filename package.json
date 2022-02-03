@@ -1,0 +1,51 @@
+{
+	"name": "@peerpiper/dag-jose-proxcryptor-kit",
+	"version": "0.0.1",
+	"svelte": "src/lib/index.js",
+	"scripts": {
+		"dev": "svelte-kit dev --port 8087",
+		"build": "svelte-kit build",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . && eslint --ignore-path .gitignore .",
+		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
+		"build:ipfs": "esbuild ./node_modules/ipfs-core --bundle --format=esm --main-fields=browser,module,main --inject:./src/node-globals.js --define:process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/ipfs-core"
+	},
+	"devDependencies": {
+		"@ipld/dag-json": "^8.0.7",
+		"@originjs/vite-plugin-commonjs": "^1.0.2",
+		"@peerpiper/svelte-web3-wallet-connector": "file:../svelte-wallet-connector",
+		"@sveltejs/adapter-auto": "next",
+		"@sveltejs/kit": "next",
+		"@typescript-eslint/eslint-plugin": "^5.10.1",
+		"@typescript-eslint/parser": "^5.10.1",
+		"dag-jose": "^1.0.0",
+		"esbuild": "^0.14.14",
+		"eslint": "^7.32.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^3.2.1",
+		"ipfs-core": "^0.14.0",
+		"micromatch": "^4.0.4",
+		"prettier": "^2.4.1",
+		"prettier-plugin-svelte": "^2.4.0",
+		"process": "^0.11.10",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.2.6",
+		"svelte-preprocess": "^4.9.4",
+		"tslib": "^2.3.1",
+		"typescript": "^4.4.3",
+		"util": "^0.12.4"
+	},
+	"type": "module",
+	"dependencies": {
+		"@douganderson444/svelte-solana-name-service": "github:douganderson444/svelte-solana-name-service",
+		"@stablelib/random": "^1.0.1",
+		"base64-js": "^1.5.1",
+		"bs58": "^4.0.1",
+		"dag-jose-utils": "^1.0.0",
+		"did-jwt": "^5.12.4",
+		"immortal-db": "^1.1.0"
+	}
+}
