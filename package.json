@@ -1,6 +1,6 @@
 {
 	"name": "@peerpiper/dag-jose-proxcryptor-kit",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"svelte": "src/lib/index.js",
 	"scripts": {
 		"dev": "svelte-kit dev --port 8087",
@@ -16,7 +16,6 @@
 	"devDependencies": {
 		"@ipld/dag-json": "^8.0.7",
 		"@originjs/vite-plugin-commonjs": "^1.0.2",
-		"@peerpiper/svelte-web3-wallet-connector": "file:../svelte-wallet-connector",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^5.10.1",
@@ -41,6 +40,7 @@
 	"type": "module",
 	"dependencies": {
 		"@douganderson444/svelte-solana-name-service": "github:douganderson444/svelte-solana-name-service",
+		"@peerpiper/svelte-web3-wallet-connector": "github:DougAnderson444/svelte-wallet-connector",
 		"@stablelib/random": "^1.0.1",
 		"base64-js": "^1.5.1",
 		"bs58": "^4.0.1",
