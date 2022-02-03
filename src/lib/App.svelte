@@ -3,6 +3,8 @@
 	import DagJose from './DAGJose.svelte';
 
 	export let wallet;
+	export let rootCID;
+
 	let inputUrl; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
 
 	let ipfsNode, CID;
@@ -13,7 +15,6 @@
 	let start = Date.now();
 
 	onMount(async () => {
-
 		// load asyncs in parallel
 		if (!wallet) loadWallet();
 		if (!ipfsNode) loadIPFS();
@@ -52,7 +53,7 @@
 {/if}
 
 {#if wallet && ipfsNode && CID}
-	<DagJose proxcryptor={wallet.proxcryptor} {ipfsNode} {CID}>
+	<DagJose proxcryptor={wallet.proxcryptor} {ipfsNode} {CID} bind:rootCID>
 		<!-- TODO: slots -->
 		<slot />
 	</DagJose>

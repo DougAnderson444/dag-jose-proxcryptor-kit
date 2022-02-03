@@ -9,13 +9,13 @@
 	import ShowRoot from './components/ShowRoot.svelte';
 	import { setAccess } from './stores';
 
+	export let rootCID;
 	export let proxcryptor; // pass in a proxy re-encryptor prop
 	export let ipfsNode; // pass in an instance of ipfs
 	export let CID; // pass in https://github.com/multiformats/js-multiformats#interfaces
 
 	const ROOT_CID = '__ROOT_CID__'; // Database key
 
-	let rootCID;
 	let loaded = false;
 
 	// functions
