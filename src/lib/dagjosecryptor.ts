@@ -4,7 +4,7 @@ import { randomBytes } from '@stablelib/random';
 // JWT & utilities
 import { xc20pDirEncrypter, xc20pDirDecrypter, decryptJWE, createJWE } from 'did-jwt';
 import { decodeCleartext, prepareCleartext } from 'dag-jose-utils';
-import * as dagJose from 'dag-jose';
+// import * as dagJose from 'dag-jose';
 import * as dagJson from '@ipld/dag-json';
 
 const textEncoder = new TextEncoder();
@@ -168,7 +168,7 @@ export class DagJoseCryptor {
 		 */
 		const cid = await this.ipfs.dag.put(jwe, {
 			// TODO: Wait until ipfs-go codec lands? https://github.com/ipfs/js-ipfs/pull/3917
-			// format: dagJose.code, // codec code ensures this jose CID is saved
+			// format: 'dag-jose' // dagJose.code, // codec code ensures this jose CID is saved
 			hashAlg: 'sha2-256'
 		});
 		return cid;
