@@ -1,0 +1,94 @@
+{
+  ".svelte-kit/runtime/client/start.js": {
+    "file": "start-258e2fb4.js",
+    "src": ".svelte-kit/runtime/client/start.js",
+    "isEntry": true,
+    "imports": [
+      "_vendor-25886b38.js",
+      "_preload-helper-c6bb0bca.js"
+    ],
+    "dynamicImports": [
+      ".svelte-kit/runtime/components/layout.svelte",
+      ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/index.svelte"
+    ]
+  },
+  ".svelte-kit/runtime/components/layout.svelte": {
+    "file": "layout.svelte-e78dd262.js",
+    "src": ".svelte-kit/runtime/components/layout.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-25886b38.js"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "error.svelte-9b5bdc95.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-25886b38.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "pages/index.svelte-a9bcd6bf.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-25886b38.js",
+      "_preload-helper-c6bb0bca.js"
+    ],
+    "dynamicImports": [
+      "node_modules/immortal-db/src/index.js",
+      "src/lib/dagjosecryptor.ts",
+      "../HyPNS-Svelte-Component/dist/index.mjs",
+      "node_modules/@peerpiper/svelte-web3-wallet-connector/src/lib/index.js",
+      "src/modules/ipfs-core-0.14.0/ipfs-core.js"
+    ],
+    "css": [
+      "assets/pages/index.svelte-195c5cbd.css"
+    ]
+  },
+  "_vendor-25886b38.js": {
+    "file": "chunks/vendor-25886b38.js"
+  },
+  "_preload-helper-c6bb0bca.js": {
+    "file": "chunks/preload-helper-c6bb0bca.js"
+  },
+  "node_modules/@peerpiper/svelte-web3-wallet-connector/src/lib/index.js": {
+    "file": "chunks/index-5a44405d.js",
+    "src": "node_modules/@peerpiper/svelte-web3-wallet-connector/src/lib/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-25886b38.js"
+    ],
+    "css": [
+      "assets/index-ecc7e899.css"
+    ]
+  },
+  "src/modules/ipfs-core-0.14.0/ipfs-core.js": {
+    "file": "chunks/ipfs-core-7ce8034c.js",
+    "src": "src/modules/ipfs-core-0.14.0/ipfs-core.js",
+    "isDynamicEntry": true
+  },
+  "node_modules/immortal-db/src/index.js": {
+    "file": "chunks/index-17ddc90e.js",
+    "src": "node_modules/immortal-db/src/index.js",
+    "isDynamicEntry": true
+  },
+  "src/lib/dagjosecryptor.ts": {
+    "file": "chunks/dagjosecryptor-468708a4.js",
+    "src": "src/lib/dagjosecryptor.ts",
+    "isDynamicEntry": true,
+    "imports": [
+      "_vendor-25886b38.js"
+    ]
+  },
+  "../HyPNS-Svelte-Component/dist/index.mjs": {
+    "file": "chunks/index-bb5a237a.js",
+    "src": "../HyPNS-Svelte-Component/dist/index.mjs",
+    "isDynamicEntry": true
+  }
+}
