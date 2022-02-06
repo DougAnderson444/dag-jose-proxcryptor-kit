@@ -1,6 +1,8 @@
 <script>
 	// Basic template to show how to add Contact with the proxcryptor Parent component
-	import { createEventDispatcher } from 'svelte';
+	import { page } from '$app/stores';
+
+	import { onMount, createEventDispatcher } from 'svelte';
 
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
@@ -23,17 +25,29 @@
 	const tag = 'Contacts';
 
 	let schema;
-	let handle, pubKey;
+	let handle, pubKey, pubKeyInput;
 	let tagNode;
 	let valid;
 	let decryptedData = [];
 	let submitting;
 
-	$: if (rootCID) onSubmitted(); // trigger refresh whenever rootCID changes
+	onMount(async () => {
+		// check if this is a search params loaded page
+		if ($page.url.searchParams.has('add')) {
+			pubKey = $page.url.searchParams.get('add');
+			pubKeyInput.focus();
+		}
+	});
 
-	export async function onSubmitted() {
+	$: if (rootCID) refreshedRootCID(); // trigger refresh whenever rootCID changes
+
+	async function refreshedRootCID() {
 		tagNode = await getTagNode(tag);
 		decryptedData = await decrypt(tagNode);
+	}
+
+	export async function onSubmitted() {
+		refreshedRootCID();
 		submitting = false;
 		handle = '';
 		pubKey = '';
@@ -65,9 +79,7 @@
 				valid = true;
 				return;
 			}
-		} catch (error) {
-			console.log('not base58');
-		}
+		} catch (error) {}
 
 		// hex
 		const fromHexString = (hexString) =>
@@ -89,9 +101,10 @@
 		</div>
 
 		<div class="item">
+			<!-- placeholder={'Paste their Public Key'} -->
 			<input
+				bind:this={pubKeyInput}
 				bind:value={pubKey}
-				placeholder="Paste their Public Key"
 				on:input={validatePubKey}
 				on:focus={validatePubKey}
 			/>
