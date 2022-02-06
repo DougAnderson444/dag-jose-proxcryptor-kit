@@ -1,8 +1,14 @@
-import adapter from '@sveltejs/adapter-auto';
+// import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
+
 import preprocess from 'svelte-preprocess';
 import mm from 'micromatch';
 
 import { esbuildCommonjs, viteCommonjs } from '@originjs/vite-plugin-commonjs';
+
+const dev = process.env.NODE_ENV === 'development';
+
+console.log({ dev });
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,10 +17,14 @@ const config = {
 	preprocess: preprocess(),
 
 	kit: {
-		adapter: adapter(),
-
-		// hydrate the <div id="svelte"> element in src/app.html
-		target: '#svelte',
+		adapter: adapter({
+			pages: 'docs',
+			assets: 'docs'
+		}),
+		paths: {
+			// change below to your repo name
+			base: dev ? '' : '/dag-jose-proxcryptor-kit'
+		},
 		vite: () => ({
 			build: {
 				rollupOptions: {}
