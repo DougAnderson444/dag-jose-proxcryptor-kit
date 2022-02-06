@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { onMount, setContext } from 'svelte';
+
 	import DagJose from './DAGJose.svelte';
+	import HypnsManager from './HypnsManager.svelte';
 
 	export let wallet;
 	export let rootCID;
@@ -28,7 +30,6 @@
 			const IPFSmodule = await import('../modules/ipfs-core-0.14.0/ipfs-core.js');
 			const IPFS = IPFSmodule.default;
 
-			// console.log({ IPFS });
 			CID = IPFS.CID;
 
 			ipfsNode = await IPFS.create({
@@ -45,6 +46,8 @@
 		return () => ipfsNode.stop();
 	});
 </script>
+
+<HypnsManager {wallet} {rootCID} />
 
 {#if Web3WalletMenu}
 	<svelte:component this={Web3WalletMenu} bind:wallet {inputUrl} />
