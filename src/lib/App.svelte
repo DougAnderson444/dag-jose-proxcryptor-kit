@@ -7,7 +7,7 @@
 	export let wallet;
 	export let rootCID;
 
-	let inputUrl; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
+	let inputUrl = 'https://peerpiper.github.io/iframe-wallet-engine/'; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
 
 	let ipfsNode, CID;
 	let nodeId;
