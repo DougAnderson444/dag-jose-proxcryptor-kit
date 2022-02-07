@@ -47,19 +47,35 @@
 	});
 </script>
 
-<HypnsManager {wallet} {rootCID} />
+<div class="">
+	<!-- First, you need a wallet -->
+	{#if Web3WalletMenu}
+		<svelte:component this={Web3WalletMenu} bind:wallet {inputUrl} />
+	{:else}
+		Loading Web3 Wallet...<br />
+	{/if}
 
-{#if Web3WalletMenu}
-	<svelte:component this={Web3WalletMenu} bind:wallet {inputUrl} />
-{:else}
-	Loading Web3 Wallet...<br />
-{/if}
+	<!-- Then you need a way to encrypt/decrypt the data to IPLD  -->
+	{#if wallet && ipfsNode && CID}
+		<DagJose proxcryptor={wallet.proxcryptor} {ipfsNode} {CID} bind:rootCID>
+			<!-- TODO: slots -->
+			<slot />
+		</DagJose>
+	{:else}
+		Loading IPFS...<br />
+	{/if}
 
-{#if wallet && ipfsNode && CID}
-	<DagJose proxcryptor={wallet.proxcryptor} {ipfsNode} {CID} bind:rootCID>
-		<!-- TODO: slots -->
-		<slot />
-	</DagJose>
-{:else}
-	Loading IPFS...<br />
-{/if}
+	<!-- When there is data saved to ILPD, why not save it to PipeNet?  -->
+	{#if rootCID}
+		<HypnsManager {wallet} {rootCID} />
+	{/if}
+</div>
+
+<style>
+	.main {
+		width: 80%;
+		max-width: var(--column-width);
+		margin: var(--column-margin-top);
+		line-height: 1;
+	}
+</style>
