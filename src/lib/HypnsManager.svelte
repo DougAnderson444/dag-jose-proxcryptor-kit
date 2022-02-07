@@ -9,7 +9,7 @@
 	export let wallet; // use the same wallet object that the proxcryptor is using, for convenience
 
 	let HyPNSComponent, hypnsNode, latestHypns;
-	let hypnsInstance, publish;
+	let hypnsInstance, instanceReady, publish;
 
 	let publicKeyHex;
 
@@ -48,14 +48,17 @@
 		const pk: Uint8Array = await wallet.proxcryptor.getPublicKey();
 		// convert to hex for hypercore-protocol
 		publicKeyHex = bufftoHex(pk);
-		handleOpen();
 	}
 
 	async function handleOpen() {
 		// take the wallet and pass it into hypns
 		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex }, wallet });
 
-		await hypnsInstance.ready();
+		console.log({ hypnsInstance });
+
+		instanceReady = await hypnsInstance.ready();
+
+		console.log({ instanceReady });
 
 		publish = () => {
 			hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
@@ -67,38 +70,64 @@
 		});
 	}
 
-	$: if (rootCID && publish) publish();
+	async function handlePublish() {
+		publish();
+	}
 </script>
 
 {#if HyPNSComponent}
 	<svelte:component this={HyPNSComponent} bind:hypnsNode {opts} />
-	<div class="enclosure">
+	<div class="main">
 		{#if !hypnsNode}
 			Loading Hypns...
 		{:else}
-			<p>{latestHypns && 'Last Saved Root: ' + latestHypns}</p>
-			{#if publicKeyHex}
-				<h3>✔️ Connected to PiperNet @</h3>
-				<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> -->
-				QR Code to
-				<a href="{location.host}/?contactid={publicKeyHex}"
-					>{location.host}/?contactid={publicKeyHex}</a
-				>
-				<QRCode value={`${location.host}/?contactid=${publicKeyHex}`} />
+			{latestHypns ? 'Last Saved Root: ' + latestHypns : 'Connect to Pin to PiperNet'}
+			{#if !hypnsInstance}
+				<button on:click={handleOpen}>Pin to PiperNet</button>
+			{:else if instanceReady}
+				{#await instanceReady}
+					Loading instance...
+				{:then}
+					<h3>✔️ Connected to PiperNet</h3>
+					{#if latestHypns === rootCID.toV1().toString()}
+						<h3>✔️ PiperNet up to date</h3>
+					{:else}
+						<h3>⚠️ PiperNet needs updating</h3>
+						<button on:click={handlePublish} disabled={!rootCID || !publish}>Publish Latest</button>
+					{/if}
+
+					<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> -->
+					Connect with others: [<a href="{location.origin}/?add={publicKeyHex}">Link</a>] <QRCode
+						value={`${location.origin}/?contactid=${publicKeyHex}`}
+					/>
+				{/await}
+			{:else}
+				Sign message to write to PiperNet...
 			{/if}
 		{/if}
 	</div>
 {/if}
 
 <style>
-	.enclosure {
-		border: 1px solid grey;
+	.main {
+		width: 80%;
+		max-width: var(--column-width);
+		margin: var(--column-margin-top);
+		line-height: 1;
+	}
+
+	div.main {
+		border: 1px solid rgb(196, 196, 196);
 		border-radius: 4px;
 		background-color: lightgreen;
-		margin: 1.62em;
 		padding: 1.62em;
-		width: 80vw;
 		overflow-wrap: break-word;
 		word-break: break-word;
+	}
+
+	button {
+		margin: 1.62em;
+		padding: 1.62em;
+		background-color: green;
 	}
 </style>
