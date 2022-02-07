@@ -25,6 +25,7 @@
 	let joseCryptor;
 	let setJoseCryptor;
 
+	//  onSubmitted gets bound to, and overwritten by active component
 	let onSubmitted = () => {}; // optional callback by child component to run after tx submitted
 
 	// set the cryptor once the proxcryptor is connected and available
@@ -60,7 +61,7 @@
 
 		handleRootCIDUpdate = async () => {
 			rootCID = joseCryptor.rootCID;
-			console.log('Updating rootCID', { rootCID: rootCID.toString() });
+			// console.log('Updating rootCID', { rootCID: rootCID.toString() });
 			ImmortalDB.set(ROOT_CID, rootCID.toString());
 		};
 	});
@@ -76,7 +77,7 @@
 
 		if (!tag || !value) return; // TODO: Handle missing vals better
 
-		console.log('Put: ', { tag, value });
+		// console.log('Put: ', { tag, value });
 
 		await joseCryptor.put(value, tag, schema);
 		joseCryptor = joseCryptor; // refresh UI?
@@ -114,11 +115,11 @@
 
 <div class="main">
 	{#if proxcryptor && loaded}
-		<div class="blog">
+		<div class="">
 			<ShowRoot {rootCID} />
 
 			<!-- <Basic on:handleSubmit={handleSubmit} {getTagNode} {decrypt} /> -->
-			<Contacts on:handleSubmit={handleSubmit} {getTagNode} {decrypt} {rootCID} />
+			<Contacts on:handleSubmit={handleSubmit} {getTagNode} {decrypt} {rootCID} bind:onSubmitted />
 		</div>
 
 		<!-- TODO: slots -->
@@ -129,14 +130,12 @@
 </div>
 
 <style>
-	:root {
-		--column-width: 42rem;
-		--column-margin-top: 4rem;
-	}
 	.main {
 		width: 80%;
 		max-width: var(--column-width);
 		margin: var(--column-margin-top);
+		padding: var(--column-margin-top);
 		line-height: 1;
+		background-color: #e0ede0;
 	}
 </style>
