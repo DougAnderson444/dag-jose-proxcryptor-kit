@@ -21,7 +21,7 @@ export class DagJoseCryptor {
 		this.rootCID = cid;
 	}
 
-	async updateDag(currentRootCID, tag, newEntry) {
+	async updateDag(currentRootCID, tag, newEntry): CID {
 		// new Entry CID
 		const newCID = await this.ipfs.dag.put(newEntry, {
 			pin: true,
@@ -41,7 +41,6 @@ export class DagJoseCryptor {
 		const newRootCID = await this.ipfs.dag.put(data, {
 			format: dagJson.code // isnt this the default now anyway?
 		});
-		console.log({ newRootCID: newRootCID.toV1().toString() });
 
 		return newRootCID;
 	}
@@ -71,18 +70,14 @@ export class DagJoseCryptor {
 		// key = hash(sender public key + target public key + tag) <-- unique across apps
 
 		const hashedPubkeys = await this.getHashedTags(tag, targetPublicKey); // hex string
-		console.log({ hashedPubkeys });
 
 		// get current list of rekeys
 		const resRoot = await this.ipfs.dag.get(this.rootCID, { path: `/${tag}` });
 		const resTagNode = await this.ipfs.dag.get(resRoot.value);
 		let tagNode = resTagNode.value;
-		console.log({ tagNode });
 		const reKeyNode = tagNode[REKEYS];
 
 		const targetsReKey = await this.proxcryptor.generateReKey(targetPublicKey, tag);
-
-		console.log({ targetsReKey });
 
 		// now reencrypt using the encrypted msg + reKey
 		const targetsReEncryptedKey = await this.proxcryptor.reEncrypt(
@@ -134,8 +129,6 @@ export class DagJoseCryptor {
 			prev
 		};
 
-		console.log({ newEntry });
-
 		this.rootCID = await this.updateDag(this.rootCID, tag, newEntry);
 	}
 
@@ -180,7 +173,6 @@ export class DagJoseCryptor {
 			cidVersion: 1,
 			pin: true
 		});
-		console.log({ res });
 		return res.cid;
 	};
 
