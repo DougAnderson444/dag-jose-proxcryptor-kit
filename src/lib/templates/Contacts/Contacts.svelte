@@ -46,7 +46,7 @@
 		decryptedData = await decrypt(tagNode);
 	}
 
-	export async function onSubmitted() {
+	export function onSubmitted() {
 		refreshedRootCID();
 		submitting = false;
 		handle = '';
@@ -106,6 +106,7 @@
 				bind:this={pubKeyInput}
 				bind:value={pubKey}
 				on:input={validatePubKey}
+				on:change={validatePubKey}
 				on:focus={validatePubKey}
 			/>
 			<!-- <Search bind:handle bind:pubKey /> -->
@@ -147,7 +148,6 @@
 		display: flex;
 		padding: 0.5em;
 		flex-direction: column;
-		width: 90vw;
 		margin: 1.62em;
 	}
 	.item {
@@ -158,6 +158,6 @@
 	input {
 		padding: 1.62em;
 		margin: 1.62em 0;
-		width: 50%;
+		width: 100%;
 	}
 </style>
