@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-a7218feb.js",
+    "file": "start-9846553d.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -35,7 +35,7 @@
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-cc623cb2.js",
+    "file": "pages/index.svelte-c63e116d.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -61,7 +61,7 @@
     "file": "chunks/preload-helper-c6bb0bca.js"
   },
   "node_modules/@peerpiper/svelte-web3-wallet-connector/src/lib/index.js": {
-    "file": "chunks/index-2d698221.js",
+    "file": "chunks/index-20663a52.js",
     "src": "node_modules/@peerpiper/svelte-web3-wallet-connector/src/lib/index.js",
     "isDynamicEntry": true,
     "imports": [
@@ -93,7 +93,7 @@
     ]
   },
   "node_modules/hypns-svelte-component/dist/index.mjs": {
-    "file": "chunks/index-127ece89.js",
+    "file": "chunks/index-66a1090b.js",
     "src": "node_modules/hypns-svelte-component/dist/index.mjs",
     "isDynamicEntry": true
   }

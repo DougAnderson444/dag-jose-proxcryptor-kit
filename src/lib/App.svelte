@@ -68,6 +68,8 @@
 	<!-- When there is data saved to ILPD, why not save it to PipeNet?  -->
 	{#if rootCID}
 		<HypnsManager {wallet} {rootCID} />
+	{:else}
+		<!-- No Data saved yet. -->
 	{/if}
 </div>
 
