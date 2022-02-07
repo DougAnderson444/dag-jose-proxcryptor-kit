@@ -97,9 +97,9 @@
 					{/if}
 
 					<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> -->
-					Connect with others: [<a href="{location.origin}/?add={publicKeyHex}">Link</a>] <QRCode
-						value={`${location.origin}/?contactid=${publicKeyHex}`}
-					/>
+					Connect with others: [<a href="{location.origin + location.pathname}/?add={publicKeyHex}"
+						>Link</a
+					>] <QRCode value={`${location.origin + location.pathname}/?contactid=${publicKeyHex}`} />
 				{/await}
 			{:else}
 				Sign message to write to PiperNet...
