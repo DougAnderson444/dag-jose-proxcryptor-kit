@@ -11,12 +11,15 @@
 
 	import b64 from 'base64-js';
 	import bs58 from 'bs58';
+	import ContactCard from './ContactCard.svelte';
+	import PiperNet from '../Hypns/PiperNet.svelte';
 
 	// Component props passed in from Parent Component
 	// will also reactively update if updated in parent
 	export let getTagNode;
 	export let decrypt;
 	export let rootCID;
+	export let hypnsNode;
 
 	const PUBLIC_KEY_BYTES = 32;
 
@@ -30,6 +33,7 @@
 	let valid;
 	let decryptedData = [];
 	let submitting;
+	let mounted;
 
 	onMount(async () => {
 		// check if this is a search params loaded page
@@ -48,13 +52,15 @@
 			await tick();
 			pubKeyInput.focus();
 		}
+
+		mounted = true;
 	});
 
-	$: if (rootCID) refreshedRootCID(); // trigger refresh whenever rootCID changes
+	$: if (mounted && rootCID) refreshedRootCID(); // trigger refresh whenever rootCID changes
 
 	async function refreshedRootCID() {
 		tagNode = await getTagNode(tag);
-		decryptedData = await decrypt(tagNode);
+		if (!!tagNode) decryptedData = await decrypt(tagNode);
 	}
 
 	export function onSubmitted() {
@@ -62,12 +68,14 @@
 		submitting = false;
 		handle = '';
 		pubKey = '';
+		valid = false;
 	}
 
 	async function handleAddContact() {
 		if (!handle || !pubKey) return; // TODO: Handle better
 		// <!-- defined by schema -->
-		const value = [...decryptedData, { handle, pubKey }];
+		const bytes = validatePubKey();
+		const value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
 		submitting = true;
 		dispatch('handleSubmit', { tag, data: { value, schema } });
 	}
@@ -80,27 +88,30 @@
 
 		if (pubKeyBytes.length === PUBLIC_KEY_BYTES) {
 			valid = true;
-			return;
+			return pubKeyBytes;
 		}
 
 		// base58 / base58BTC
 		try {
-			let b58 = bs58.decode(pubKey);
-			if (b58.length === PUBLIC_KEY_BYTES) {
+			let b58Bytes = bs58.decode(pubKey);
+			if (b58Bytes.length === PUBLIC_KEY_BYTES) {
 				valid = true;
-				return;
+				return b58Bytes;
 			}
 		} catch (error) {}
 
 		// hex
 		const fromHexString = (hexString) =>
 			new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
-		let hex = fromHexString(pubKey);
+		let hexb58Bytes = fromHexString(pubKey);
 
-		if (hex.length === PUBLIC_KEY_BYTES) {
+		if (hexb58Bytes.length === PUBLIC_KEY_BYTES) {
 			valid = true;
-			return;
+			return hexb58Bytes;
 		}
+
+		valid = false;
+		return false;
 	}
 </script>
 
@@ -119,7 +130,7 @@
 				on:input={validatePubKey}
 				on:change={validatePubKey}
 				on:focus={validatePubKey}
-			/>
+			/>{valid && '✔️ Valid Public Key'}
 			<!-- <Search bind:handle bind:pubKey /> -->
 		</div>
 		{#if valid}
@@ -144,9 +155,24 @@
 		Decrypting...
 	{:then decryptedData}
 		<ul>
+			hypnsNode: {!!hypnsNode}
 			<!-- defined by schema -->
 			{#each decryptedData as { handle, pubKey }}
-				<li>{handle} {pubKey}</li>
+				<div class="card-container">
+					<ContactCard>
+						<span slot="handle">
+							{handle}
+						</span>
+
+						<span slot="publicKey">
+							PubKey: <small>{pubKey}</small>
+						</span>
+
+						<span slot="latest">
+							<PiperNet {pubKey} {hypnsNode} />
+						</span></ContactCard
+					>
+				</div>
 			{/each}
 		</ul>
 	{/await}
@@ -155,6 +181,9 @@
 {/if}
 
 <style>
+	.card-container {
+		margin: 1em 0;
+	}
 	.data-entry {
 		display: flex;
 		padding: 0.5em;
