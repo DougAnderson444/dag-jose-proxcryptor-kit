@@ -2,7 +2,7 @@
 	// Basic template to show how to add Contact with the proxcryptor Parent component
 	import { page } from '$app/stores';
 
-	import { onMount, createEventDispatcher } from 'svelte';
+	import { onMount, tick, createEventDispatcher } from 'svelte';
 
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
@@ -33,8 +33,19 @@
 
 	onMount(async () => {
 		// check if this is a search params loaded page
+		console.log({ pageUrl: $page.url });
+
+		let params = new URLSearchParams(location.search);
+
+		console.log({ params: params.get('add') });
+
 		if ($page.url.searchParams.has('add')) {
 			pubKey = $page.url.searchParams.get('add');
+			await tick();
+			pubKeyInput.focus();
+		} else if (params.has('add')) {
+			pubKey = params.get('add');
+			await tick();
 			pubKeyInput.focus();
 		}
 	});
