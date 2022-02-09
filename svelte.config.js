@@ -4,8 +4,6 @@ import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import mm from 'micromatch';
 
-import { esbuildCommonjs, viteCommonjs } from '@originjs/vite-plugin-commonjs';
-
 const dev = process.env.NODE_ENV === 'development';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -26,23 +24,6 @@ const config = {
 		vite: () => ({
 			build: {
 				rollupOptions: {}
-				// https://vitejs.dev/guide/build.html#library-mode
-				// lib: {
-				//  entry: path.resolve(__dirname, 'src/lib/index.js'),
-				// 	name: 'portal',
-				//  formats: ['es']
-				//  fileName: (format) => `iframe-wallet.${format}.js`
-				// }
-			},
-			// plugins: [viteCommonjs()],
-			// optimizeDeps: {
-			// 	esbuildOptions: {
-			// 		plugins: [esbuildCommonjs(['@solana/web3.js'])] // the problematic cjs module
-			// 	},
-			// 	include: ['@solana/web3.js'] // also here
-			// },
-			optimizeDeps: {
-				// exclude: ['@stablelib/random'] // Technically speaking, only direct application dependencies should be added to Vite's optimizeDeps.include
 			},
 			server: {
 				fs: {
