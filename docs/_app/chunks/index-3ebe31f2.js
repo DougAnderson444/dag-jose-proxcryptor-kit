@@ -2530,7 +2530,7 @@ function instance$6($$self, $$props, $$invalidate) {
   } } = $$props;
   onMount(async () => {
     const { ImmortalDB } = await __vitePreload(() => import("./index-17ddc90e.js"), true ? [] : void 0);
-    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-ba5cdb0e.js"), true ? ["chunks/dagjosecryptor-ba5cdb0e.js","chunks/vendor-ab2ef118.js","chunks/preload-helper-3af2b5e8.js"] : void 0);
+    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-6c7ce1b4.js"), true ? ["chunks/dagjosecryptor-6c7ce1b4.js","chunks/vendor-ab2ef118.js","chunks/preload-helper-3af2b5e8.js"] : void 0);
     loadRootCID = async () => {
       await ipfsNode;
       if (rootCID)
@@ -4653,7 +4653,11 @@ function instance$2($$self, $$props, $$invalidate) {
       return;
     const bytes = validatePubKey(pubKey);
     console.log("Adding bytes", { bytes });
-    const value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
+    let value;
+    if (decryptedData && decryptedData.length)
+      value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
+    else
+      value = [{ handle, pubKey: new Uint8Array(bytes) }];
     console.log("Adding value", { value });
     $$invalidate(8, submitting = true);
     dispatch("handleSubmit", { tag, data: { value, schema } });
@@ -5542,4 +5546,4 @@ class Routes extends SvelteComponent {
   }
 }
 export { Routes, hexDigestMessage };
-//# sourceMappingURL=index-178ba9f3.js.map
+//# sourceMappingURL=index-3ebe31f2.js.map

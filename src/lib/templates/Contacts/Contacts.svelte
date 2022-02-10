@@ -83,7 +83,13 @@
 		// <!-- defined by schema -->
 		const bytes = validatePubKey(pubKey);
 		console.log('Adding bytes', { bytes });
-		const value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
+
+		let value;
+
+		if (decryptedData && decryptedData.length)
+			value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
+		else value = [{ handle, pubKey: new Uint8Array(bytes) }];
+
 		console.log('Adding value', { value });
 		submitting = true;
 		dispatch('handleSubmit', { tag, data: { value, schema } });
