@@ -9,19 +9,25 @@
 
 	import Search from './Search.svelte';
 
-	import b64 from 'base64-js';
-	import bs58 from 'bs58';
+	import { validatePubKey } from '$lib/utils/index';
+
 	import ContactCard from './ContactCard.svelte';
 	import PiperNet from '../Hypns/PiperNet.svelte';
+	import GetTags from './GetTags.svelte';
+	import TagAccess from '$lib/TagAccess.svelte';
+
+	import { contacts } from '$lib/stores';
+	import TagValue from '$lib/TagValue.svelte';
 
 	// Component props passed in from Parent Component
 	// will also reactively update if updated in parent
-	export let getTagNode;
-	export let decrypt;
-	export let rootCID;
+	export let getTagNodes;
 	export let hypnsNode;
+	export let checkAccess;
+	export let decryptedData;
+	export let decryptFromTagNode;
 
-	const PUBLIC_KEY_BYTES = 32;
+	$: if (decryptedData) $contacts = decryptedData;
 
 	const dispatch = createEventDispatcher();
 
@@ -31,7 +37,6 @@
 	let handle, pubKey, pubKeyInput;
 	let tagNode;
 	let valid;
-	let decryptedData = [];
 	let submitting;
 	let mounted;
 
@@ -56,62 +61,29 @@
 		mounted = true;
 	});
 
-	$: if (mounted && rootCID) refreshedRootCID(); // trigger refresh whenever rootCID changes
-
-	async function refreshedRootCID() {
-		tagNode = await getTagNode(tag);
-		if (!!tagNode) decryptedData = await decrypt(tagNode);
-	}
-
 	export function onSubmitted() {
-		refreshedRootCID();
 		submitting = false;
 		handle = '';
 		pubKey = '';
 		valid = false;
 	}
 
+	function handleValidate() {
+		console.log(`Validating ${pubKey}`);
+
+		if (!pubKey) return; // TODO: Handle better
+		// <!-- defined by schema -->
+		if (validatePubKey(pubKey)) valid = true;
+		else valid = false;
+	}
+
 	async function handleAddContact() {
 		if (!handle || !pubKey) return; // TODO: Handle better
 		// <!-- defined by schema -->
-		const bytes = validatePubKey();
+		const bytes = validatePubKey(pubKey);
 		const value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
 		submitting = true;
 		dispatch('handleSubmit', { tag, data: { value, schema } });
-	}
-
-	function validatePubKey() {
-		if (!pubKey) return;
-
-		// base64 / base64URL
-		let pubKeyBytes = b64.toByteArray(pubKey);
-
-		if (pubKeyBytes.length === PUBLIC_KEY_BYTES) {
-			valid = true;
-			return pubKeyBytes;
-		}
-
-		// base58 / base58BTC
-		try {
-			let b58Bytes = bs58.decode(pubKey);
-			if (b58Bytes.length === PUBLIC_KEY_BYTES) {
-				valid = true;
-				return b58Bytes;
-			}
-		} catch (error) {}
-
-		// hex
-		const fromHexString = (hexString) =>
-			new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
-		let hexb58Bytes = fromHexString(pubKey);
-
-		if (hexb58Bytes.length === PUBLIC_KEY_BYTES) {
-			valid = true;
-			return hexb58Bytes;
-		}
-
-		valid = false;
-		return false;
 	}
 </script>
 
@@ -127,14 +99,14 @@
 			<input
 				bind:this={pubKeyInput}
 				bind:value={pubKey}
-				on:input={validatePubKey}
-				on:change={validatePubKey}
-				on:focus={validatePubKey}
-			/>{valid && '✔️ Valid Public Key'}
+				on:input={handleValidate}
+				on:change={handleValidate}
+				on:focus={handleValidate}
+			/>{valid ? '✔️ Valid Public Key' : ''}
 			<!-- <Search bind:handle bind:pubKey /> -->
 		</div>
 		{#if valid}
-			<h1>Add Contact Details</h1>
+			<h1>Add Nickname</h1>
 			<label for="handle"> Handle: </label>
 			<input bind:value={handle} id="handle" />
 		{/if}
@@ -150,34 +122,35 @@
 	</div>
 </div>
 
-{#if tagNode && decryptedData}
-	{#await decryptedData}
-		Decrypting...
-	{:then decryptedData}
-		<ul>
-			hypnsNode: {!!hypnsNode}
-			<!-- defined by schema -->
-			{#each decryptedData as { handle, pubKey }}
-				<div class="card-container">
-					<ContactCard>
-						<span slot="handle">
-							{handle}
-						</span>
+{#if decryptedData}
+	<!-- defined by schema -->
+	{#each decryptedData as { handle, pubKey }}
+		<div class="card-container">
+			<ContactCard>
+				<span slot="handle">
+					{handle}
+				</span>
 
-						<span slot="publicKey">
-							PubKey: <small>{pubKey}</small>
-						</span>
+				<span slot="publicKey">
+					PubKey: <small>{pubKey}</small>
+				</span>
 
-						<span slot="latest">
-							<PiperNet {pubKey} {hypnsNode} />
-						</span></ContactCard
-					>
-				</div>
-			{/each}
-		</ul>
-	{/await}
-{:else}
-	No {tag} yet.
+				<span slot="latest">
+					<PiperNet {pubKey} {hypnsNode} let:latestHypns>
+						<!-- once root CID appears, get tag details then show tag access -->
+						<GetTags rootCID={latestHypns} {getTagNodes} let:tagNode>
+							{#if tag}
+								<TagAccess tag={tagNode.tag} {pubKey} {checkAccess} />
+							{/if}
+							{#if tagNode.tag === 'Profile'}
+								<TagValue {tagNode} {decryptFromTagNode} />
+							{/if}
+						</GetTags>
+					</PiperNet>
+				</span>
+			</ContactCard>
+		</div>
+	{/each}
 {/if}
 
 <style>

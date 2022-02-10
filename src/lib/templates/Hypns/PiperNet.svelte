@@ -6,9 +6,10 @@
 	export let pubKey;
 	export let hypnsNode;
 
+	let latestHypns;
+
 	let hypnsInstance;
 	let instanceReady;
-	let latestHypns;
 
 	$: if (!!pubKey && hypnsNode) handleOpen(pubKey);
 
@@ -35,6 +36,7 @@
 		<h3>✔️ Connected to PiperNet</h3>
 		{#if latestHypns}
 			✔️ Lastest Saved Root: {latestHypns}
+			<slot {latestHypns} />
 		{:else}
 			⚠️ No latest value available.
 		{/if}
