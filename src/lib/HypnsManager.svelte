@@ -7,8 +7,9 @@
 
 	export let rootCID;
 	export let wallet; // use the same wallet object that the proxcryptor is using, for convenience
+	export let hypnsNode;
 
-	let HyPNSComponent, hypnsNode, latestHypns;
+	let HyPNSComponent, latestHypns;
 	let hypnsInstance, instanceReady, publish;
 
 	let publicKeyHex;
@@ -53,9 +54,6 @@
 	async function handleOpen() {
 		// take the wallet and pass it into hypns
 		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex }, wallet });
-
-		console.log({ hypnsInstance });
-
 		instanceReady = await hypnsInstance.ready();
 
 		console.log({ instanceReady });
