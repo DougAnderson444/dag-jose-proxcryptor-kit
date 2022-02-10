@@ -1,5 +1,6 @@
 import { randomBytes } from '@stablelib/random';
 // import * as hash from 'hash.js';
+import { hexDigestMessage } from './utils/index';
 
 // JWT & utilities
 import { xc20pDirEncrypter, xc20pDirDecrypter, decryptJWE, createJWE } from 'did-jwt';
@@ -50,16 +51,24 @@ export class DagJoseCryptor {
 		const senderPubKey: Uint8Array = await this.proxcryptor.getPublicKey(); // get current/active proxcryptor publicKey
 
 		const tagArray: Uint8Array = textEncoder.encode(tag);
+
 		// TODO: asymmetrically encrypt for their public key instead? Lookup will be longer though
-		const input =
-			tagArray + // unique per data set
-			targetPublicKey +
-			senderPubKey;
+		const input = new Uint8Array([...tagArray, ...targetPublicKey, ...senderPubKey]);
 
 		// const hashedPubkeys = hash.sha256().update(input).digest('hex');
-		const hashedPubkeys = crypto.subtle.digest('SHA-256', input);
-
+		// crypto.subtle.digest('SHA-256', input);
+		const hashedPubkeys = await hexDigestMessage(input);
 		return hashedPubkeys;
+	}
+
+	async getTagReKeysNode(tag) {
+		if (!tag) return;
+		// get current list of rekeys
+		const resTagNode = await this.ipfs.dag.get(this.rootCID, { path: `/${tag}` });
+		let tagNode = resTagNode.value;
+		console.log({ tagNode });
+		const reKeyNode = tagNode[REKEYS];
+		return { reKeyNode, tagNode };
 	}
 
 	async setTagReKeys(tag: string, targetPublicKey: Uint8Array) {
@@ -68,15 +77,13 @@ export class DagJoseCryptor {
 		// so targets can access their decryption keys
 		// key = hash(target public key + tag) <-- would be the same across apps, correlation possible
 		// key = hash(sender public key + target public key + tag) <-- unique across apps
+		if (!tag) return;
 
 		const hashedPubkeys = await this.getHashedTags(tag, targetPublicKey); // hex string
 
-		// get current list of rekeys
-		const resRoot = await this.ipfs.dag.get(this.rootCID, { path: `/${tag}` });
-		const resTagNode = await this.ipfs.dag.get(resRoot.value);
-		let tagNode = resTagNode.value;
-		const reKeyNode = tagNode[REKEYS];
+		let { reKeyNode, tagNode } = await this.getTagReKeysNode(tag);
 
+		// generate a re-encryption key for this targetPublicKey
 		const targetsReKey = await this.proxcryptor.generateReKey(targetPublicKey, tag);
 
 		// now reencrypt using the encrypted msg + reKey
@@ -86,7 +93,7 @@ export class DagJoseCryptor {
 			targetsReKey
 		);
 
-		// update Map, (key=hash, value=reEncrKey)
+		// lookup dictionary: Map of (key=hash, value=reEncrKey)
 		reKeyNode[hashedPubkeys] = targetsReEncryptedKey;
 
 		// update reKeyNode in Tag object
@@ -97,8 +104,39 @@ export class DagJoseCryptor {
 		return this.rootCID;
 	}
 
-	async updateTagNode() {
-		// get existing tag data
+	async checkAccess(tag: string, targetPublicKey: Uint8Array) {
+		if (!tag) return;
+
+		// check if this target is on the ReKey list
+		const hashedPubkeys = await this.getHashedTags(tag, targetPublicKey); // hex string
+		let { reKeyNode, tagNode } = await this.getTagReKeysNode(tag);
+
+		// lookup in dictionary: Map of (key=hash, value=reEncrKey)
+		if (hashedPubkeys in reKeyNode) return reKeyNode[hashedPubkeys]; // access was granted
+		// else
+		return false;
+	}
+
+	async decryptFromTagNode(tagNode) {
+		/**
+		Just need to decrypt it using the de-proxcryptor, here's how:
+		1. Get the reKey from the tagNode that matches the hashTag of this pubkey
+		hashTag comes from proxcryptor.getHashedTags()
+		2. Take that reKey together with the cid of the Tag and call proxcryptor.get(cid, reKey)
+		3. Result is the decrypted data
+		*/
+		console.log('Getting tagNode', { tagNode });
+
+		const pubKey = await this.proxcryptor.getPublicKey();
+		const hashTag = await this.getHashedTags(tagNode.tag, pubKey);
+
+		// validate
+		if (!(hashTag in tagNode[REKEYS])) return false; // no reKey avaialble to decrypt for this prox public_key
+
+		// lookUp
+		const reKey = tagNode[REKEYS][hashTag];
+		console.log('reKey', { reKey }, tagNode.encryptedData);
+		return await this.get(tagNode.encryptedData, reKey);
 	}
 
 	async put(secretz: object, tag: string, schema = {}) {
@@ -109,7 +147,7 @@ export class DagJoseCryptor {
 		const cid = await this.storeDAGEncrypted(secretz, symmetricKey); // for when arweave can put DAG objects, see https://github.com/ArweaveTeam/arweave/pull/338
 		// const cid = await this.storeIPFSEncrypted(secretz, symmetricKey);
 
-		// pin encrypedData cid
+		// pin encryptedData cid
 		let pinned = await this.ipfs.pin.add(cid, { recursive: true });
 
 		let prev = false;
@@ -134,7 +172,9 @@ export class DagJoseCryptor {
 
 	async get(cid, re_encrypted_message) {
 		// decrypt
+		console.log('Getting ', { cid }, { re_encrypted_message });
 		const symmetricKey = await this.proxcryptor.reDecrypt(re_encrypted_message);
+		console.log({ symmetricKey });
 		const decoded = await this.loadEncrypted(cid, symmetricKey);
 		return decoded;
 	}
