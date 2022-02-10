@@ -5,8 +5,6 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
-	import ExpandCIDs from './ExpandCIDs.svelte';
-
 	// Component props passed in from Parent Component
 	// will also reactively update if updated in parent
 	export let decryptedData;
