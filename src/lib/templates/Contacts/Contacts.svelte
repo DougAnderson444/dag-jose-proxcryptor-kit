@@ -78,10 +78,13 @@
 	}
 
 	async function handleAddContact() {
+		console.log('Adding ', { handle }, { pubKey });
 		if (!handle || !pubKey) return; // TODO: Handle better
 		// <!-- defined by schema -->
 		const bytes = validatePubKey(pubKey);
+		console.log('Adding bytes', { bytes });
 		const value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
+		console.log('Adding value', { value });
 		submitting = true;
 		dispatch('handleSubmit', { tag, data: { value, schema } });
 	}

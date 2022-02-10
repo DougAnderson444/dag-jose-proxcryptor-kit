@@ -23,7 +23,22 @@ const config = {
 		},
 		vite: () => ({
 			build: {
-				rollupOptions: {}
+				rollupOptions: {
+					// https://rollupjs.org/guide/en/#big-list-of-options
+					output: {
+						minifyInternalExports: false,
+						compact: false
+					},
+					plugins: []
+				},
+				minify: false,
+				sourcemap: true,
+				optimization: {
+					minimize: false
+				}
+			},
+			optimization: {
+				minimize: false
 			},
 			server: {
 				fs: {
