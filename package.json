@@ -1,6 +1,6 @@
 {
 	"name": "@peerpiper/dag-jose-proxcryptor-kit",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"svelte": "src/lib/index.js",
 	"scripts": {
 		"dev": "svelte-kit dev --port 8087",
