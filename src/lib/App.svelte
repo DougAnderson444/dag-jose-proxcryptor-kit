@@ -4,17 +4,25 @@
 	import DagJose from './DAGJose.svelte';
 	import HypnsManager from './HypnsManager.svelte';
 
-	export let wallet;
-	export let rootCID;
+	import { Components } from '$lib/components/index';
+
+	export let wallet = null;
+	export let rootCID = null;
+
+	let active = Components['Contacts']; // needs to open on contacts so that they are loaded into the svelte store $contacts
 
 	let inputUrl = 'https://peerpiper.github.io/iframe-wallet-engine/'; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
 
 	let ipfsNode, CID;
 	let nodeId;
 
+	let hypnsNode;
+
 	let Web3WalletMenu;
 
 	let start = Date.now();
+
+	let onSubmitted; // only here to pass from svelte:component to DAGJose component
 
 	onMount(async () => {
 		// load asyncs in parallel
@@ -22,6 +30,7 @@
 		if (!ipfsNode) loadIPFS();
 
 		async function loadWallet() {
+			// @ts-ignore
 			({ Web3WalletMenu } = await import('@peerpiper/svelte-web3-wallet-connector'));
 		}
 
@@ -55,11 +64,41 @@
 		Loading Web3 Wallet...<br />
 	{/if}
 
+	<div>
+		<select bind:value={active} class="form-control">
+			{#each Object.entries(Components) as [key, value]}
+				<option {value}>{key}</option>
+			{/each}
+		</select>
+	</div>
+
 	<!-- Then you need a way to encrypt/decrypt the data to IPLD  -->
-	{#if wallet && ipfsNode && CID}
-		<DagJose proxcryptor={wallet.proxcryptor} {ipfsNode} {CID} bind:rootCID>
-			<!-- TODO: slots -->
-			<slot />
+	{#if wallet && wallet.proxcryptor && ipfsNode && CID}
+		<DagJose
+			proxcryptor={wallet.proxcryptor}
+			{ipfsNode}
+			{CID}
+			bind:rootCID
+			tag={active.tag}
+			{onSubmitted}
+			let:decryptedData
+			let:getTagNodes
+			let:checkAccess
+			let:setAccess
+			let:handleSubmit
+			let:decryptFromTagNode
+		>
+			<svelte:component
+				this={active.component}
+				on:handleSubmit={handleSubmit}
+				bind:onSubmitted
+				{decryptedData}
+				{getTagNodes}
+				{checkAccess}
+				{setAccess}
+				{hypnsNode}
+				{decryptFromTagNode}
+			/>
 		</DagJose>
 	{:else}
 		Loading IPFS...<br />
@@ -67,7 +106,7 @@
 
 	<!-- When there is data saved to ILPD, why not save it to PipeNet?  -->
 	{#if rootCID}
-		<HypnsManager {wallet} {rootCID} />
+		<HypnsManager {wallet} {rootCID} bind:hypnsNode />
 	{:else}
 		<!-- No Data saved yet. -->
 	{/if}

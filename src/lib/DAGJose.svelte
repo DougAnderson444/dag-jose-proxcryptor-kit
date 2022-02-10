@@ -3,16 +3,17 @@
 	All this component does is connect IPLD + proxcryptor + Saving Component Template so they can work together
 	*/
 	import { onMount, setContext } from 'svelte';
-	import Basic from './templates/Basic/Basic.svelte';
-	import Contacts from './templates/Contacts/Contacts.svelte';
+	import Basic from './templates/Basic/Profile.svelte';
+	import Contacts from './templates/Contacts/_Contacts.svelte';
 
 	import ShowRoot from './components/ShowRoot.svelte';
-	import { setAccess } from './stores';
+	import Common from './Common.svelte';
 
 	export let rootCID;
 	export let proxcryptor; // pass in a proxy re-encryptor prop
 	export let ipfsNode; // pass in an instance of ipfs
 	export let CID; // pass in https://github.com/multiformats/js-multiformats#interfaces
+	export let tag;
 
 	const ROOT_CID = '__ROOT_CID__'; // Database key
 
@@ -24,12 +25,16 @@
 
 	let joseCryptor;
 	let setJoseCryptor;
+	let decryptFromTagNode;
+
+	let setAccess, checkAccess;
+
+	let getTagNodes;
+
+	let refreshedRootCID;
 
 	//  onSubmitted gets bound to, and overwritten by active component
-	let onSubmitted = () => {}; // optional callback by child component to run after tx submitted
-
-	// set the cryptor once the proxcryptor is connected and available
-	$: if (proxcryptor && setJoseCryptor) setJoseCryptor();
+	export let onSubmitted = () => {}; // optional callback by child component to run after tx submitted
 
 	onMount(async () => {
 		const { ImmortalDB } = await import('immortal-db');
@@ -48,24 +53,32 @@
 			}
 
 			rootCID = CID.asCID(res) || CID.parse(res);
+			console.log('rootCID set in loadRootCID');
 			return true;
 		};
 
-		loaded = await loadRootCID();
+		await loadRootCID();
 
 		// use the portal proxcryptor to encrypt the DAG JOSEs
 		setJoseCryptor = async () => {
+			console.log('Setting setJoseCryptor');
 			await ipfsNode;
 			joseCryptor = new DagJoseCryptor(ipfsNode, proxcryptor, rootCID); //refesh when updated
+			if (!rootCID) loaded = true;
 		};
 
 		handleRootCIDUpdate = async () => {
 			rootCID = joseCryptor.rootCID;
-			// console.log('Updating rootCID', { rootCID: rootCID.toString() });
+			console.log('Updating rootCID', { rootCID: rootCID.toString() });
 			ImmortalDB.set(ROOT_CID, rootCID.toString());
+			loaded = true;
 		};
 	});
 
+	// set the cryptor once the proxcryptor is connected and available
+	$: if (proxcryptor && setJoseCryptor) setJoseCryptor();
+
+	// update the rootCID as req'd
 	$: if (joseCryptor && joseCryptor.rootCID && handleRootCIDUpdate) handleRootCIDUpdate();
 
 	let decrypt = async (data) => await joseCryptor.selfDecrypt(data);
@@ -83,21 +96,45 @@
 		joseCryptor = joseCryptor; // refresh UI?
 
 		onSubmitted(); // update selected component
+		refreshedRootCID();
 	};
 
 	// save access function to a svelte store so it can be used by any component, any time
 	// allows access to tag by someone's PublicKey
-	$setAccess = async (tag: string, targetPublicKey: Uint8Array) => {
+	setAccess = async (tag: string, targetPublicKey: Uint8Array) => {
 		// allow access to this tag by this public key
 		await joseCryptor.setTagReKeys(tag, targetPublicKey);
 		joseCryptor = joseCryptor; // triggers this.rootCID to fire
 	};
 
-	async function getTagNode(tag) {
-		if (!rootCID || !ipfsNode || !tag) return;
+	checkAccess = async (tag: string, targetPublicKey: Uint8Array) => {
+		// pass in someone's pubkey to see if they've got access to this tag data
+		return await joseCryptor.checkAccess(tag, targetPublicKey);
+	};
+
+	decryptFromTagNode = async (tagNode) => {
+		return await joseCryptor.decryptFromTagNode(tagNode);
+	};
+
+	getTagNodes = async () => {
+		if (!ipfsNode || !rootCID) return;
+
+		const root = await ipfsNode.dag.get(rootCID);
+		const promises = Object.entries(root.value).map(async ([key, val]) => {
+			if (key === 'prev' || !val) return null;
+			let fields = await ipfsNode.dag.get(val);
+			return fields.value; // https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md#ipfsdaggetcid-options
+		});
+
+		const result = await Promise.all(promises);
+		return result.filter((r) => r); // filter out null values
+	};
+
+	async function getTagNode(tag, root = rootCID) {
+		if (!root || !ipfsNode || !tag) return;
 
 		try {
-			const cid = (await ipfsNode.dag.get(rootCID, { path: `/${tag}`, localResolve: true })).value;
+			const cid = (await ipfsNode.dag.get(root, { path: `/${tag}`, localResolve: true })).value;
 			let tagNode = (await ipfsNode.dag.get(cid, { localResolve: true })).value;
 			return tagNode;
 		} catch (error) {
@@ -119,11 +156,37 @@
 			<ShowRoot {rootCID} />
 
 			<!-- <Basic on:handleSubmit={handleSubmit} {getTagNode} {decrypt} /> -->
-			<Contacts on:handleSubmit={handleSubmit} {getTagNode} {decrypt} {rootCID} bind:onSubmitted />
-		</div>
+			<!-- <Contacts
+				on:handleSubmit={handleSubmit}
+				{getTagNode}
+				{decrypt}
+				{rootCID}
+				{hypnsNode}
+				{checkAccess}
+				{setAccess}
+				bind:onSubmitted
+				{getTagNodes}
+			/> -->
 
-		<!-- TODO: slots -->
-		<slot />
+			<Common
+				{getTagNode}
+				{decrypt}
+				{tag}
+				{rootCID}
+				{setAccess}
+				let:decryptedData
+				bind:refreshedRootCID
+			>
+				<slot
+					{handleSubmit}
+					{decryptedData}
+					{getTagNodes}
+					{checkAccess}
+					{setAccess}
+					{decryptFromTagNode}
+				/>
+			</Common>
+		</div>
 	{:else}
 		Connect with the Wallet to save encrypted messages.
 	{/if}
