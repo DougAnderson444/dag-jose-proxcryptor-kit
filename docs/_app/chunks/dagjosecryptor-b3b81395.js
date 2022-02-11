@@ -18,7 +18,7 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 import { getAugmentedNamespace, commonjsGlobal, commonjsRequire } from "./vendor-ab2ef118.js";
-import { hexDigestMessage } from "./index-14cb74ad.js";
+import { hexDigestMessage } from "./index-91f1da4c.js";
 import "./preload-helper-3af2b5e8.js";
 var __viteBrowserExternal = {};
 var __viteBrowserExternal$1 = /* @__PURE__ */ Object.freeze({
@@ -15614,6 +15614,7 @@ class DagJoseCryptor {
   }
   async put(secretz, tag, schema = {}) {
     const symmetricKey = random.randomBytes(32);
+    console.log("put", { symmetricKey });
     const selfEncryptedSymmetricKey = await this.proxcryptor.selfEncrypt(symmetricKey, tag);
     const cid2 = await this.storeDAGEncrypted(secretz, symmetricKey);
     await this.ipfs.pin.add(cid2, { recursive: true });
@@ -15644,7 +15645,9 @@ class DagJoseCryptor {
   }
   async selfDecrypt(data) {
     try {
+      console.log("get", { data });
       const symmetricKey = await this.proxcryptor.selfDecrypt(data.encryptedKey);
+      console.log("get", { symmetricKey });
       const decoded = await this.loadEncrypted(data.encryptedData, symmetricKey);
       return decoded;
     } catch (error) {
@@ -15654,4 +15657,4 @@ class DagJoseCryptor {
   }
 }
 export { DagJoseCryptor };
-//# sourceMappingURL=dagjosecryptor-f0e60ce6.js.map
+//# sourceMappingURL=dagjosecryptor-b3b81395.js.map

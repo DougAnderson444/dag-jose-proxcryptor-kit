@@ -1,5 +1,4 @@
 import { SvelteComponent, init, safe_not_equal, element, svg_element, claim_element, children, claim_svg_element, detach, attr, xlink_attr, insert_hydration, append_hydration, noop, create_slot, create_component, space, claim_component, claim_space, toggle_class, mount_component, listen, action_destroyer, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, transition_out, destroy_component, run_all, add_render_callback, create_bidirectional_transition, fade, group_outros, check_outros, createEventDispatcher, null_to_empty, set_style, src_url_equal, set_input_value, add_resize_listener, is_function, onMount, globals, text, claim_text, set_data, binding_callbacks, empty, bind, add_flush_callback } from "./vendor-ab2ef118.js";
-import { __vitePreload } from "./preload-helper-3af2b5e8.js";
 var app = "";
 function memoize(fn, options) {
   var cache = options && options.cache ? options.cache : cacheDefault;
@@ -1917,7 +1916,7 @@ function instance$2($$self, $$props, $$invalidate) {
     loading: true
   };
   onMount(async () => {
-    const { ImmortalDB } = await __vitePreload(() => import("./index-d63430cf.js"), true ? [] : void 0);
+    const { ImmortalDB } = await import("./index-17ddc90e.js");
     $$invalidate(8, saveInputURL = async () => {
       await ImmortalDB.set(INPUT_URL, src);
     });
@@ -1938,7 +1937,6 @@ function instance$2($$self, $$props, $$invalidate) {
           $$invalidate(4, iframeParentHeight = height);
         },
         setIframeParentWidth(width) {
-          console.log("Rx width", width);
           $$invalidate(17, iframeParentWidth = width);
         },
         show() {
@@ -2746,4 +2744,4 @@ class Connector extends SvelteComponent {
 }
 var Web3WalletConnector = Connector;
 export { Web3WalletConnector, Web3WalletMenu$1 as Web3WalletMenu, Web3WalletConnector as default };
-//# sourceMappingURL=index-06dc59f4.js.map
+//# sourceMappingURL=index-d302f1ba.js.map

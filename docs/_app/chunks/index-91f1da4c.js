@@ -2181,7 +2181,8 @@ function instance$7($$self, $$props, $$invalidate) {
     console.log("Common refreshedRootCID for ", tag2);
     $$invalidate(10, currentRoodCID = rootCID);
     $$invalidate(2, tagNode = await getTagNode(tag2));
-    if (!!tagNode)
+    console.log({ tagNode });
+    if (tagNode && tagNode.hasOwnProperty("encryptedData"))
       $$invalidate(5, decryptedData = await decrypt(tagNode));
     console.log({ decryptedData });
     $$invalidate(3, ready = true);
@@ -2531,7 +2532,7 @@ function instance$6($$self, $$props, $$invalidate) {
   } } = $$props;
   onMount(async () => {
     const { ImmortalDB } = await __vitePreload(() => import("./index-17ddc90e.js"), true ? [] : void 0);
-    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-f0e60ce6.js"), true ? ["chunks/dagjosecryptor-f0e60ce6.js","chunks/vendor-ab2ef118.js","chunks/preload-helper-3af2b5e8.js"] : void 0);
+    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-b3b81395.js"), true ? ["chunks/dagjosecryptor-b3b81395.js","chunks/vendor-ab2ef118.js","chunks/preload-helper-3af2b5e8.js"] : void 0);
     loadRootCID = async () => {
       await ipfsNode;
       if (rootCID)
@@ -2567,6 +2568,7 @@ function instance$6($$self, $$props, $$invalidate) {
     let value = event.detail.data.value || null;
     if (!tag3 || !value)
       return;
+    console.log("Put: ", { tag: tag3, value });
     await joseCryptor.put(value, tag3, schema);
     $$invalidate(16, joseCryptor);
     onSubmitted();
@@ -5424,7 +5426,7 @@ function instance$1($$self, $$props, $$invalidate) {
     if (!ipfsNode)
       loadIPFS();
     async function loadWallet() {
-      $$invalidate(6, { Web3WalletMenu } = await __vitePreload(() => import("./index-06dc59f4.js"), true ? ["chunks/index-06dc59f4.js","assets/index-a3690fa3.css","chunks/vendor-ab2ef118.js","chunks/preload-helper-3af2b5e8.js"] : void 0), Web3WalletMenu);
+      $$invalidate(6, { Web3WalletMenu } = await __vitePreload(() => import("./index-d302f1ba.js"), true ? ["chunks/index-d302f1ba.js","assets/index-a39541f0.css","chunks/vendor-ab2ef118.js"] : void 0), Web3WalletMenu);
     }
     async function loadIPFS() {
       const IPFSmodule = await __vitePreload(() => import("./ipfs-core-7ce8034c.js"), true ? [] : void 0);
@@ -5548,4 +5550,4 @@ class Routes extends SvelteComponent {
   }
 }
 export { Routes, hexDigestMessage };
-//# sourceMappingURL=index-14cb74ad.js.map
+//# sourceMappingURL=index-91f1da4c.js.map
