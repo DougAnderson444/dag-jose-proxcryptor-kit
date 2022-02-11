@@ -90,7 +90,7 @@
 
 		if (!tag || !value) return; // TODO: Handle missing vals better
 
-		// console.log('Put: ', { tag, value });
+		console.log('Put: ', { tag, value });
 
 		await joseCryptor.put(value, tag, schema);
 		joseCryptor = joseCryptor; // refresh UI?

@@ -21,7 +21,8 @@
 		console.log('Common refreshedRootCID for ', tag);
 		currentRoodCID = rootCID;
 		tagNode = await getTagNode(tag);
-		if (!!tagNode) decryptedData = await decrypt(tagNode);
+		console.log({ tagNode });
+		if (tagNode && tagNode.hasOwnProperty('encryptedData')) decryptedData = await decrypt(tagNode);
 		console.log({ decryptedData });
 		ready = true;
 	}

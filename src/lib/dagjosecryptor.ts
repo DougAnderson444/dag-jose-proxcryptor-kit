@@ -143,6 +143,8 @@ export class DagJoseCryptor {
 		// Create a key, encrypt and store a block, then load and decrypt it:
 		const symmetricKey = randomBytes(32); // our random secret key
 
+		console.log('put', { symmetricKey });
+
 		const selfEncryptedSymmetricKey = await this.proxcryptor.selfEncrypt(symmetricKey, tag);
 		const cid = await this.storeDAGEncrypted(secretz, symmetricKey); // for when arweave can put DAG objects, see https://github.com/ArweaveTeam/arweave/pull/338
 		// const cid = await this.storeIPFSEncrypted(secretz, symmetricKey);
@@ -181,7 +183,12 @@ export class DagJoseCryptor {
 
 	async selfDecrypt(data) {
 		try {
+			console.log('get', { data });
+
 			const symmetricKey = await this.proxcryptor.selfDecrypt(data.encryptedKey);
+
+			console.log('get', { symmetricKey });
+
 			const decoded = await this.loadEncrypted(data.encryptedData, symmetricKey); // waits until arweave supports DAG put
 			// const decoded = await this.loadIPFSEncrypted(data.encryptedData, symmetricKey);
 			return decoded;
