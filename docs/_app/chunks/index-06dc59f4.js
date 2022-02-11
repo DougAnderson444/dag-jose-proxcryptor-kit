@@ -1,4 +1,5 @@
 import { SvelteComponent, init, safe_not_equal, element, svg_element, claim_element, children, claim_svg_element, detach, attr, xlink_attr, insert_hydration, append_hydration, noop, create_slot, create_component, space, claim_component, claim_space, toggle_class, mount_component, listen, action_destroyer, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, transition_out, destroy_component, run_all, add_render_callback, create_bidirectional_transition, fade, group_outros, check_outros, createEventDispatcher, null_to_empty, set_style, src_url_equal, set_input_value, add_resize_listener, is_function, onMount, globals, text, claim_text, set_data, binding_callbacks, empty, bind, add_flush_callback } from "./vendor-ab2ef118.js";
+import { __vitePreload } from "./preload-helper-3af2b5e8.js";
 var app = "";
 function memoize(fn, options) {
   var cache = options && options.cache ? options.cache : cacheDefault;
@@ -449,8 +450,14 @@ class Logo extends SvelteComponent {
   }
 }
 var MenuWrapper_svelte_svelte_type_style_lang = "";
-const get_default_slot_changes = (dirty) => ({ openNav: dirty & 1 });
-const get_default_slot_context = (ctx) => ({ openNav: ctx[5] });
+const get_default_slot_changes = (dirty) => ({
+  openNav: dirty & 1,
+  hideNav: dirty & 1
+});
+const get_default_slot_context = (ctx) => ({
+  openNav: ctx[5],
+  hideNav: ctx[6]
+});
 function create_fragment$4(ctx) {
   let div4;
   let logo;
@@ -614,11 +621,12 @@ function instance$4($$self, $$props, $$invalidate) {
     $$invalidate(0, navOpen = false);
   }
   const func = () => $$invalidate(0, navOpen = true);
+  const func_1 = () => $$invalidate(0, navOpen = false);
   $$self.$$set = ($$props2) => {
     if ("$$scope" in $$props2)
       $$invalidate(3, $$scope = $$props2.$$scope);
   };
-  return [navOpen, handleNav, onClickOutside, $$scope, slots, func];
+  return [navOpen, handleNav, onClickOutside, $$scope, slots, func, func_1];
 }
 class MenuWrapper extends SvelteComponent {
   constructor(options) {
@@ -1540,8 +1548,8 @@ function create_if_block$2(ctx) {
   let div_class_value;
   let div_transition;
   let current;
-  iconbutton = new WalletSelectorIcons({ props: { icon: ctx[11] } });
-  iconbutton.$on("click", ctx[14]);
+  iconbutton = new WalletSelectorIcons({ props: { icon: ctx[12] } });
+  iconbutton.$on("click", ctx[15]);
   return {
     c() {
       div = element("div");
@@ -1557,7 +1565,7 @@ function create_if_block$2(ctx) {
     },
     h() {
       var _a;
-      attr(div, "class", div_class_value = "" + (null_to_empty(!((_a = ctx[0]) == null ? void 0 : _a.keepPopup) ? "action dim" : "action") + " svelte-1khm383"));
+      attr(div, "class", div_class_value = "" + (null_to_empty(!((_a = ctx[0]) == null ? void 0 : _a.keepPopup) ? "action dim" : "action") + " svelte-1jxvnse"));
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -1567,10 +1575,10 @@ function create_if_block$2(ctx) {
     p(ctx2, dirty) {
       var _a;
       const iconbutton_changes = {};
-      if (dirty & 2048)
-        iconbutton_changes.icon = ctx2[11];
+      if (dirty & 4096)
+        iconbutton_changes.icon = ctx2[12];
       iconbutton.$set(iconbutton_changes);
-      if (!current || dirty & 1 && div_class_value !== (div_class_value = "" + (null_to_empty(!((_a = ctx2[0]) == null ? void 0 : _a.keepPopup) ? "action dim" : "action") + " svelte-1khm383"))) {
+      if (!current || dirty & 1 && div_class_value !== (div_class_value = "" + (null_to_empty(!((_a = ctx2[0]) == null ? void 0 : _a.keepPopup) ? "action dim" : "action") + " svelte-1jxvnse"))) {
         attr(div, "class", div_class_value);
       }
     },
@@ -1603,7 +1611,7 @@ function create_if_block$2(ctx) {
 }
 function create_default_slot$2(ctx) {
   let span;
-  let t_value = (ctx[9].loading || !ctx[5] ? "Loading..." : "Load") + "";
+  let t_value = (ctx[10].loading || !ctx[6] ? "Loading..." : "Load") + "";
   let t;
   let span_class_value;
   return {
@@ -1621,7 +1629,7 @@ function create_default_slot$2(ctx) {
     },
     h() {
       var _a;
-      attr(span, "class", span_class_value = "" + (null_to_empty(((_a = ctx[0]) == null ? void 0 : _a.address) ? " connected " : " disconnected ") + " svelte-1khm383"));
+      attr(span, "class", span_class_value = "" + (null_to_empty(((_a = ctx[0]) == null ? void 0 : _a.address) ? " connected " : " disconnected ") + " svelte-1jxvnse"));
     },
     m(target, anchor) {
       insert_hydration(target, span, anchor);
@@ -1629,9 +1637,9 @@ function create_default_slot$2(ctx) {
     },
     p(ctx2, dirty) {
       var _a;
-      if (dirty & 544 && t_value !== (t_value = (ctx2[9].loading || !ctx2[5] ? "Loading..." : "Load") + ""))
+      if (dirty & 1088 && t_value !== (t_value = (ctx2[10].loading || !ctx2[6] ? "Loading..." : "Load") + ""))
         set_data(t, t_value);
-      if (dirty & 1 && span_class_value !== (span_class_value = "" + (null_to_empty(((_a = ctx2[0]) == null ? void 0 : _a.address) ? " connected " : " disconnected ") + " svelte-1khm383"))) {
+      if (dirty & 1 && span_class_value !== (span_class_value = "" + (null_to_empty(((_a = ctx2[0]) == null ? void 0 : _a.address) ? " connected " : " disconnected ") + " svelte-1jxvnse"))) {
         attr(span, "class", span_class_value);
       }
     },
@@ -1664,6 +1672,7 @@ function create_fragment$2(ctx) {
   let div5;
   let iframe_1;
   let iframe_1_src_value;
+  let div5_resize_listener;
   let current;
   let mounted;
   let dispose;
@@ -1671,12 +1680,12 @@ function create_fragment$2(ctx) {
   let if_block = (((_a = ctx[0]) == null ? void 0 : _a.address) || ctx[1]) && create_if_block$2(ctx);
   iconbutton = new WalletSelectorIcons({
     props: {
-      icon: ctx[10],
+      icon: ctx[11],
       $$slots: { default: [create_default_slot$2] },
       $$scope: { ctx }
     }
   });
-  iconbutton.$on("click", ctx[21]);
+  iconbutton.$on("click", ctx[23]);
   return {
     c() {
       div6 = element("div");
@@ -1739,7 +1748,6 @@ function create_fragment$2(ctx) {
       iframe_1 = claim_element(div5_nodes, "IFRAME", {
         title: true,
         src: true,
-        style: true,
         allow: true,
         class: true
       });
@@ -1750,29 +1758,28 @@ function create_fragment$2(ctx) {
     },
     h() {
       var _a2, _b;
-      attr(div0, "class", "actions logo svelte-1khm383");
+      attr(div0, "class", "actions logo svelte-1jxvnse");
       attr(a, "href", "https://PeerPiper.io");
       attr(a, "target", "_blank");
       attr(a, "rel", "noreferrer");
-      attr(input, "class", "url svelte-1khm383");
+      attr(input, "class", "url svelte-1jxvnse");
       attr(input, "placeholder", placeholder$1);
-      attr(span, "class", "green-line svelte-1khm383");
-      attr(div1, "class", "url-input-container svelte-1khm383");
-      attr(div2, "class", div2_class_value = "" + (null_to_empty(((_a2 = ctx[9]) == null ? void 0 : _a2.loading) ? "action dim" : ((_b = ctx[0]) == null ? void 0 : _b.address) ? " connected " : " disconnected ") + " svelte-1khm383"));
-      attr(div3, "class", "actions svelte-1khm383");
-      attr(div4, "class", "top svelte-1khm383");
+      attr(span, "class", "green-line svelte-1jxvnse");
+      attr(div1, "class", "url-input-container svelte-1jxvnse");
+      attr(div2, "class", div2_class_value = "" + (null_to_empty(((_a2 = ctx[10]) == null ? void 0 : _a2.loading) ? "action dim" : ((_b = ctx[0]) == null ? void 0 : _b.address) ? " connected " : " disconnected ") + " svelte-1jxvnse"));
+      attr(div3, "class", "actions svelte-1jxvnse");
+      attr(div4, "class", "top svelte-1jxvnse");
       set_style(div4, "--topOffsetHeight", ctx[2]);
-      add_render_callback(() => ctx[22].call(div4));
+      add_render_callback(() => ctx[24].call(div4));
       attr(iframe_1, "title", "Web Wallet");
-      if (!src_url_equal(iframe_1.src, iframe_1_src_value = ctx[5]))
+      if (!src_url_equal(iframe_1.src, iframe_1_src_value = ctx[6]))
         attr(iframe_1, "src", iframe_1_src_value);
-      set_style(iframe_1, "width", "100%");
-      set_style(iframe_1, "height", "100%");
       attr(iframe_1, "allow", "clipboard-read 'self' 'src'; clipboard-write 'self' 'src';");
-      attr(iframe_1, "class", "svelte-1khm383");
-      attr(div5, "class", "iframe svelte-1khm383");
+      attr(iframe_1, "class", "svelte-1jxvnse");
+      attr(div5, "class", "iframe svelte-1jxvnse");
       set_style(div5, "height", "calc(" + ctx[4] + "px + 18px)");
-      attr(div6, "class", "connector-container svelte-1khm383");
+      add_render_callback(() => ctx[26].call(div5));
+      attr(div6, "class", "connector-container svelte-1jxvnse");
     },
     m(target, anchor) {
       insert_hydration(target, div6, anchor);
@@ -1793,21 +1800,22 @@ function create_fragment$2(ctx) {
       append_hydration(div3, t3);
       append_hydration(div3, div2);
       mount_component(iconbutton, div2, null);
-      div4_resize_listener = add_resize_listener(div4, ctx[22].bind(div4));
+      div4_resize_listener = add_resize_listener(div4, ctx[24].bind(div4));
       append_hydration(div6, t4);
       append_hydration(div6, div5);
       append_hydration(div5, iframe_1);
-      ctx[23](iframe_1);
+      ctx[25](iframe_1);
+      div5_resize_listener = add_resize_listener(div5, ctx[26].bind(div5));
       current = true;
       if (!mounted) {
         dispose = [
-          listen(window_1$1, "keydown", ctx[15]),
-          listen(input, "focus", ctx[18]),
-          listen(input, "blur", ctx[19]),
-          listen(input, "input", ctx[20]),
+          listen(window_1$1, "keydown", ctx[16]),
+          listen(input, "focus", ctx[20]),
+          listen(input, "blur", ctx[21]),
+          listen(input, "input", ctx[22]),
           listen(input, "input", function() {
-            if (is_function(ctx[7]))
-              ctx[7].apply(this, arguments);
+            if (is_function(ctx[8]))
+              ctx[8].apply(this, arguments);
           })
         ];
         mounted = true;
@@ -1839,19 +1847,19 @@ function create_fragment$2(ctx) {
         check_outros();
       }
       const iconbutton_changes = {};
-      if (dirty & 1024)
-        iconbutton_changes.icon = ctx[10];
-      if (dirty & 67109409) {
+      if (dirty & 2048)
+        iconbutton_changes.icon = ctx[11];
+      if (dirty & 536872001) {
         iconbutton_changes.$$scope = { dirty, ctx };
       }
       iconbutton.$set(iconbutton_changes);
-      if (!current || dirty & 513 && div2_class_value !== (div2_class_value = "" + (null_to_empty(((_b = ctx[9]) == null ? void 0 : _b.loading) ? "action dim" : ((_c = ctx[0]) == null ? void 0 : _c.address) ? " connected " : " disconnected ") + " svelte-1khm383"))) {
+      if (!current || dirty & 1025 && div2_class_value !== (div2_class_value = "" + (null_to_empty(((_b = ctx[10]) == null ? void 0 : _b.loading) ? "action dim" : ((_c = ctx[0]) == null ? void 0 : _c.address) ? " connected " : " disconnected ") + " svelte-1jxvnse"))) {
         attr(div2, "class", div2_class_value);
       }
       if (!current || dirty & 4) {
         set_style(div4, "--topOffsetHeight", ctx[2]);
       }
-      if (!current || dirty & 32 && !src_url_equal(iframe_1.src, iframe_1_src_value = ctx[5])) {
+      if (!current || dirty & 64 && !src_url_equal(iframe_1.src, iframe_1_src_value = ctx[6])) {
         attr(iframe_1, "src", iframe_1_src_value);
       }
       if (!current || dirty & 16) {
@@ -1880,7 +1888,8 @@ function create_fragment$2(ctx) {
         if_block.d();
       destroy_component(iconbutton);
       div4_resize_listener();
-      ctx[23](null);
+      ctx[25](null);
+      div5_resize_listener();
       mounted = false;
       run_all(dispose);
     }
@@ -1897,7 +1906,9 @@ function instance$2($$self, $$props, $$invalidate) {
   let { topOffsetWidth = 0 } = $$props;
   let { iframeParentHeight = 0 } = $$props;
   let { iframeParentWidth = 0 } = $$props;
+  let iframeOffsetWidth;
   let { show } = $$props;
+  let { hide } = $$props;
   let src;
   let iframe;
   let focused;
@@ -1906,8 +1917,8 @@ function instance$2($$self, $$props, $$invalidate) {
     loading: true
   };
   onMount(async () => {
-    const { ImmortalDB } = await import("./index-17ddc90e.js");
-    $$invalidate(7, saveInputURL = async () => {
+    const { ImmortalDB } = await __vitePreload(() => import("./index-d63430cf.js"), true ? [] : void 0);
+    $$invalidate(8, saveInputURL = async () => {
       await ImmortalDB.set(INPUT_URL, src);
     });
     const storedValue = await ImmortalDB.get(INPUT_URL, null);
@@ -1918,7 +1929,7 @@ function instance$2($$self, $$props, $$invalidate) {
   });
   async function handleIframeLoad() {
     console.log("Iframe loaded");
-    $$invalidate(9, data.loading = false, data);
+    $$invalidate(10, data.loading = false, data);
     let pending;
     const connection = connectToChild({
       iframe,
@@ -1928,10 +1939,13 @@ function instance$2($$self, $$props, $$invalidate) {
         },
         setIframeParentWidth(width) {
           console.log("Rx width", width);
-          $$invalidate(16, iframeParentWidth = width);
+          $$invalidate(17, iframeParentWidth = width);
         },
         show() {
           show();
+        },
+        hide() {
+          hide();
         },
         walletReady() {
           $$invalidate(0, wallet = pending);
@@ -1945,9 +1959,9 @@ function instance$2($$self, $$props, $$invalidate) {
   const connect = () => {
     if (src === inputUrl)
       return;
-    $$invalidate(5, src = "");
-    $$invalidate(5, src = inputUrl);
-    $$invalidate(9, data.loading = true, data);
+    $$invalidate(6, src = "");
+    $$invalidate(6, src = inputUrl);
+    $$invalidate(10, data.loading = true, data);
   };
   const disconnect = () => wallet.disconnect();
   const togglePopup = () => window.open(inputUrl);
@@ -1955,8 +1969,8 @@ function instance$2($$self, $$props, $$invalidate) {
     if (event.key === "Enter" && focused)
       connect();
   }
-  const focus_handler = () => $$invalidate(8, focused = true);
-  const blur_handler = () => $$invalidate(8, focused = false);
+  const focus_handler = () => $$invalidate(9, focused = true);
+  const blur_handler = () => $$invalidate(9, focused = false);
   function input_input_handler() {
     inputUrl = this.value;
     $$invalidate(1, inputUrl);
@@ -1973,8 +1987,12 @@ function instance$2($$self, $$props, $$invalidate) {
   function iframe_1_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       iframe = $$value;
-      $$invalidate(6, iframe);
+      $$invalidate(7, iframe);
     });
+  }
+  function div5_elementresize_handler() {
+    iframeOffsetWidth = this.offsetWidth;
+    $$invalidate(5, iframeOffsetWidth);
   }
   $$self.$$set = ($$props2) => {
     if ("wallet" in $$props2)
@@ -1988,22 +2006,27 @@ function instance$2($$self, $$props, $$invalidate) {
     if ("iframeParentHeight" in $$props2)
       $$invalidate(4, iframeParentHeight = $$props2.iframeParentHeight);
     if ("iframeParentWidth" in $$props2)
-      $$invalidate(16, iframeParentWidth = $$props2.iframeParentWidth);
+      $$invalidate(17, iframeParentWidth = $$props2.iframeParentWidth);
     if ("show" in $$props2)
-      $$invalidate(17, show = $$props2.show);
+      $$invalidate(18, show = $$props2.show);
+    if ("hide" in $$props2)
+      $$invalidate(19, hide = $$props2.hide);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 160) {
+    if ($$self.$$.dirty & 320) {
       src && saveInputURL && saveInputURL();
     }
-    if ($$self.$$.dirty & 64) {
+    if ($$self.$$.dirty & 128) {
       iframe && iframe.addEventListener("load", handleIframeLoad);
     }
     if ($$self.$$.dirty & 1) {
-      $$invalidate(11, popupIcon = (wallet == null ? void 0 : wallet.keepPopup) ? "close" : "launch");
+      $$invalidate(12, popupIcon = (wallet == null ? void 0 : wallet.keepPopup) ? "close" : "launch");
     }
     if ($$self.$$.dirty & 1) {
-      $$invalidate(10, connectionIcon = (wallet == null ? void 0 : wallet.address) ? "unplug" : "plug");
+      $$invalidate(11, connectionIcon = (wallet == null ? void 0 : wallet.address) ? "unplug" : "plug");
+    }
+    if ($$self.$$.dirty & 33) {
+      iframeOffsetWidth && wallet && (wallet == null ? void 0 : wallet.setWidth(iframeOffsetWidth));
     }
   };
   return [
@@ -2012,6 +2035,7 @@ function instance$2($$self, $$props, $$invalidate) {
     topOffsetHeight,
     topOffsetWidth,
     iframeParentHeight,
+    iframeOffsetWidth,
     src,
     iframe,
     saveInputURL,
@@ -2025,12 +2049,14 @@ function instance$2($$self, $$props, $$invalidate) {
     handleKeydown,
     iframeParentWidth,
     show,
+    hide,
     focus_handler,
     blur_handler,
     input_input_handler,
     click_handler,
     div4_elementresize_handler,
-    iframe_1_binding
+    iframe_1_binding,
+    div5_elementresize_handler
   ];
 }
 class ConnectorInside extends SvelteComponent {
@@ -2042,8 +2068,9 @@ class ConnectorInside extends SvelteComponent {
       topOffsetHeight: 2,
       topOffsetWidth: 3,
       iframeParentHeight: 4,
-      iframeParentWidth: 16,
-      show: 17
+      iframeParentWidth: 17,
+      show: 18,
+      hide: 19
     });
   }
 }
@@ -2055,8 +2082,8 @@ function create_if_block$1(ctx) {
       $$slots: {
         default: [
           create_default_slot$1,
-          ({ openNav }) => ({ 4: openNav }),
-          ({ openNav }) => openNav ? 16 : 0
+          ({ openNav, hideNav }) => ({ 4: openNav, 5: hideNav }),
+          ({ openNav, hideNav }) => (openNav ? 16 : 0) | (hideNav ? 32 : 0)
         ]
       },
       $$scope: { ctx }
@@ -2075,7 +2102,7 @@ function create_if_block$1(ctx) {
     },
     p(ctx2, dirty) {
       const menuwrapper_changes = {};
-      if (dirty & 51) {
+      if (dirty & 115) {
         menuwrapper_changes.$$scope = { dirty, ctx: ctx2 };
       }
       menuwrapper.$set(menuwrapper_changes);
@@ -2104,7 +2131,8 @@ function create_default_slot$1(ctx) {
   }
   let connectorinside_props = {
     inputUrl: ctx[1],
-    show: ctx[4]
+    show: ctx[4],
+    hide: ctx[5]
   };
   if (ctx[0] !== void 0) {
     connectorinside_props.wallet = ctx[0];
@@ -2128,6 +2156,8 @@ function create_default_slot$1(ctx) {
         connectorinside_changes.inputUrl = ctx2[1];
       if (dirty & 16)
         connectorinside_changes.show = ctx2[4];
+      if (dirty & 32)
+        connectorinside_changes.hide = ctx2[5];
       if (!updating_wallet && dirty & 1) {
         updating_wallet = true;
         connectorinside_changes.wallet = ctx2[0];
@@ -2716,4 +2746,4 @@ class Connector extends SvelteComponent {
 }
 var Web3WalletConnector = Connector;
 export { Web3WalletConnector, Web3WalletMenu$1 as Web3WalletMenu, Web3WalletConnector as default };
-//# sourceMappingURL=index-66ece7a8.js.map
+//# sourceMappingURL=index-06dc59f4.js.map

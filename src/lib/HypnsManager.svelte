@@ -53,6 +53,7 @@
 
 	async function handleOpen() {
 		// take the wallet and pass it into hypns
+		console.log('Opening ', { publicKeyHex });
 		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex }, wallet });
 		instanceReady = await hypnsInstance.ready();
 

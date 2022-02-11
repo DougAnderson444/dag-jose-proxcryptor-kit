@@ -20,6 +20,7 @@
 
 		// should update you whenever the other guy publishes an updated value
 		hypnsInstance.on('update', (val) => {
+			console.log('Update from ', { hypnsInstance });
 			latestHypns = val.ipld;
 		});
 
