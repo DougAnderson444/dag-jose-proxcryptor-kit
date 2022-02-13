@@ -18,7 +18,7 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 import { getAugmentedNamespace, commonjsGlobal, commonjsRequire } from "./vendor-ab2ef118.js";
-import { hexDigestMessage } from "./index-91f1da4c.js";
+import { hexDigestMessage } from "./index-e798c16c.js";
 import "./preload-helper-3af2b5e8.js";
 var __viteBrowserExternal = {};
 var __viteBrowserExternal$1 = /* @__PURE__ */ Object.freeze({
@@ -15577,7 +15577,6 @@ class DagJoseCryptor {
       return;
     const resTagNode = await this.ipfs.dag.get(this.rootCID, { path: `/${tag}` });
     let tagNode = resTagNode.value;
-    console.log({ tagNode });
     const reKeyNode = tagNode[REKEYS];
     return { reKeyNode, tagNode };
   }
@@ -15603,18 +15602,15 @@ class DagJoseCryptor {
     return false;
   }
   async decryptFromTagNode(tagNode) {
-    console.log("Getting tagNode", { tagNode });
     const pubKey = await this.proxcryptor.getPublicKey();
     const hashTag = await this.getHashedTags(tagNode.tag, pubKey);
     if (!(hashTag in tagNode[REKEYS]))
       return false;
     const reKey = tagNode[REKEYS][hashTag];
-    console.log("reKey", { reKey }, tagNode.encryptedData);
     return await this.get(tagNode.encryptedData, reKey);
   }
   async put(secretz, tag, schema = {}) {
     const symmetricKey = random.randomBytes(32);
-    console.log("put", { symmetricKey });
     const selfEncryptedSymmetricKey = await this.proxcryptor.selfEncrypt(symmetricKey, tag);
     const cid2 = await this.storeDAGEncrypted(secretz, symmetricKey);
     await this.ipfs.pin.add(cid2, { recursive: true });
@@ -15637,17 +15633,13 @@ class DagJoseCryptor {
     this.rootCID = await this.updateDag(this.rootCID, tag, newEntry);
   }
   async get(cid2, re_encrypted_message) {
-    console.log("Getting ", { cid: cid2 }, { re_encrypted_message });
     const symmetricKey = await this.proxcryptor.reDecrypt(re_encrypted_message);
-    console.log({ symmetricKey });
     const decoded = await this.loadEncrypted(cid2, symmetricKey);
     return decoded;
   }
   async selfDecrypt(data) {
     try {
-      console.log("get", { data });
       const symmetricKey = await this.proxcryptor.selfDecrypt(data.encryptedKey);
-      console.log("get", { symmetricKey });
       const decoded = await this.loadEncrypted(data.encryptedData, symmetricKey);
       return decoded;
     } catch (error) {
@@ -15657,4 +15649,4 @@ class DagJoseCryptor {
   }
 }
 export { DagJoseCryptor };
-//# sourceMappingURL=dagjosecryptor-b3b81395.js.map
+//# sourceMappingURL=dagjosecryptor-81e0cb34.js.map

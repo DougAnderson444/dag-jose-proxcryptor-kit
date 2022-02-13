@@ -944,6 +944,7 @@ function instance$c($$self, $$props, $$invalidate) {
       $$invalidate(0, latestHypns = val.ipld);
     });
     $$invalidate(2, instanceReady = await hypnsInstance.ready());
+    $$invalidate(0, latestHypns = hypnsInstance.latest);
   }
   $$self.$$set = ($$props2) => {
     if ("pubKey" in $$props2)
@@ -2178,13 +2179,10 @@ function instance$7($$self, $$props, $$invalidate) {
   let ready;
   async function refreshedRootCID() {
     $$invalidate(3, ready = false);
-    console.log("Common refreshedRootCID for ", tag2);
     $$invalidate(10, currentRoodCID = rootCID);
     $$invalidate(2, tagNode = await getTagNode(tag2));
-    console.log({ tagNode });
     if (tagNode && tagNode.hasOwnProperty("encryptedData"))
       $$invalidate(5, decryptedData = await decrypt(tagNode));
-    console.log({ decryptedData });
     $$invalidate(3, ready = true);
   }
   $$self.$$set = ($$props2) => {
@@ -2532,7 +2530,7 @@ function instance$6($$self, $$props, $$invalidate) {
   } } = $$props;
   onMount(async () => {
     const { ImmortalDB } = await __vitePreload(() => import("./index-17ddc90e.js"), true ? [] : void 0);
-    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-b3b81395.js"), true ? ["chunks/dagjosecryptor-b3b81395.js","chunks/vendor-ab2ef118.js","chunks/preload-helper-3af2b5e8.js"] : void 0);
+    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-81e0cb34.js"), true ? ["chunks/dagjosecryptor-81e0cb34.js","chunks/vendor-ab2ef118.js","chunks/preload-helper-3af2b5e8.js"] : void 0);
     loadRootCID = async () => {
       await ipfsNode;
       if (rootCID)
@@ -2548,7 +2546,6 @@ function instance$6($$self, $$props, $$invalidate) {
     };
     await loadRootCID();
     $$invalidate(17, setJoseCryptor = async () => {
-      console.log("Setting setJoseCryptor");
       await ipfsNode;
       $$invalidate(16, joseCryptor = new DagJoseCryptor(ipfsNode, proxcryptor, rootCID));
       if (!rootCID)
@@ -3207,12 +3204,15 @@ function create_then_block$1(ctx) {
   let h3;
   let t0;
   let t1;
-  let show_if;
   let t2;
-  let a;
+  let br;
   let t3;
-  let a_href_value;
+  let show_if;
   let t4;
+  let a;
+  let t5;
+  let a_href_value;
+  let t6;
   let qrcode;
   let current;
   function select_block_type_2(ctx2, dirty) {
@@ -3235,12 +3235,15 @@ function create_then_block$1(ctx) {
     c() {
       h3 = element("h3");
       t0 = text("\u2714\uFE0F Connected to PiperNet");
-      t1 = space();
+      t1 = text("\r\n					latestHypns: ");
+      t2 = text(ctx[3]);
+      br = element("br");
+      t3 = space();
       if_block.c();
-      t2 = text("\r\n\r\n					\r\n					Connect with others: [");
+      t4 = text("\r\n\r\n					\r\n					Connect with others: [");
       a = element("a");
-      t3 = text("Link");
-      t4 = text("] ");
+      t5 = text("Link");
+      t6 = text("] ");
       create_component(qrcode.$$.fragment);
       this.h();
     },
@@ -3249,14 +3252,17 @@ function create_then_block$1(ctx) {
       var h3_nodes = children(h3);
       t0 = claim_text(h3_nodes, "\u2714\uFE0F Connected to PiperNet");
       h3_nodes.forEach(detach);
-      t1 = claim_space(nodes);
+      t1 = claim_text(nodes, "\r\n					latestHypns: ");
+      t2 = claim_text(nodes, ctx[3]);
+      br = claim_element(nodes, "BR", {});
+      t3 = claim_space(nodes);
       if_block.l(nodes);
-      t2 = claim_text(nodes, "\r\n\r\n					\r\n					Connect with others: [");
+      t4 = claim_text(nodes, "\r\n\r\n					\r\n					Connect with others: [");
       a = claim_element(nodes, "A", { href: true });
       var a_nodes = children(a);
-      t3 = claim_text(a_nodes, "Link");
+      t5 = claim_text(a_nodes, "Link");
       a_nodes.forEach(detach);
-      t4 = claim_text(nodes, "] ");
+      t6 = claim_text(nodes, "] ");
       claim_component(qrcode.$$.fragment, nodes);
       this.h();
     },
@@ -3267,15 +3273,20 @@ function create_then_block$1(ctx) {
       insert_hydration(target, h3, anchor);
       append_hydration(h3, t0);
       insert_hydration(target, t1, anchor);
-      if_block.m(target, anchor);
       insert_hydration(target, t2, anchor);
-      insert_hydration(target, a, anchor);
-      append_hydration(a, t3);
+      insert_hydration(target, br, anchor);
+      insert_hydration(target, t3, anchor);
+      if_block.m(target, anchor);
       insert_hydration(target, t4, anchor);
+      insert_hydration(target, a, anchor);
+      append_hydration(a, t5);
+      insert_hydration(target, t6, anchor);
       mount_component(qrcode, target, anchor);
       current = true;
     },
     p(ctx2, dirty) {
+      if (!current || dirty & 8)
+        set_data(t2, ctx2[3]);
       if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
         if_block.p(ctx2, dirty);
       } else {
@@ -3283,7 +3294,7 @@ function create_then_block$1(ctx) {
         if_block = current_block_type(ctx2);
         if (if_block) {
           if_block.c();
-          if_block.m(t2.parentNode, t2);
+          if_block.m(t4.parentNode, t4);
         }
       }
       if (!current || dirty & 128 && a_href_value !== (a_href_value = "" + (location.origin + location.pathname + "?add=" + ctx2[7]))) {
@@ -3309,13 +3320,19 @@ function create_then_block$1(ctx) {
         detach(h3);
       if (detaching)
         detach(t1);
-      if_block.d(detaching);
       if (detaching)
         detach(t2);
       if (detaching)
-        detach(a);
+        detach(br);
+      if (detaching)
+        detach(t3);
+      if_block.d(detaching);
       if (detaching)
         detach(t4);
+      if (detaching)
+        detach(a);
+      if (detaching)
+        detach(t6);
       destroy_component(qrcode, detaching);
     }
   };
@@ -3521,13 +3538,15 @@ function instance$4($$self, $$props, $$invalidate) {
       keypair: { publicKey: publicKeyHex },
       wallet
     }));
+    hypnsInstance.on("update", (val) => {
+      console.log("Update from ", { hypnsInstance });
+      $$invalidate(3, latestHypns = val.ipld);
+    });
     $$invalidate(5, instanceReady = await hypnsInstance.ready());
     console.log({ instanceReady });
+    $$invalidate(3, latestHypns = hypnsInstance.latest);
     $$invalidate(6, publish = () => {
       hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
-    });
-    hypnsInstance.on("update", (val) => {
-      $$invalidate(3, latestHypns = val.ipld);
     });
   }
   async function handlePublish() {
@@ -4623,9 +4642,7 @@ function instance$2($$self, $$props, $$invalidate) {
   let valid;
   let submitting;
   onMount(async () => {
-    console.log({ pageUrl: $page.url });
     let params = new URLSearchParams(location.search);
-    console.log({ params: params.get("add") });
     if ($page.url.searchParams.has("add")) {
       $$invalidate(10, pubKey = $page.url.searchParams.get("add"));
       await tick();
@@ -5409,7 +5426,7 @@ function create_fragment$1(ctx) {
     }
   };
 }
-let inputUrl = "https://peerpiper.github.io/iframe-wallet-engine/";
+let inputUrl = "https://peerpiper.github.io/iframe-wallet-engine";
 function instance$1($$self, $$props, $$invalidate) {
   let { wallet = null } = $$props;
   let { rootCID = null } = $$props;
@@ -5550,4 +5567,4 @@ class Routes extends SvelteComponent {
   }
 }
 export { Routes, hexDigestMessage };
-//# sourceMappingURL=index-91f1da4c.js.map
+//# sourceMappingURL=index-e798c16c.js.map
