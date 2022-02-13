@@ -42,12 +42,7 @@
 
 	onMount(async () => {
 		// check if this is a search params loaded page
-		console.log({ pageUrl: $page.url });
-
 		let params = new URLSearchParams(location.search);
-
-		console.log({ params: params.get('add') });
-
 		if ($page.url.searchParams.has('add')) {
 			pubKey = $page.url.searchParams.get('add');
 			await tick();

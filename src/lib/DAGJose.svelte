@@ -61,7 +61,6 @@
 
 		// use the portal proxcryptor to encrypt the DAG JOSEs
 		setJoseCryptor = async () => {
-			console.log('Setting setJoseCryptor');
 			await ipfsNode;
 			joseCryptor = new DagJoseCryptor(ipfsNode, proxcryptor, rootCID); //refesh when updated
 			if (!rootCID) loaded = true;

@@ -66,7 +66,6 @@ export class DagJoseCryptor {
 		// get current list of rekeys
 		const resTagNode = await this.ipfs.dag.get(this.rootCID, { path: `/${tag}` });
 		let tagNode = resTagNode.value;
-		console.log({ tagNode });
 		const reKeyNode = tagNode[REKEYS];
 		return { reKeyNode, tagNode };
 	}
@@ -125,8 +124,6 @@ export class DagJoseCryptor {
 		2. Take that reKey together with the cid of the Tag and call proxcryptor.get(cid, reKey)
 		3. Result is the decrypted data
 		*/
-		console.log('Getting tagNode', { tagNode });
-
 		const pubKey = await this.proxcryptor.getPublicKey();
 		const hashTag = await this.getHashedTags(tagNode.tag, pubKey);
 
@@ -135,16 +132,12 @@ export class DagJoseCryptor {
 
 		// lookUp
 		const reKey = tagNode[REKEYS][hashTag];
-		console.log('reKey', { reKey }, tagNode.encryptedData);
 		return await this.get(tagNode.encryptedData, reKey);
 	}
 
 	async put(secretz: object, tag: string, schema = {}) {
 		// Create a key, encrypt and store a block, then load and decrypt it:
 		const symmetricKey = randomBytes(32); // our random secret key
-
-		console.log('put', { symmetricKey });
-
 		const selfEncryptedSymmetricKey = await this.proxcryptor.selfEncrypt(symmetricKey, tag);
 		const cid = await this.storeDAGEncrypted(secretz, symmetricKey); // for when arweave can put DAG objects, see https://github.com/ArweaveTeam/arweave/pull/338
 		// const cid = await this.storeIPFSEncrypted(secretz, symmetricKey);
@@ -174,21 +167,14 @@ export class DagJoseCryptor {
 
 	async get(cid, re_encrypted_message) {
 		// decrypt
-		console.log('Getting ', { cid }, { re_encrypted_message });
 		const symmetricKey = await this.proxcryptor.reDecrypt(re_encrypted_message);
-		console.log({ symmetricKey });
 		const decoded = await this.loadEncrypted(cid, symmetricKey);
 		return decoded;
 	}
 
 	async selfDecrypt(data) {
 		try {
-			console.log('get', { data });
-
 			const symmetricKey = await this.proxcryptor.selfDecrypt(data.encryptedKey);
-
-			console.log('get', { symmetricKey });
-
 			const decoded = await this.loadEncrypted(data.encryptedData, symmetricKey); // waits until arweave supports DAG put
 			// const decoded = await this.loadIPFSEncrypted(data.encryptedData, symmetricKey);
 			return decoded;
