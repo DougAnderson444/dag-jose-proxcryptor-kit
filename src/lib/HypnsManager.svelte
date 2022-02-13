@@ -55,18 +55,46 @@
 		// take the wallet and pass it into hypns
 		console.log('Opening ', { publicKeyHex });
 		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex }, wallet });
+
+		// should update you whenever the other guy publishes an updated value
+		hypnsInstance.on('update', (val) => {
+			console.log('Update from ', { hypnsInstance });
+			latestHypns = val.ipld;
+		});
+
 		instanceReady = await hypnsInstance.ready();
 
 		console.log({ instanceReady });
 
+		latestHypns = hypnsInstance.latest;
+
 		publish = () => {
 			hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
 		};
+	}
+
+	async function open({ publicKeyHex, wallet = null, onUpdate = null }) {
+		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex }, wallet });
+
+		const updated =
+			onUpdate ||
+			function (val) {
+				console.log('Update from ', { hypnsInstance });
+				latestHypns = val.ipld;
+			};
 
 		// should update you whenever the other guy publishes an updated value
-		hypnsInstance.on('update', (val) => {
-			latestHypns = val.ipld;
-		});
+		hypnsInstance.on('update', updated);
+
+		instanceReady = await hypnsInstance.ready();
+
+		console.log({ instanceReady });
+
+		latestHypns = hypnsInstance.latest;
+
+		publish = () => {
+			hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
+		};
 	}
 
 	async function handlePublish() {
@@ -88,6 +116,7 @@
 					Loading instance...
 				{:then}
 					<h3>✔️ Connected to PiperNet</h3>
+					latestHypns: {latestHypns}<br />
 					{#if latestHypns === rootCID.toV1().toString()}
 						<h3>✔️ PiperNet up to date</h3>
 					{:else}
