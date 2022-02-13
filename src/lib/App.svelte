@@ -11,7 +11,7 @@
 
 	let active = Components['Contacts']; // needs to open on contacts so that they are loaded into the svelte store $contacts
 
-	let inputUrl = 'https://peerpiper.github.io/iframe-wallet-engine/'; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
+	let inputUrl = 'https://peerpiper.github.io/iframe-wallet-engine'; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
 
 	let ipfsNode, CID;
 	let nodeId;
