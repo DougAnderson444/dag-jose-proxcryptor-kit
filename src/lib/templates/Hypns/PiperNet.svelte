@@ -25,6 +25,8 @@
 		});
 
 		instanceReady = await hypnsInstance.ready();
+
+		latestHypns = hypnsInstance.latest; // intialize
 	}
 </script>
 
