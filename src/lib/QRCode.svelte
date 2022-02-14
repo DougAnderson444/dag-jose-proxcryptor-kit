@@ -1,43 +1,41 @@
 <script>
-  import { fade } from "svelte/transition";
-  import QRCode from "qrcode";
-  export let value;
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
+	import QRCode from 'qrcode';
 
-  let canvas;
-  let visible = false;
+	export let value;
 
-  async function showQR() {
-    QRCode.toCanvas(canvas, value); // Draws qr code symbol to canvas.
-    visible = true;
-  }
+	let canvas;
+	let visible = false;
+
+	async function showQR() {
+		QRCode.toCanvas(canvas, value); // Draws qr code symbol to canvas.
+		visible = true;
+	}
+
+	onMount(() => showQR());
 </script>
 
+<div class="wrapper">
+	<div class="qr-slot">
+		<slot>[QR Code]</slot>
+	</div>
+	<br />
+
+	<canvas hidden={!visible} transition:fade bind:this={canvas} />
+</div>
+
 <style>
-  canvas {
-    position: absolute;
-    border: 1px solid black;
-    z-index: 1;
-  }
-  span {
-    display: inline-block;
-  }
+	.wrapper {
+		display: block;
+	}
+	canvas {
+		border: 1px solid black;
+		z-index: 1;
+		width: 100%;
+		height: 100%;
+	}
+	div.qr-slot {
+		display: inline-block;
+	}
 </style>
-
-<span
-  on:mouseover={() => {
-    showQR();
-  }}>
-  [QR Code]
-</span>
-<br />
-
-<canvas
-  hidden={!visible}
-  transition:fade
-  on:mousemove={() => {
-    visible = false;
-  }}
-  bind:this={canvas}
-  width={32}
-  height={32} />
-<br />

@@ -41,6 +41,10 @@
 	}
 
 	@media (min-width: 480px) {
+		:root {
+			--column-margin-top: 1.1rem;
+		}
+
 		footer {
 			padding: 40px 0;
 		}
