@@ -4,13 +4,14 @@
 	import QRCode from './QRCode.svelte';
 
 	import { bufftoHex } from './utils/index';
+	import { goto } from '$app/navigation';
 
 	export let rootCID;
 	export let wallet; // use the same wallet object that the proxcryptor is using, for convenience
 
 	let hypnsNode;
 	let HyPNSComponent, latestHypns;
-	let hypnsInstance, instanceReady, publish;
+	let hypnsInstance, publish;
 
 	let myPublicKeyHex;
 	let connectJson;
@@ -63,7 +64,15 @@
 			latestHypns = val.ipld;
 		};
 
-		hypnsInstance = await openHypns({ pubKeyHex: myPublicKeyHex, wallet, onUpdate });
+		// handle message on my channel from others who have added me
+		const onMessage = async (msg) => {
+			// offer to add as contact
+			// contacts.pubKey = msg.pubkeyHex
+			console.log(`redirect to ${location.origin + location.pathname}?add=${msg.pubKeyHex}`);
+			await goto(`${location.origin + location.pathname}?add=${msg.pubKeyHex}`);
+		};
+
+		hypnsInstance = await openHypns({ pubKeyHex: myPublicKeyHex, wallet, onUpdate, onMessage });
 		latestHypns = hypnsInstance.latest;
 
 		// since we passed in a wallet, we can write
@@ -73,13 +82,19 @@
 	}
 
 	// an open fn we can use everywhere
-	export const openHypns = async function ({ pubKeyHex, wallet = null, onUpdate = (val) => {} }) {
+	export const openHypns = async function ({
+		pubKeyHex,
+		wallet = null,
+		onUpdate = (val) => {},
+		onMessage = (val) => {
+			console.log('Default onMessage');
+		}
+	}) {
 		console.log('open Hypns', pubKeyHex);
 		const hypnsInstance = await hypnsNode.open({ keypair: { publicKey: pubKeyHex }, wallet });
 		hypnsInstance.on('update', onUpdate);
 
 		await hypnsInstance.ready();
-		console.log('Hypns ready', pubKeyHex);
 
 		// use p2p extensions
 		// https://github.com/hypercore-protocol/hypercore#ext--feedregisterextensionname-handlers
@@ -88,11 +103,12 @@
 			encoding: 'json',
 			onmessage: (message, peer) => {
 				// Recieved messages will be automatically decoded
-				console.log('Got key from peer!', { message }, { peer });
-
+				console.log('Got msg from peer!', { message }, { peer });
+				console.log({ onMessage });
 				// join their swarm
 				// add to contacts
 				// replicate core
+				onMessage(message);
 				if (message.pubKeyHex && !hypnsNode.instances.has(message.pubKeyHex)) {
 					openHypns({ pubKeyHex: message.pubKeyHex, onUpdate });
 				} else {
@@ -102,12 +118,7 @@
 		});
 
 		hypnsInstance.network.networker.once('peer-add', (peer) => {
-			console.log('Added a peer! Sending', hypnsInstance.key, { peer });
-			extension.send({ pubKeyHex: myPublicKeyHex }, peer);
-		});
-
-		hypnsInstance.network.networker.once('peer-open', (peer) => {
-			console.log('Opened a peer! Sending', hypnsInstance.key, { peer });
+			console.log('Added a peer! Sending', myPublicKeyHex, { peer });
 			extension.send({ pubKeyHex: myPublicKeyHex }, peer);
 		});
 
@@ -128,13 +139,13 @@
 			{latestHypns ? 'Last Saved Root: ' + latestHypns : 'Connect to Pin to PiperNet'}
 			{#if !hypnsInstance}
 				<button on:click={handleOpen}>Pin to PiperNet</button>
-			{:else if instanceReady}
-				{#await instanceReady}
+			{:else}
+				{#await hypnsInstance}
 					Loading instance...
-				{:then}
+				{:then hypnsInstance}
 					<h3>✔️ Connected to PiperNet</h3>
 					latestHypns: {latestHypns}<br />
-					{#if latestHypns === rootCID.toV1().toString()}
+					{#if rootCID && rootCID?.toV1().toString() === latestHypns}
 						<h3>✔️ PiperNet up to date</h3>
 					{:else}
 						{#if !rootCID}
@@ -145,17 +156,15 @@
 						<button on:click={handlePublish} disabled={!rootCID || !publish}>Publish Latest</button>
 					{/if}
 
-					<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> -->
+					<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> 
 					Connect with others: [<a href="{location.origin + location.pathname}?add={myPublicKeyHex}"
 						>Link</a
 					>] <QRCode value={`${location.origin + location.pathname}?add=${myPublicKeyHex}`}>
 						[ Add to Contacts]
-					</QRCode>
+					</QRCode>-->
 
-					<QRCode value={JSON.stringify(connectJson)}>[ Link to Others]</QRCode>
+					<QRCode value={JSON.stringify({ pubKeyHex: myPublicKeyHex })}>[ Link to Others]</QRCode>
 				{/await}
-			{:else}
-				Sign message to write to PiperNet...
 			{/if}
 		{/if}
 	</div>
