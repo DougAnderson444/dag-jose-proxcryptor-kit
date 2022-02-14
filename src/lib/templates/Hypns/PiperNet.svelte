@@ -1,10 +1,12 @@
 <script>
 	// open a Hypns instance for this public key and show the latest
-
+	import { createEventDispatcher } from 'svelte';
 	import { bufftoHex } from '../../utils/index';
 
 	export let pubKey;
 	export let openHypns;
+
+	const dispatch = createEventDispatcher();
 
 	let latestHypns;
 
@@ -14,7 +16,6 @@
 	$: if (!!pubKey && openHypns) handleOpen(pubKey);
 
 	async function handleOpen(pubKey) {
-		console.log('Opening ', pubKey);
 		let publicKeyHex = bufftoHex(pubKey);
 
 		// should update you whenever the other guy publishes an updated value
@@ -23,9 +24,11 @@
 			latestHypns = val.ipld;
 		};
 
-		hypnsInstance = await openHypns({ publicKeyHex, onUpdate });
-		console.log('Opened ', hypnsInstance);
+		const onMessage = (msg) => {
+			dispatch('newContact', msg);
+		};
 
+		hypnsInstance = await openHypns({ pubKeyHex: publicKeyHex, onUpdate, onMessage });
 		latestHypns = hypnsInstance.latest; // intialize
 	}
 </script>
