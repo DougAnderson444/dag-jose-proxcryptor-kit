@@ -1,6 +1,6 @@
 {
 	"name": "@peerpiper/dag-jose-proxcryptor-kit",
-	"version": "0.0.9",
+	"version": "0.1.0",
 	"svelte": "src/lib/index.js",
 	"scripts": {
 		"dev": "svelte-kit dev --port 8087",
@@ -48,6 +48,7 @@
 		"did-jwt": "^5.12.4",
 		"hypns-svelte-component": "github:DougAnderson444/hypns-svelte-component",
 		"immortal-db": "^1.1.0",
-		"qrcode": "^1.5.0"
+		"qrcode": "^1.5.0",
+		"qrcode-scanner-svelte": "github:PeerPiper/qrcode-scanner-svelte"
 	}
 }
