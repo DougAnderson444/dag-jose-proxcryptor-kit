@@ -4,27 +4,27 @@
 	import { bufftoHex } from '../../utils/index';
 
 	export let pubKey;
-	export let hypnsNode;
+	export let openHypns;
 
 	let latestHypns;
 
 	let hypnsInstance;
 	let instanceReady;
 
-	$: if (!!pubKey && hypnsNode) handleOpen(pubKey);
+	$: if (!!pubKey && openHypns) handleOpen(pubKey);
 
 	async function handleOpen(pubKey) {
+		console.log('Opening ', pubKey);
 		let publicKeyHex = bufftoHex(pubKey);
-		// take the wallet and pass it into hypns
-		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex } });
 
 		// should update you whenever the other guy publishes an updated value
-		hypnsInstance.on('update', (val) => {
+		const onUpdate = (val) => {
 			console.log('Update from ', { hypnsInstance });
 			latestHypns = val.ipld;
-		});
+		};
 
-		instanceReady = await hypnsInstance.ready();
+		hypnsInstance = await openHypns({ publicKeyHex, onUpdate });
+		console.log('Opened ', hypnsInstance);
 
 		latestHypns = hypnsInstance.latest; // intialize
 	}
@@ -32,8 +32,8 @@
 
 {#if !hypnsInstance}
 	Loading hypnsInstance...
-{:else if instanceReady}
-	{#await instanceReady}
+{:else}
+	{#await hypnsInstance}
 		Getting instance ready...
 	{:then}
 		<h3>✔️ Connected to PiperNet</h3>
@@ -43,7 +43,7 @@
 		{:else}
 			⚠️ No latest value available.
 		{/if}
+	{:catch error}
+		Problem connecting to Pipernet
 	{/await}
-{:else}
-	Sign message to write to PiperNet...
 {/if}

@@ -1,18 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import QRCode from '../lib/QRCode.svelte';
+	import QRCode from './QRCode.svelte';
 
 	import { bufftoHex } from './utils/index';
 
 	export let rootCID;
 	export let wallet; // use the same wallet object that the proxcryptor is using, for convenience
-	export let hypnsNode;
 
+	let hypnsNode;
 	let HyPNSComponent, latestHypns;
 	let hypnsInstance, instanceReady, publish;
 
-	let publicKeyHex;
+	let myPublicKeyHex;
+	let connectJson;
+	let connectKeyPhrase = 'letsConnect';
 
 	let opts = {
 		persist: true,
@@ -48,54 +50,69 @@
 		// open a HyPNS feed using the hex encoding of this users Ed25519 key
 		const pk: Uint8Array = await wallet.proxcryptor.getPublicKey();
 		// convert to hex for hypercore-protocol
-		publicKeyHex = bufftoHex(pk);
+		myPublicKeyHex = bufftoHex(pk);
+		connectJson = { pubKeyHex: myPublicKeyHex, connectKeyPhrase };
 	}
 
 	async function handleOpen() {
 		// take the wallet and pass it into hypns
-		console.log('Opening ', { publicKeyHex });
-		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex }, wallet });
+		console.log('Opening ', { myPublicKeyHex });
 
-		// should update you whenever the other guy publishes an updated value
-		hypnsInstance.on('update', (val) => {
+		const onUpdate = (val) => {
 			console.log('Update from ', { hypnsInstance });
 			latestHypns = val.ipld;
+		};
+
+		hypnsInstance = await openHypns({ pubKeyHex: myPublicKeyHex, wallet, onUpdate });
+		latestHypns = hypnsInstance.latest;
+
+		// since we passed in a wallet, we can write
+		publish = () => {
+			hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
+		};
+	}
+
+	// an open fn we can use everywhere
+	export const openHypns = async function ({ pubKeyHex, wallet = null, onUpdate = (val) => {} }) {
+		console.log('open Hypns', pubKeyHex);
+		const hypnsInstance = await hypnsNode.open({ keypair: { publicKey: pubKeyHex }, wallet });
+		hypnsInstance.on('update', onUpdate);
+
+		await hypnsInstance.ready();
+		console.log('Hypns ready', pubKeyHex);
+
+		// use p2p extensions
+		// https://github.com/hypercore-protocol/hypercore#ext--feedregisterextensionname-handlers
+		const extension = hypnsInstance.network.networker.registerExtension(connectKeyPhrase, {
+			// Set the encoding type for messages
+			encoding: 'json',
+			onmessage: (message, peer) => {
+				// Recieved messages will be automatically decoded
+				console.log('Got key from peer!', { message }, { peer });
+
+				// join their swarm
+				// add to contacts
+				// replicate core
+				if (message.pubKeyHex && !hypnsNode.instances.has(message.pubKeyHex)) {
+					openHypns({ pubKeyHex: message.pubKeyHex, onUpdate });
+				} else {
+					console.log('Already connected to ', message.pubKeyHex);
+				}
+			}
 		});
 
-		instanceReady = await hypnsInstance.ready();
+		hypnsInstance.network.networker.once('peer-add', (peer) => {
+			console.log('Added a peer! Sending', hypnsInstance.key, { peer });
+			extension.send({ pubKeyHex: myPublicKeyHex }, peer);
+		});
 
-		console.log({ instanceReady });
+		hypnsInstance.network.networker.once('peer-open', (peer) => {
+			console.log('Opened a peer! Sending', hypnsInstance.key, { peer });
+			extension.send({ pubKeyHex: myPublicKeyHex }, peer);
+		});
 
-		latestHypns = hypnsInstance.latest;
-
-		publish = () => {
-			hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
-		};
-	}
-
-	async function open({ publicKeyHex, wallet = null, onUpdate = null }) {
-		hypnsInstance = await hypnsNode.open({ keypair: { publicKey: publicKeyHex }, wallet });
-
-		const updated =
-			onUpdate ||
-			function (val) {
-				console.log('Update from ', { hypnsInstance });
-				latestHypns = val.ipld;
-			};
-
-		// should update you whenever the other guy publishes an updated value
-		hypnsInstance.on('update', updated);
-
-		instanceReady = await hypnsInstance.ready();
-
-		console.log({ instanceReady });
-
-		latestHypns = hypnsInstance.latest;
-
-		publish = () => {
-			hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
-		};
-	}
+		return hypnsInstance;
+	};
 
 	async function handlePublish() {
 		publish();
@@ -120,14 +137,22 @@
 					{#if latestHypns === rootCID.toV1().toString()}
 						<h3>✔️ PiperNet up to date</h3>
 					{:else}
-						<h3>⚠️ PiperNet needs updating</h3>
+						{#if !rootCID}
+							Save something feed
+						{:else}
+							<h3>⚠️ PiperNet needs updating</h3>
+						{/if}
 						<button on:click={handlePublish} disabled={!rootCID || !publish}>Publish Latest</button>
 					{/if}
 
 					<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> -->
-					Connect with others: [<a href="{location.origin + location.pathname}?add={publicKeyHex}"
+					Connect with others: [<a href="{location.origin + location.pathname}?add={myPublicKeyHex}"
 						>Link</a
-					>] <QRCode value={`${location.origin + location.pathname}?add=${publicKeyHex}`} />
+					>] <QRCode value={`${location.origin + location.pathname}?add=${myPublicKeyHex}`}>
+						[ Add to Contacts]
+					</QRCode>
+
+					<QRCode value={JSON.stringify(connectJson)}>[ Link to Others]</QRCode>
 				{/await}
 			{:else}
 				Sign message to write to PiperNet...
@@ -135,6 +160,8 @@
 		{/if}
 	</div>
 {/if}
+
+<slot />
 
 <style>
 	.main {

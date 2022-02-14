@@ -160,7 +160,6 @@
 				{getTagNode}
 				{decrypt}
 				{rootCID}
-				{hypnsNode}
 				{checkAccess}
 				{setAccess}
 				bind:onSubmitted
@@ -193,9 +192,9 @@
 
 <style>
 	.main {
-		width: 80%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top);
+		width: 100%;
+		/* max-width: var(--column-width); */
+		margin-top: var(--column-margin-top);
 		padding: var(--column-margin-top);
 		line-height: 1;
 		background-color: #e0ede0;

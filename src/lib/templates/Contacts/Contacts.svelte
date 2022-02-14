@@ -19,10 +19,16 @@
 	import { contacts } from '$lib/stores';
 	import TagValue from '$lib/TagValue.svelte';
 
+	import { Scanner } from 'qrcode-scanner-svelte';
+	import ScanIcon from '$lib/graphics/scanIcon.svelte';
+	import Modal from '$lib/graphics/Modal.svelte';
+	import QrCodeIcon from '$lib/graphics/QRCodeIcon.svelte';
+	import QRCode from '../../QRCode.svelte';
+
 	// Component props passed in from Parent Component
 	// will also reactively update if updated in parent
 	export let getTagNodes;
-	export let hypnsNode;
+	export let openHypns;
 	export let checkAccess;
 	export let decryptedData;
 	export let decryptFromTagNode;
@@ -39,6 +45,8 @@
 	let valid;
 	let submitting;
 	let mounted;
+	let scan;
+	let showQR;
 
 	onMount(async () => {
 		// check if this is a search params loaded page
@@ -89,6 +97,10 @@
 		submitting = true;
 		dispatch('handleSubmit', { tag, data: { value, schema } });
 	}
+
+	function handleConnect(key) {
+		pubKey = key;
+	}
 </script>
 
 <div transition:slide={{ delay: 100, duration: 400, easing: quintOut }}>
@@ -99,14 +111,41 @@
 		</div>
 
 		<div class="item">
-			<!-- placeholder={'Paste their Public Key'} -->
-			<input
-				bind:this={pubKeyInput}
-				bind:value={pubKey}
-				on:input={handleValidate}
-				on:change={handleValidate}
-				on:focus={handleValidate}
-			/>{valid ? '✔️ Valid Public Key' : ''}
+			<div class="entry-item">
+				<input
+					placeholder="Paste or Scan Public Key"
+					bind:this={pubKeyInput}
+					bind:value={pubKey}
+					on:input={handleValidate}
+					on:change={handleValidate}
+					on:focus={handleValidate}
+				/>{valid ? '✔️ Valid Public Key' : ''}
+				<div class="scan-icon">
+					<ScanIcon bind:scan>
+						<Modal bind:modal={scan}>
+							<Scanner
+								bind:result={pubKey}
+								on:successfulScan={(data) => {
+									scan = false;
+									handleConnect(data.publicKeyHex);
+								}}
+							>
+								<!-- null -->
+								<div />
+							</Scanner>
+						</Modal>
+					</ScanIcon>
+				</div>
+				<div class="scan-icon">
+					<QrCodeIcon bind:showQR>
+						<Modal bind:modal={showQR}>
+							<QRCode value={JSON.stringify({ connectJson: 'test' })}
+								>Others Scan this from their PeerPiper to Connect to You</QRCode
+							>
+						</Modal>
+					</QrCodeIcon>
+				</div>
+			</div>
 			<!-- <Search bind:handle bind:pubKey /> -->
 		</div>
 		{#if valid}
@@ -140,7 +179,7 @@
 				</span>
 
 				<span slot="latest">
-					<PiperNet {pubKey} {hypnsNode} let:latestHypns>
+					<PiperNet {pubKey} {openHypns} let:latestHypns>
 						<!-- once root CID appears, get tag details then show tag access -->
 						<GetTags rootCID={latestHypns} {getTagNodes} let:tagNode>
 							{#if tag}
@@ -176,5 +215,14 @@
 		padding: 1.62em;
 		margin: 1.62em 0;
 		width: 100%;
+	}
+	.entry-item {
+		display: inline-flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		flex-direction: row;
+	}
+	.scan-icon {
+		margin: 1em 0 1em 1em;
 	}
 </style>

@@ -16,7 +16,7 @@
 	let ipfsNode, CID;
 	let nodeId;
 
-	let hypnsNode;
+	let openHypns;
 
 	let Web3WalletMenu;
 
@@ -96,7 +96,7 @@
 				{getTagNodes}
 				{checkAccess}
 				{setAccess}
-				{hypnsNode}
+				{openHypns}
 				{decryptFromTagNode}
 			/>
 		</DagJose>
@@ -105,18 +105,8 @@
 	{/if}
 
 	<!-- When there is data saved to ILPD, why not save it to PipeNet?  -->
-	{#if rootCID}
-		<HypnsManager {wallet} {rootCID} bind:hypnsNode />
-	{:else}
-		<!-- No Data saved yet. -->
-	{/if}
+	<HypnsManager {wallet} {rootCID} bind:openHypns />
 </div>
 
 <style>
-	.main {
-		width: 80%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top);
-		line-height: 1;
-	}
 </style>
