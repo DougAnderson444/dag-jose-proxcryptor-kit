@@ -101,6 +101,10 @@
 	function handleConnect(key) {
 		pubKey = key;
 	}
+	function handleMessenger(event) {
+		console.log("Setting pubKey to rx'd msg value");
+		pubKey = event.detail.pubKeyHex;
+	}
 </script>
 
 <div transition:slide={{ delay: 100, duration: 400, easing: quintOut }}>
@@ -127,7 +131,9 @@
 								bind:result={pubKey}
 								on:successfulScan={(data) => {
 									scan = false;
-									handleConnect(data.publicKeyHex);
+									const parsed = JSON.parse(data.detail);
+									console.log(`Scanned `, { parsed });
+									handleConnect(parsed.pubKeyHex);
 								}}
 							>
 								<!-- null -->
@@ -179,7 +185,7 @@
 				</span>
 
 				<span slot="latest">
-					<PiperNet {pubKey} {openHypns} let:latestHypns>
+					<PiperNet {pubKey} {openHypns} let:latestHypns on:onMessage={handleMessenger}>
 						<!-- once root CID appears, get tag details then show tag access -->
 						<GetTags rootCID={latestHypns} {getTagNodes} let:tagNode>
 							{#if tag}
