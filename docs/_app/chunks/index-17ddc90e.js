@@ -285,7 +285,7 @@ function arrayGet(arr, index, _default = null) {
   return _default;
 }
 function countUniques(iterable) {
-  const m = new Map();
+  const m = /* @__PURE__ */ new Map();
   let eles = iterable.slice();
   for (const ele of eles) {
     let count = 0;

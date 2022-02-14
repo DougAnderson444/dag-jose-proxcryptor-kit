@@ -4,7 +4,7 @@ function run(fn) {
   return fn();
 }
 function blank_object() {
-  return Object.create(null);
+  return /* @__PURE__ */ Object.create(null);
 }
 function run_all(fns) {
   fns.forEach(run);
@@ -55,7 +55,7 @@ function add_render_callback(fn) {
   render_callbacks.push(fn);
 }
 let flushing = false;
-const seen_callbacks = new Set();
+const seen_callbacks = /* @__PURE__ */ new Set();
 function flush() {
   if (flushing)
     return;
@@ -96,7 +96,7 @@ function update($$) {
     $$.after_update.forEach(add_render_callback);
   }
 }
-const outroing = new Set();
+const outroing = /* @__PURE__ */ new Set();
 function transition_in(block, local) {
   if (block && block.i) {
     outroing.delete(block);
@@ -769,12 +769,12 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
                 live: true,
                 keyPair: this.keyPair
               };
-              this.streams = new Set();
-              this.peers = new Set();
-              this._joined = new Set();
-              this._flushed = new Set();
-              this._configurations = new Map();
-              this._extensions = new Set();
+              this.streams = /* @__PURE__ */ new Set();
+              this.peers = /* @__PURE__ */ new Set();
+              this._joined = /* @__PURE__ */ new Set();
+              this._flushed = /* @__PURE__ */ new Set();
+              this._configurations = /* @__PURE__ */ new Map();
+              this._extensions = /* @__PURE__ */ new Set();
               this._streamsProcessing = 0;
               this._streamsProcessed = 0;
               this.swarm = null;
@@ -1027,7 +1027,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               this.networker = networker;
               this.name = name;
               this.encoding = codecs(opts && opts.encoding || "binary");
-              this._peerExtensions = new Map();
+              this._peerExtensions = /* @__PURE__ */ new Map();
               this.onmessage = opts.onmessage;
               this.onerror = opts.onerror;
             }
@@ -1669,9 +1669,9 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               this._createConnection = createConnection;
               this._mmstOpts = mmstOpts;
               this._strict = strict;
-              this._channels = new Map();
-              this._mmsts = new Map();
-              this._candidates = new Map();
+              this._channels = /* @__PURE__ */ new Map();
+              this._mmsts = /* @__PURE__ */ new Map();
+              this._candidates = /* @__PURE__ */ new Map();
               this._scheduler = new Scheduler();
               this[kOnConnected] = this[kOnConnected].bind(this);
             }
@@ -1936,7 +1936,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       }
       module2.exports = class Scheduler {
         constructor() {
-          this._tasks = new Map();
+          this._tasks = /* @__PURE__ */ new Map();
         }
         add(id, fn) {
           this._tasks.set(id, new Task(fn));
@@ -16638,7 +16638,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               this.store = this;
               this._parent = opts.parent;
               this._isNamespaced = !!opts.name;
-              this._openedCores = new Map();
+              this._openedCores = /* @__PURE__ */ new Map();
               var onfeed = (feed) => this.emit("feed", feed);
               var onerror = (err) => this.emit("error", err);
               this.inner.on("feed", onfeed);
@@ -23963,9 +23963,9 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           });
         };
       }
-      var anyMap = new WeakMap();
-      var eventsMap = new WeakMap();
-      var producersMap = new WeakMap();
+      var anyMap = /* @__PURE__ */ new WeakMap();
+      var eventsMap = /* @__PURE__ */ new WeakMap();
+      var producersMap = /* @__PURE__ */ new WeakMap();
       var anyProducer = Symbol("anyProducer");
       var resolvedPromise = Promise.resolve();
       var listenerAdded = Symbol("listenerAdded");
@@ -23983,7 +23983,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       function getListeners(instance2, eventName) {
         var events = eventsMap.get(instance2);
         if (!events.has(eventName)) {
-          events.set(eventName, new Set());
+          events.set(eventName, /* @__PURE__ */ new Set());
         }
         return events.get(eventName);
       }
@@ -23991,7 +23991,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
         var key = typeof eventName === "string" ? eventName : anyProducer;
         var producers = producersMap.get(instance2);
         if (!producers.has(key)) {
-          producers.set(key, new Set());
+          producers.set(key, /* @__PURE__ */ new Set());
         }
         return producers.get(key);
       }
@@ -24123,9 +24123,9 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           };
         }
         constructor() {
-          anyMap.set(this, new Set());
-          eventsMap.set(this, new Map());
-          producersMap.set(this, new Map());
+          anyMap.set(this, /* @__PURE__ */ new Set());
+          eventsMap.set(this, /* @__PURE__ */ new Map());
+          producersMap.set(this, /* @__PURE__ */ new Map());
         }
         on(eventName, listener) {
           assertEventName(eventName);
@@ -24909,7 +24909,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       function Events() {
       }
       if (Object.create) {
-        Events.prototype = Object.create(null);
+        Events.prototype = /* @__PURE__ */ Object.create(null);
         if (!new Events().__proto__)
           prefix = false;
       }
@@ -27371,7 +27371,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
         "%IteratorPrototype%": hasSymbols ? getProto(getProto([][Symbol.iterator]())) : undefined$1,
         "%JSON%": typeof JSON === "object" ? JSON : undefined$1,
         "%Map%": typeof Map === "undefined" ? undefined$1 : Map,
-        "%MapIteratorPrototype%": typeof Map === "undefined" || !hasSymbols ? undefined$1 : getProto(new Map()[Symbol.iterator]()),
+        "%MapIteratorPrototype%": typeof Map === "undefined" || !hasSymbols ? undefined$1 : getProto((/* @__PURE__ */ new Map())[Symbol.iterator]()),
         "%Math%": Math,
         "%Number%": Number,
         "%Object%": Object,
@@ -27384,7 +27384,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
         "%Reflect%": typeof Reflect === "undefined" ? undefined$1 : Reflect,
         "%RegExp%": RegExp,
         "%Set%": typeof Set === "undefined" ? undefined$1 : Set,
-        "%SetIteratorPrototype%": typeof Set === "undefined" || !hasSymbols ? undefined$1 : getProto(new Set()[Symbol.iterator]()),
+        "%SetIteratorPrototype%": typeof Set === "undefined" || !hasSymbols ? undefined$1 : getProto((/* @__PURE__ */ new Set())[Symbol.iterator]()),
         "%SharedArrayBuffer%": typeof SharedArrayBuffer === "undefined" ? undefined$1 : SharedArrayBuffer,
         "%String%": String,
         "%StringIteratorPrototype%": hasSymbols ? getProto(""[Symbol.iterator]()) : undefined$1,
@@ -28786,7 +28786,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           this._nextNamespace = 0;
           this.defaultCache = new NamespacedCache(this, this._nextNamespace++);
           this._stale = null;
-          this._fresh = new Map();
+          this._fresh = /* @__PURE__ */ new Map();
           this._freshByteSize = 0;
           this._staleByteSize = 0;
         }
@@ -28806,7 +28806,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           if (this.onEvict && this._staleByteSize > 0)
             this.onEvict(this._stale);
           this._stale = this._fresh;
-          this._fresh = new Map();
+          this._fresh = /* @__PURE__ */ new Map();
           this._staleByteSize = this._freshByteSize;
           this._freshByteSize = 0;
         }
@@ -29014,7 +29014,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
             keyPair
           } = _ref;
           this.stream = stream;
-          this.created = new Map();
+          this.created = /* @__PURE__ */ new Map();
           this.local = [null];
           this.remote = [null];
           this.noise = !(noise === false && encrypted === false);
@@ -32173,7 +32173,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       Peer.prototype._sendWantRange = function(s) {
         if (s.blocks) {
           if (!s.selected)
-            s.selected = new WeakSet();
+            s.selected = /* @__PURE__ */ new WeakSet();
           if (s.selected.has(this))
             return;
           s.selected.add(this);
@@ -33004,8 +33004,8 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               }
               this._corestore = defaultCorestore(storage, opts).namespace(MULTIFEED_NAMESPACE_PREFIX + this._rootKey.toString("hex"));
               this._handlers = opts.handlers || new MultifeedPersistence(this._corestore);
-              this._feedsByKey = new Map();
-              this._feedsByName = new Map();
+              this._feedsByKey = /* @__PURE__ */ new Map();
+              this._feedsByName = /* @__PURE__ */ new Map();
               this.ready = this.open.bind(this);
             }
             get key() {
@@ -33040,8 +33040,8 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               function onclose() {
                 if (--pending !== 0)
                   return;
-                self2._feedsByKey = new Map();
-                self2._feedsByName = new Map();
+                self2._feedsByKey = /* @__PURE__ */ new Map();
+                self2._feedsByName = /* @__PURE__ */ new Map();
                 self2._rootKey = null;
                 cb();
               }
@@ -33532,8 +33532,8 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               this._id = hcrypto.randomBytes(2).toString("hex");
               this.corestore = corestore;
               this.rootKey = rootKey;
-              this._feeds = new Map();
-              this._streams = new Map();
+              this._feeds = /* @__PURE__ */ new Map();
+              this._streams = /* @__PURE__ */ new Map();
               this._opts = opts;
               this.getFeed = opts.getFeed || this._getFeed.bind(this);
             }
@@ -33629,8 +33629,8 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
             constructor(networker) {
               this.networker = networker;
               this.corestore = networker.corestore;
-              this.muxers = new Map();
-              this.streamsByKey = new Map();
+              this.muxers = /* @__PURE__ */ new Map();
+              this.streamsByKey = /* @__PURE__ */ new Map();
               this._joinListener = this._onjoin.bind(this);
               this._leaveListener = this._onleave.bind(this);
               this.networker.on("handshake", this._joinListener);
@@ -33808,7 +33808,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               this._protocol = null;
               this._connection = null;
               this._topics = [];
-              this._connectedPeers = new Set();
+              this._connectedPeers = /* @__PURE__ */ new Set();
               this._seenPeers = [];
               this._autoconnect = autoconnect;
               this.destroyed = false;
@@ -33895,7 +33895,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
             }
             get connections() {
               if (!this._protocol)
-                return new Set();
+                return /* @__PURE__ */ new Set();
               return this._protocol.connections;
             }
             join(topic) {
@@ -34029,7 +34029,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               super({
                 emitClose: true
               });
-              this.connections = new Set();
+              this.connections = /* @__PURE__ */ new Set();
               this.setMaxListeners(256);
               pump(stream, lps.decode(), this, lps.encode(), stream, () => {
                 this._closeAllStreams();
@@ -36964,7 +36964,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
             concurrency: 1,
             timeout: queueTimeout
           });
-          this.connectedPeers = new Set();
+          this.connectedPeers = /* @__PURE__ */ new Set();
           this.hasConnectedFar = false;
           this.destroyed = false;
         }
@@ -37885,7 +37885,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       var nanoerror = require("nanoerror");
       exports2.encodeError = encodeError;
       exports2.decodeError = decodeError;
-      var errors = new Map();
+      var errors = /* @__PURE__ */ new Map();
       function createError(code, message) {
         exports2[code] = nanoerror(code, message);
       }
@@ -38070,7 +38070,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
                 valueEncoding: new Codec(valueEncoding)
               }));
               this[kEmittery] = new Emittery();
-              this[kActions] = new Map();
+              this[kActions] = /* @__PURE__ */ new Map();
               this._onError = onError;
               this.ee.on("error", (err) => {
                 this._onError(err);
@@ -38537,7 +38537,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           this[kInQueue] = fastq(this, inWorker, 256);
           this[kOutQueue] = fastq(this, outWorker, 256);
           this.setConcurrency(concurrency);
-          this[kRequests] = new Map();
+          this[kRequests] = /* @__PURE__ */ new Map();
           this[kIdGenerator] = new IdGenerator(() => this[kRequests].size + 1);
         }
         get codec() {
@@ -46413,7 +46413,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           this.maxSize = maxSize;
           this.close = close;
           this.gcable = new TOS();
-          this.entries = new Map();
+          this.entries = /* @__PURE__ */ new Map();
         }
         get size() {
           return this.entries.size;
@@ -50541,7 +50541,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           this._batchedNegotiation = false;
           this._queuedNegotiation = false;
           this._sendersAwaitingStable = [];
-          this._senderMap = new Map();
+          this._senderMap = /* @__PURE__ */ new Map();
           this._closingInterval = null;
           this._remoteTracks = [];
           this._remoteStreams = [];
@@ -50691,7 +50691,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
         }
         addTrack(track, stream2) {
           this._debug("addTrack()");
-          var submap = this._senderMap.get(track) || new Map();
+          var submap = this._senderMap.get(track) || /* @__PURE__ */ new Map();
           var sender = submap.get(stream2);
           if (!sender) {
             sender = this._pc.addTrack(track, stream2);
@@ -52055,7 +52055,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               this.metadata = metadata;
               this.simplePeer = simplePeer;
               this.requestTimeout = requestTimeout;
-              this[kPeers] = new Map();
+              this[kPeers] = /* @__PURE__ */ new Map();
               this[kConnectionsQueue] = fastq(this, worker, queueConcurrency);
               this[kDefineActions]();
               this[kDefineEvents]();
@@ -52608,12 +52608,12 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
         constructor() {
           var opts = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
           super(opts);
-          this._peersByTopic = new Map();
+          this._peersByTopic = /* @__PURE__ */ new Map();
         }
         addPeer(rpc, id, topic) {
           var topicStr = topic.toString("hex");
           var idStr = id.toString("hex");
-          var peers = this._peersByTopic.get(topicStr) || new Map();
+          var peers = this._peersByTopic.get(topicStr) || /* @__PURE__ */ new Map();
           peers.set(idStr, {
             rpc,
             id
@@ -52843,7 +52843,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
             this._onSignal = onSignal;
           this._requestTimeout = requestTimeout;
           this._rpcOpts = rpcOpts;
-          this.connections = new Set();
+          this.connections = /* @__PURE__ */ new Set();
         }
         addSocket(socket) {
           var _this = this;
@@ -57406,7 +57406,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       function isMapToString(value) {
         return ObjectToString(value) === "[object Map]";
       }
-      isMapToString.working = typeof Map !== "undefined" && isMapToString(new Map());
+      isMapToString.working = typeof Map !== "undefined" && isMapToString(/* @__PURE__ */ new Map());
       function isMap(value) {
         if (typeof Map === "undefined") {
           return false;
@@ -57417,7 +57417,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       function isSetToString(value) {
         return ObjectToString(value) === "[object Set]";
       }
-      isSetToString.working = typeof Set !== "undefined" && isSetToString(new Set());
+      isSetToString.working = typeof Set !== "undefined" && isSetToString(/* @__PURE__ */ new Set());
       function isSet(value) {
         if (typeof Set === "undefined") {
           return false;
@@ -57428,7 +57428,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       function isWeakMapToString(value) {
         return ObjectToString(value) === "[object WeakMap]";
       }
-      isWeakMapToString.working = typeof WeakMap !== "undefined" && isWeakMapToString(new WeakMap());
+      isWeakMapToString.working = typeof WeakMap !== "undefined" && isWeakMapToString(/* @__PURE__ */ new WeakMap());
       function isWeakMap(value) {
         if (typeof WeakMap === "undefined") {
           return false;
@@ -57439,7 +57439,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
       function isWeakSetToString(value) {
         return ObjectToString(value) === "[object WeakSet]";
       }
-      isWeakSetToString.working = typeof WeakSet !== "undefined" && isWeakSetToString(new WeakSet());
+      isWeakSetToString.working = typeof WeakSet !== "undefined" && isWeakSetToString(/* @__PURE__ */ new WeakSet());
       function isWeakSet(value) {
         return isWeakSetToString(value);
       }
@@ -57683,7 +57683,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
           function stylizeWithColor(str, styleType) {
             var style = inspect.styles[styleType];
             if (style) {
-              return "[" + inspect.colors[style][0] + "m" + str + "[" + inspect.colors[style][1] + "m";
+              return "\x1B[" + inspect.colors[style][0] + "m" + str + "\x1B[" + inspect.colors[style][1] + "m";
             } else {
               return str;
             }
@@ -58966,7 +58966,7 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
               this.applicationName = opts.applicationName || DEFAULT_APPLICATION_NAME;
               this._storage = opts.persist === false ? RAM : getNewStorage(this.applicationName);
               this.store = opts.corestore || new Corestore(this._storage, opts.corestoreOpts);
-              this.instances = new Map();
+              this.instances = /* @__PURE__ */ new Map();
               this.swarmOpts = opts.swarmOpts;
               this.opts = {
                 staticNoiseKey: opts.staticNoiseKey || false

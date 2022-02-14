@@ -51211,7 +51211,7 @@ var require_util3 = __commonJS({
     function stylizeWithColor(str, styleType) {
       var style = inspect.styles[styleType];
       if (style) {
-        return "[" + inspect.colors[style][0] + "m" + str + "[" + inspect.colors[style][1] + "m";
+        return "\x1B[" + inspect.colors[style][0] + "m" + str + "\x1B[" + inspect.colors[style][1] + "m";
       } else {
         return str;
       }
