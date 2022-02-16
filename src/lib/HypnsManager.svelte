@@ -6,6 +6,9 @@
 	import { bufftoHex } from './utils/index';
 	import { goto } from '$app/navigation';
 
+	import Modal from '$lib/graphics/Modal.svelte';
+	import QrCodeIcon from '$lib/graphics/QRCodeIcon.svelte';
+
 	export let rootCID;
 	export let wallet; // use the same wallet object that the proxcryptor is using, for convenience
 
@@ -14,8 +17,8 @@
 	let hypnsInstance, publish;
 
 	let myPublicKeyHex;
-	let connectJson;
 	let connectKeyPhrase = 'letsConnect';
+	let showQR;
 
 	let opts = {
 		persist: true,
@@ -52,10 +55,7 @@
 		const pk: Uint8Array = await wallet.proxcryptor.getPublicKey();
 		// convert to hex for hypercore-protocol
 		myPublicKeyHex = bufftoHex(pk);
-		connectJson = { pubKeyHex: myPublicKeyHex, connectKeyPhrase };
-	}
 
-	async function handleOpen() {
 		// take the wallet and pass it into hypns
 		console.log('Opening ', { myPublicKeyHex });
 
@@ -79,6 +79,7 @@
 		publish = () => {
 			hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
 		};
+		console.log('Opened ', { hypnsInstance });
 	}
 
 	// an open fn we can use everywhere
@@ -135,37 +136,43 @@
 	<div class="main">
 		{#if !hypnsNode}
 			Loading Hypns...
-		{:else}
-			{latestHypns ? 'Last Saved Root: ' + latestHypns : 'Connect to Pin to PiperNet'}
-			{#if !hypnsInstance}
-				<button on:click={handleOpen}>Pin to PiperNet</button>
-			{:else}
-				{#await hypnsInstance}
-					Loading instance...
-				{:then hypnsInstance}
+		{:else if hypnsInstance}
+			{#await hypnsInstance}
+				Loading instance...
+			{:then hypnsInstance}
+				<div style="display:flex; flex-direction:row; align-items: center;">
 					<h3>✔️ Connected to PiperNet</h3>
-					latestHypns: {latestHypns}<br />
-					{#if rootCID && rootCID?.toV1().toString() === latestHypns}
-						<h3>✔️ PiperNet up to date</h3>
-					{:else}
-						{#if !rootCID}
-							Save something feed
-						{:else}
-							<h3>⚠️ PiperNet needs updating</h3>
-						{/if}
-						<button on:click={handlePublish} disabled={!rootCID || !publish}>Publish Latest</button>
-					{/if}
+					<div class="scan-icon">
+						<QrCodeIcon bind:showQR>
+							<Modal bind:modal={showQR}>
+								<QRCode value={JSON.stringify({ pubKeyHex: myPublicKeyHex })}
+									>Others Scan this from their PeerPiper to Connect to You</QRCode
+								>
+							</Modal>
+						</QrCodeIcon>
+					</div>
+				</div>
+				<div>
+					{latestHypns ? 'Last Pinned: ' + latestHypns : ''}
+				</div>
+				{#if rootCID && rootCID?.toV1().toString() === latestHypns}
+					<h3>✔️ PiperNet up to date</h3>
+				{:else if rootCID}
+					<h3>
+						⚠️ PiperNet needs updating <button
+							on:click={handlePublish}
+							disabled={!rootCID || !publish}>Update</button
+						>
+					</h3>
+				{/if}
 
-					<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> 
+				<!-- <smaller>hypns://{publicKeyHex?.toUpperCase()}</smaller><br /> 
 					Connect with others: [<a href="{location.origin + location.pathname}?add={myPublicKeyHex}"
 						>Link</a
 					>] <QRCode value={`${location.origin + location.pathname}?add=${myPublicKeyHex}`}>
 						[ Add to Contacts]
 					</QRCode>-->
-
-					<QRCode value={JSON.stringify({ pubKeyHex: myPublicKeyHex })}>[ Link to Others]</QRCode>
-				{/await}
-			{/if}
+			{/await}
 		{/if}
 	</div>
 {/if}
@@ -173,25 +180,23 @@
 <slot />
 
 <style>
-	.main {
-		width: 80%;
-		max-width: var(--column-width);
-		margin: var(--column-margin-top);
-		line-height: 1;
-	}
-
 	div.main {
+		display: block;
 		border: 1px solid rgb(196, 196, 196);
-		border-radius: 4px;
-		background-color: lightgreen;
-		padding: 1.62em;
+		background-color: rgb(15, 15, 15);
 		overflow-wrap: break-word;
 		word-break: break-word;
+		width: 100%;
+		padding: var(--column-margin-top);
+		color: aliceblue;
 	}
 
 	button {
 		margin: 1.62em;
 		padding: 1.62em;
 		background-color: green;
+	}
+	.scan-icon {
+		margin: 0.1em 0.5em;
 	}
 </style>

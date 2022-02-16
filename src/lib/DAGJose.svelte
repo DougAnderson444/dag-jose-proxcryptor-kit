@@ -6,7 +6,6 @@
 	import Basic from './templates/Basic/Profile.svelte';
 	import Contacts from './templates/Contacts/_Contacts.svelte';
 
-	import ShowRoot from './components/ShowRoot.svelte';
 	import Common from './Common.svelte';
 
 	export let rootCID;
@@ -152,8 +151,6 @@
 <div class="main">
 	{#if proxcryptor && loaded}
 		<div class="">
-			<ShowRoot {rootCID} />
-
 			<!-- <Basic on:handleSubmit={handleSubmit} {getTagNode} {decrypt} /> -->
 			<!-- <Contacts
 				on:handleSubmit={handleSubmit}

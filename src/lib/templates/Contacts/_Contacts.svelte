@@ -7,8 +7,6 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
-	import Search from './Search.svelte';
-
 	import { validatePubKey } from '$lib/utils/index';
 
 	import ContactCard from './ContactCard.svelte';

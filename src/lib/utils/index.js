@@ -20,13 +20,19 @@ export function bufftoHex(buffer) {
 }
 
 export function validatePubKey(pubKey) {
+	console.log('Validating', { pubKey });
+
 	if (!pubKey) return;
 
 	// base64 / base64URL
-	let pubKeyBytes = b64.toByteArray(pubKey);
+	try {
+		let pubKeyBytes = b64.toByteArray(pubKey);
 
-	if (pubKeyBytes.length === PUBLIC_KEY_BYTES) {
-		return pubKeyBytes;
+		if (pubKeyBytes.length === PUBLIC_KEY_BYTES) {
+			return pubKeyBytes;
+		}
+	} catch (error) {
+		console.log('Not base 64');
 	}
 
 	// base58 / base58BTC
@@ -35,7 +41,9 @@ export function validatePubKey(pubKey) {
 		if (b58Bytes.length === PUBLIC_KEY_BYTES) {
 			return b58Bytes;
 		}
-	} catch (error) {}
+	} catch (error) {
+		console.log('Not base 58');
+	}
 
 	// hex
 	const fromHexString = (hexString) =>
@@ -45,6 +53,8 @@ export function validatePubKey(pubKey) {
 	if (hexb58Bytes.length === PUBLIC_KEY_BYTES) {
 		return hexb58Bytes;
 	}
+
+	console.warn('Not any supported encodings :( ');
 
 	return false;
 }

@@ -1,15 +1,18 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
 	export let modal;
 	$: modal && console.log({ modal });
 
+	const dispatch = createEventDispatcher();
 	const handleClose = () => {
 		modal = false;
 		console.log('Closing', { modal });
+		dispatch('closeModal', null);
 	};
 </script>
 
 <!-- The Modal -->
-<div id="myModal" class:modal class:hide={!modal}>
+<div class:modal class:hide={!modal}>
 	<!-- Modal content -->
 	<div class="modal-content">
 		<span class="close" on:click={handleClose}>&times;</span>
@@ -51,8 +54,10 @@
 	.close {
 		color: #aaa;
 		float: right;
-		font-size: 28px;
+		font-size: 3.5em;
 		font-weight: bold;
+		line-height: 0.5;
+		padding: 0.25em;
 	}
 
 	.close:hover,

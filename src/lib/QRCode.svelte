@@ -20,22 +20,22 @@
 	<div class="qr-slot">
 		<slot>[QR Code]</slot>
 	</div>
-	<br />
-
 	<canvas hidden={!visible} transition:fade bind:this={canvas} />
 </div>
 
 <style>
 	.wrapper {
-		display: block;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
 	}
 	canvas {
 		border: 1px solid black;
 		z-index: 1;
-		width: 100%;
-		height: 100%;
+		margin: 10% auto;
 	}
 	div.qr-slot {
 		display: inline-block;
+		color: black;
 	}
 </style>

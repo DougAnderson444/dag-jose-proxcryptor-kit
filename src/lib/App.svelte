@@ -3,13 +3,15 @@
 
 	import DagJose from './DAGJose.svelte';
 	import HypnsManager from './HypnsManager.svelte';
+	import Contacts from '$lib/templates/Contacts/Contacts.svelte';
 
 	import { Components } from '$lib/components/index';
+	import ShowRoot from './components/ShowRoot.svelte';
 
 	export let wallet = null;
 	export let rootCID = null;
 
-	let active = Components['Contacts']; // needs to open on contacts so that they are loaded into the svelte store $contacts
+	let active = Components['Profile']; // needs to open on contacts so that they are loaded into the svelte store $contacts
 
 	let inputUrl = 'https://peerpiper.github.io/iframe-wallet-engine'; // = 'https://wallet.peerpiper.io/'; // can be changed by any user
 
@@ -36,17 +38,24 @@
 
 		async function loadIPFS() {
 			// setup IPFS
+
+			// const IPFSmodule = await import('ipfs-browser-global');
+			// CID = IPFSmodule.CID;
+			// const config = {};
+			// await IPFSmodule.default(config);
+			// @ts-ignore
+			// console.log({ ipfs }, { IPFSmodule });
+			// @ts-ignore
+			// ipfsNode = ipfs;
+
+			// setup IPFS
 			const IPFSmodule = await import('../modules/ipfs-core-0.14.0/ipfs-core.js');
 			const IPFS = IPFSmodule.default;
-
 			CID = IPFS.CID;
-
 			ipfsNode = await IPFS.create({
 				// repo: 'dag-jose-proxcryptor'
 			});
-
 			console.log(`Loaded in ${(Date.now() - start) / 1000}s`, { ipfsNode });
-
 			const identity = await ipfsNode.id();
 			nodeId = identity.id;
 			console.info('NodeId', nodeId);
@@ -64,6 +73,9 @@
 		Loading Web3 Wallet...<br />
 	{/if}
 
+	<!-- When there is data saved to ILPD, why not save it to PipeNet?  -->
+	<HypnsManager {wallet} {rootCID} bind:openHypns />
+
 	<div>
 		<select bind:value={active} class="form-control">
 			{#each Object.entries(Components) as [key, value]}
@@ -71,6 +83,7 @@
 			{/each}
 		</select>
 	</div>
+	<ShowRoot {rootCID} />
 
 	<!-- Then you need a way to encrypt/decrypt the data to IPLD  -->
 	{#if wallet && wallet.proxcryptor && ipfsNode && CID}
@@ -100,12 +113,34 @@
 				{decryptFromTagNode}
 			/>
 		</DagJose>
+
+		<DagJose
+			proxcryptor={wallet.proxcryptor}
+			{ipfsNode}
+			{CID}
+			bind:rootCID
+			tag={'Contacts'}
+			{onSubmitted}
+			let:decryptedData
+			let:getTagNodes
+			let:checkAccess
+			let:setAccess
+			let:handleSubmit
+			let:decryptFromTagNode
+		>
+			<!-- Every page needs contacts, that's kinda the point of this app  -->
+			<Contacts
+				{getTagNodes}
+				{openHypns}
+				{checkAccess}
+				{decryptedData}
+				{decryptFromTagNode}
+				on:handleSubmit={handleSubmit}
+			/>
+		</DagJose>
 	{:else}
 		Loading IPFS...<br />
 	{/if}
-
-	<!-- When there is data saved to ILPD, why not save it to PipeNet?  -->
-	<HypnsManager {wallet} {rootCID} bind:openHypns />
 </div>
 
 <style>

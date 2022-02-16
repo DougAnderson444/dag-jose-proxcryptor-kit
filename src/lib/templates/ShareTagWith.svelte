@@ -1,5 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
+	import '$lib/search.css';
+	import ShareIcon from '$lib/graphics/ShareIcon.svelte';
 
 	//pass in props about what is being shared
 	export let tag;
@@ -25,7 +27,13 @@
 </script>
 
 <div>
-	Share {tag} With: <input bind:value placeholder="Enter Handle or Public Key" />
+	<div class="share">
+		<div class="share-item">
+			<ShareIcon />
+		</div>
+
+		<input class="share-item" bind:value placeholder="Share {tag} with:" />
+	</div>
 	<div>
 		{#if target}
 			✔️ Matched {target.handle} <button on:click={handleGrantAccess}>Grant Access</button>
@@ -44,4 +52,17 @@
 </div>
 
 <style>
+	.share {
+		padding: 1em;
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+	}
+	.share-item {
+		margin: 0.5em;
+	}
+	input {
+		width: 100%;
+	}
 </style>

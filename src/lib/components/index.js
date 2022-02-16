@@ -1,10 +1,10 @@
-import Contacts from '$lib/templates/Contacts/Contacts.svelte';
+import ShowContacts from '$lib/templates/Contacts/ShowContacts.svelte';
 import Profile from '$lib/templates/Basic/Profile.svelte';
 
-const CONTACTS = 'Contacts';
+const CONTACTS = 'Show Contacts';
 const PROFILE = 'Profile';
 
 export const Components = {
-	[CONTACTS]: { name: CONTACTS, component: Contacts, tag: CONTACTS },
-	[PROFILE]: { name: PROFILE, component: Profile, tag: PROFILE }
+	[PROFILE]: { name: PROFILE, component: Profile, tag: PROFILE },
+	[CONTACTS]: { name: CONTACTS, component: ShowContacts, tag: CONTACTS }
 };

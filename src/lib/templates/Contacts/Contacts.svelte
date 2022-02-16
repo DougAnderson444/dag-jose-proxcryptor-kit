@@ -7,8 +7,6 @@
 	import { slide } from 'svelte/transition';
 	import { quintOut } from 'svelte/easing';
 
-	import Search from './Search.svelte';
-
 	import { validatePubKey } from '$lib/utils/index';
 
 	import ContactCard from './ContactCard.svelte';
@@ -22,8 +20,7 @@
 	import { Scanner } from 'qrcode-scanner-svelte';
 	import ScanIcon from '$lib/graphics/scanIcon.svelte';
 	import Modal from '$lib/graphics/Modal.svelte';
-	import QrCodeIcon from '$lib/graphics/QRCodeIcon.svelte';
-	import QRCode from '../../QRCode.svelte';
+	import Search from '$lib/components/nav/Search.svelte';
 
 	// Component props passed in from Parent Component
 	// will also reactively update if updated in parent
@@ -34,6 +31,7 @@
 	export let decryptFromTagNode;
 
 	$: if (decryptedData) $contacts = decryptedData;
+	$: $contacts && console.log($contacts);
 
 	const dispatch = createEventDispatcher();
 
@@ -42,11 +40,13 @@
 	let schema;
 	let handle, pubKey, pubKeyInput;
 	let tagNode;
-	let valid;
 	let submitting;
 	let mounted;
 	let scan;
-	let showQR;
+	let stopMediaStream;
+	$: selected = scan ? Scanner : null;
+	$: selected && console.log({ selected });
+	$: scan && console.log({ scan });
 
 	onMount(async () => {
 		// check if this is a search params loaded page
@@ -68,30 +68,20 @@
 		submitting = false;
 		handle = '';
 		pubKey = '';
-		valid = false;
 	}
 
-	function handleValidate() {
-		console.log(`Validating ${pubKey}`);
-
-		if (!pubKey) return; // TODO: Handle better
+	async function handleAddContact(pK = pubKey, name = handle) {
+		console.log('Adding ', { name }, { pK });
+		if (!name || !pK) return; // TODO: Handle better
 		// <!-- defined by schema -->
-		if (validatePubKey(pubKey)) valid = true;
-		else valid = false;
-	}
-
-	async function handleAddContact() {
-		console.log('Adding ', { handle }, { pubKey });
-		if (!handle || !pubKey) return; // TODO: Handle better
-		// <!-- defined by schema -->
-		const bytes = validatePubKey(pubKey);
+		const bytes = validatePubKey(pK);
 		console.log('Adding bytes', { bytes });
 
 		let value;
 
 		if (decryptedData && decryptedData.length)
-			value = [...decryptedData, { handle, pubKey: new Uint8Array(bytes) }];
-		else value = [{ handle, pubKey: new Uint8Array(bytes) }];
+			value = [...decryptedData, { handle: name, pubKey: new Uint8Array(bytes) }];
+		else value = [{ handle: name, pubKey: new Uint8Array(bytes) }];
 
 		console.log('Adding value', { value });
 		submitting = true;
@@ -105,71 +95,14 @@
 		console.log("Setting pubKey to rx'd msg value");
 		pubKey = event.detail.pubKeyHex;
 	}
+	function handleModalClose() {
+		console.log('Got close modal');
+		scan = false;
+		// selected?.stopMediaStream();
+		// selected = null;
+		console.log({ scan }, { selected });
+	}
 </script>
-
-<div transition:slide={{ delay: 100, duration: 400, easing: quintOut }}>
-	<div class="data-entry">
-		<h1 class="tag">{tag}</h1>
-		<div class="tag keywords">
-			<input bind:value={schema} placeholder="publicKey friends contacts" disabled />
-		</div>
-
-		<div class="item">
-			<div class="entry-item">
-				<input
-					placeholder="Paste or Scan Public Key"
-					bind:this={pubKeyInput}
-					bind:value={pubKey}
-					on:input={handleValidate}
-					on:change={handleValidate}
-					on:focus={handleValidate}
-				/>{valid ? '✔️ Valid Public Key' : ''}
-				<div class="scan-icon">
-					<ScanIcon bind:scan>
-						<Modal bind:modal={scan}>
-							<Scanner
-								bind:result={pubKey}
-								on:successfulScan={(data) => {
-									scan = false;
-									const parsed = JSON.parse(data.detail);
-									console.log(`Scanned `, { parsed });
-									handleConnect(parsed.pubKeyHex);
-								}}
-							>
-								<!-- null -->
-								<div />
-							</Scanner>
-						</Modal>
-					</ScanIcon>
-				</div>
-				<div class="scan-icon">
-					<QrCodeIcon bind:showQR>
-						<Modal bind:modal={showQR}>
-							<QRCode value={JSON.stringify({ connectJson: 'test' })}
-								>Others Scan this from their PeerPiper to Connect to You</QRCode
-							>
-						</Modal>
-					</QrCodeIcon>
-				</div>
-			</div>
-			<!-- <Search bind:handle bind:pubKey /> -->
-		</div>
-		{#if valid}
-			<h1>Add Nickname</h1>
-			<label for="handle"> Handle: </label>
-			<input bind:value={handle} id="handle" />
-		{/if}
-		<div class="submit">
-			<label for="preview">
-				<!-- <input type="checkbox" bind:checked={preview} /> Preview Final -->
-			</label>
-			<!-- <button on:click|preventDefault={mde.externalUpdate}>Clear</button> -->
-			<button on:click|preventDefault={handleAddContact} disabled={!handle || !pubKey || submitting}
-				>Save</button
-			>
-		</div>
-	</div>
-</div>
 
 {#if decryptedData}
 	<!-- defined by schema -->
@@ -201,8 +134,42 @@
 		</div>
 	{/each}
 {/if}
+<div class="searchBar">
+	<div class="scan-icon" style="width: 100%">
+		<Search bind:handle bind:pubKey {handleAddContact} />
+	</div>
+	<div class="scan-icon">
+		<ScanIcon
+			{scan}
+			on:click={() => {
+				console.log('scan clicked');
+				scan = true;
+			}}
+		>
+			<Modal modal={scan} on:closeModal={handleModalClose}>
+				<svelte:component
+					this={selected}
+					bind:result={pubKey}
+					on:successfulScan={(data) => {
+						const parsed = JSON.parse(data.detail);
+						console.log(`Scanned `, { parsed });
+						handleConnect(parsed.pubKeyHex);
+						scan = false;
+					}}
+				/>
+			</Modal>
+		</ScanIcon>
+	</div>
+</div>
 
 <style>
+	.searchBar {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: nowrap;
+	}
 	.card-container {
 		margin: 1em 0;
 	}
@@ -227,6 +194,8 @@
 		flex-wrap: nowrap;
 		align-items: center;
 		flex-direction: row;
+		width: 100%;
+		justify-content: space-between;
 	}
 	.scan-icon {
 		margin: 1em 0 1em 1em;

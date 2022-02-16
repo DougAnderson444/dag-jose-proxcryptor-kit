@@ -1,9 +1,16 @@
 <script>
-	// export let scan;
-	export let scan = false;
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatch = createEventDispatcher();
+
+	export let scan;
+	function handleClick(e) {
+		scan = true;
+		dispatch('click', true);
+	}
 </script>
 
-<div on:click={() => (scan = true)}>
+<div on:click={handleClick}>
 	<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 39.69 39.69"
 		><path
 			fill="#fff"
