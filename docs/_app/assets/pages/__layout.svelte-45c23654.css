@@ -1,4 +1,4 @@
-/* @import '@fontsource/fira-mono'; */
+svg.svelte-1es2uhx{width:auto;height:2em;display:block}.menu.svelte-1w9krkj{display:flex;flex-direction:row;background-color:black;justify-content:space-evenly;align-items:center;padding:0.7em 0.2em}.menu-item.svelte-1w9krkj{margin:0.25em}/* @import '@fontsource/fira-mono'; */
 
 :root {
 	font-family: Arial, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
@@ -98,9 +98,37 @@ div {
 	/* word-break: break-word; */
 }
 
+button {
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	width: fit-content;
+	/* margin-left: auto; */
+	/* margin-top: 0.5em; */
+	/* margin-bottom: 1em; */
+	border-radius: 2px;
+	filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.1));
+}
+
+button.yellow {
+	background-color: rgb(230, 208, 10, 0.82);
+}
+
+button.ready {
+	background-color: rgb(47, 137, 255, 0.82);
+}
+
+button.green {
+	background-color: #4caf50;
+}
+
 @media (min-width: 720px) {
 	h1 {
 		font-size: 2.4rem;
 	}
 }
-:root{--column-width:42rem;--column-margin-top:4rem}main.svelte-94h0tv.svelte-94h0tv{flex:1;display:flex;flex-direction:column;padding:1rem;width:100%;max-width:1024px;margin:0 auto;box-sizing:border-box}footer.svelte-94h0tv.svelte-94h0tv{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:40px}footer.svelte-94h0tv a.svelte-94h0tv{font-weight:bold}@media(min-width: 480px){:root{--column-margin-top:1.1rem}footer.svelte-94h0tv.svelte-94h0tv{padding:40px 0}}
+:root{--column-width:42rem;--column-margin-top:4rem}main.svelte-1r86zn0.svelte-1r86zn0{flex:1;display:flex;flex-direction:column;width:100%;margin:0 auto;box-sizing:border-box}footer.svelte-1r86zn0.svelte-1r86zn0,footer.svelte-1r86zn0 p.svelte-1r86zn0{display:flex;flex-direction:column;justify-content:center;align-items:center;width:100%;background-color:black;color:#2ec73d}footer.svelte-1r86zn0 a.svelte-1r86zn0{font-weight:bold;margin:auto 0.4em;display:contents}.tagline.svelte-1r86zn0.svelte-1r86zn0{display:flex}@media(min-width: 480px){:root{--column-margin-top:1.1rem}}

@@ -4,6 +4,10 @@ import adapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import mm from 'micromatch';
 
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { esbuildCommonjs, viteCommonjs } from '@originjs/vite-plugin-commonjs';
+
 const dev = process.env.NODE_ENV === 'development';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -24,6 +28,14 @@ const config = {
 		vite: () => ({
 			build: {
 				rollupOptions: {
+					plugins: [
+						nodeResolve({
+							browser: true,
+							preferBuiltins: false,
+							dedupe: ['svelte']
+						}),
+						commonjs()
+					],
 					// https://rollupjs.org/guide/en/#big-list-of-options
 					output: {
 						minifyInternalExports: false,
@@ -40,6 +52,9 @@ const config = {
 			optimization: {
 				minimize: false
 			},
+			plugins: [
+				// viteCommonjs()
+			],
 			server: {
 				fs: {
 					// Allow serving files from levels up to the project root

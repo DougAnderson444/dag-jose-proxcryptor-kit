@@ -29,7 +29,7 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-import { SvelteComponent, init, safe_not_equal, element, claim_element, children, detach, attr, set_style, insert_hydration, text, claim_text, set_data, space, empty, claim_space, group_outros, transition_out, check_outros, transition_in, setContext, afterUpdate, onMount, create_component, claim_component, mount_component, get_spread_update, get_spread_object, destroy_component, assign, writable, tick } from "./chunks/vendor-87cb2300.js";
+import { SvelteComponent, init, safe_not_equal, element, claim_element, children, detach, attr, set_style, insert_hydration, text, claim_text, set_data, space, empty, claim_space, group_outros, transition_out, check_outros, transition_in, setContext, afterUpdate, onMount, create_component, claim_component, mount_component, get_spread_update, get_spread_object, destroy_component, assign, writable, tick } from "./chunks/vendor-0410968b.js";
 import { __vitePreload, init as init$1 } from "./chunks/singletons-f3a0af73.js";
 function create_else_block_1(ctx) {
   let switch_instance;
@@ -732,12 +732,15 @@ class Root extends SvelteComponent {
   }
 }
 const c = [
-  () => __vitePreload(() => import("./pages/__layout.svelte-b3e3dcd8.js"), true ? ["pages/__layout.svelte-b3e3dcd8.js","assets/pages/__layout.svelte-a04f3cc0.css","chunks/vendor-87cb2300.js","assets/vendor-1494a6c6.css"] : void 0),
-  () => __vitePreload(() => import("./error.svelte-a961fe10.js"), true ? ["error.svelte-a961fe10.js","chunks/vendor-87cb2300.js","assets/vendor-1494a6c6.css"] : void 0),
-  () => __vitePreload(() => import("./pages/index.svelte-f7cee1ba.js"), true ? ["pages/index.svelte-f7cee1ba.js","chunks/vendor-87cb2300.js","assets/vendor-1494a6c6.css","chunks/index-1def2b07.js","assets/index-171c75e4.css","chunks/singletons-f3a0af73.js"] : void 0)
+  () => __vitePreload(() => import("./pages/__layout.svelte-611790c9.js"), true ? ["pages/__layout.svelte-611790c9.js","assets/pages/__layout.svelte-45c23654.css","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css"] : void 0),
+  () => __vitePreload(() => import("./error.svelte-74810df2.js"), true ? ["error.svelte-74810df2.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css"] : void 0),
+  () => __vitePreload(() => import("./pages/index.svelte-9621691c.js"), true ? ["pages/index.svelte-9621691c.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css","chunks/index-18c330cc.js","assets/index-02eec171.css","chunks/singletons-f3a0af73.js","chunks/stores-7187c4f5.js"] : void 0),
+  () => __vitePreload(() => import("./pages/_tag_.svelte-578ba91d.js"), true ? ["pages/_tag_.svelte-578ba91d.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css","chunks/stores-7187c4f5.js"] : void 0)
 ];
+const d = decodeURIComponent;
 const routes = [
-  [/^\/$/, [c[0], c[2]], [c[1]]]
+  [/^\/$/, [c[0], c[2]], [c[1]]],
+  [/^\/([^/]+?)\/?$/, [c[0], c[3]], [c[1]], (m) => ({ tag: d(m[1]) })]
 ];
 const fallback = [c[0](), c[1]()];
 function get_base_uri(doc) {
@@ -791,6 +794,7 @@ class Router {
     if (this.current_history_index === 0) {
       history.replaceState(__spreadProps(__spreadValues({}, history.state), { "sveltekit:index": 0 }), "", location.href);
     }
+    this.hash_navigating = false;
     this.callbacks = {
       before_navigate: [],
       after_navigate: []
@@ -874,7 +878,7 @@ class Router {
         return;
       const [base2, hash2] = url.href.split("#");
       if (hash2 !== void 0 && base2 === location.href.split("#")[0]) {
-        setTimeout(() => history.pushState({}, "", url.href));
+        this.hash_navigating = true;
         const info = this.parse(url);
         if (info) {
           return this.renderer.update(info, [], false);
@@ -912,6 +916,12 @@ class Router {
             history.go(delta);
           }
         });
+      }
+    });
+    addEventListener("hashchange", () => {
+      if (this.hash_navigating) {
+        this.hash_navigating = false;
+        history.replaceState(__spreadProps(__spreadValues({}, history.state), { "sveltekit:index": ++this.current_history_index }), "", location.href);
       }
     });
   }
@@ -1105,7 +1115,7 @@ function notifiable_store(value) {
 }
 function create_updated_store() {
   const { set, subscribe } = writable(false);
-  const initial = "1644846816529";
+  const initial = "1645046381824";
   let timeout;
   async function check() {
     clearTimeout(timeout);
@@ -1556,9 +1566,9 @@ class Renderer {
           if (changed_since_last_render) {
             let props = {};
             if (has_shadow && i === a.length - 1) {
-              const res = await fetch(`${url.pathname}${url.pathname.endsWith("/") ? "" : "/"}__data.json`, {
+              const res = await fetch(`${url.pathname}${url.pathname.endsWith("/") ? "" : "/"}__data.json${url.search}`, {
                 headers: {
-                  "x-sveltekit-noredirect": "true"
+                  "x-sveltekit-load": "true"
                 }
               });
               if (res.ok) {
@@ -1717,4 +1727,4 @@ async function start({ paths, target, session, route, spa, trailing_slash, hydra
   dispatchEvent(new CustomEvent("sveltekit:start"));
 }
 export { start };
-//# sourceMappingURL=start-a4610664.js.map
+//# sourceMappingURL=start-2dd9f6b7.js.map

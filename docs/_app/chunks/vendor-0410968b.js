@@ -1,3 +1,19 @@
+function _mergeNamespaces(n, m) {
+  m.forEach(function(e) {
+    e && typeof e !== "string" && !Array.isArray(e) && Object.keys(e).forEach(function(k) {
+      if (k !== "default" && !(k in n)) {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function() {
+            return e[k];
+          }
+        });
+      }
+    });
+  });
+  return Object.freeze(n);
+}
 function noop() {
 }
 const identity = (x) => x;
@@ -840,7 +856,7 @@ function create_bidirectional_transition(node, fn, params, intro) {
 }
 function handle_promise(promise2, info) {
   const token = info.token = {};
-  function update2(type, index, key, value) {
+  function update2(type, index2, key, value) {
     if (info.token !== token)
       return;
     info.resolved = value;
@@ -854,7 +870,7 @@ function handle_promise(promise2, info) {
     if (info.block) {
       if (info.blocks) {
         info.blocks.forEach((block2, i) => {
-          if (i !== index && block2) {
+          if (i !== index2 && block2) {
             group_outros();
             transition_out(block2, 1, 1, () => {
               if (info.blocks[i] === block2) {
@@ -874,7 +890,7 @@ function handle_promise(promise2, info) {
     }
     info.block = block;
     if (info.blocks)
-      info.blocks[index] = block;
+      info.blocks[index2] = block;
     if (needs_flush) {
       flush();
     }
@@ -953,10 +969,10 @@ function get_spread_object(spread_props) {
   return typeof spread_props === "object" && spread_props !== null ? spread_props : {};
 }
 function bind(component, name, callback) {
-  const index = component.$$.props[name];
-  if (index !== void 0) {
-    component.$$.bound[index] = callback;
-    callback(component.$$.ctx[index]);
+  const index2 = component.$$.props[name];
+  if (index2 !== void 0) {
+    component.$$.bound[index2] = callback;
+    callback(component.$$.ctx[index2]);
   }
 }
 function create_component(block) {
@@ -1061,9 +1077,9 @@ class SvelteComponent {
     const callbacks = this.$$.callbacks[type] || (this.$$.callbacks[type] = []);
     callbacks.push(callback);
     return () => {
-      const index = callbacks.indexOf(callback);
-      if (index !== -1)
-        callbacks.splice(index, 1);
+      const index2 = callbacks.indexOf(callback);
+      if (index2 !== -1)
+        callbacks.splice(index2, 1);
     };
   }
   $set($$props) {
@@ -2980,6 +2996,11 @@ ieee754.write = function(buffer2, value, offset, isLE, mLen, nBytes) {
     throw new Error("BigInt not supported");
   }
 })(buffer);
+var index = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ _mergeNamespaces({
+  __proto__: null,
+  [Symbol.toStringTag]: "Module",
+  "default": buffer
+}, [buffer]));
 /*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
 (function(module, exports) {
   var buffer$1 = buffer;
@@ -3289,9 +3310,9 @@ function BitBuffer$1() {
   this.length = 0;
 }
 BitBuffer$1.prototype = {
-  get: function(index) {
-    const bufIndex = Math.floor(index / 8);
-    return (this.buffer[bufIndex] >>> 7 - index % 8 & 1) === 1;
+  get: function(index2) {
+    const bufIndex = Math.floor(index2 / 8);
+    return (this.buffer[bufIndex] >>> 7 - index2 % 8 & 1) === 1;
   },
   put: function(num, length) {
     for (let i = 0; i < length; i++) {
@@ -3322,10 +3343,10 @@ function BitMatrix$1(size) {
   this.reservedBit = new Uint8Array(size * size);
 }
 BitMatrix$1.prototype.set = function(row, col, value, reserved) {
-  const index = row * this.size + col;
-  this.data[index] = value;
+  const index2 = row * this.size + col;
+  this.data[index2] = value;
   if (reserved)
-    this.reservedBit[index] = true;
+    this.reservedBit[index2] = true;
 };
 BitMatrix$1.prototype.get = function(row, col) {
   return this.data[row * this.size + col];
@@ -4298,13 +4319,13 @@ var alphanumericData = AlphanumericData;
 var encodeUtf8$1 = function encodeUtf8(input) {
   var result = [];
   var size = input.length;
-  for (var index = 0; index < size; index++) {
-    var point = input.charCodeAt(index);
-    if (point >= 55296 && point <= 56319 && size > index + 1) {
-      var second = input.charCodeAt(index + 1);
+  for (var index2 = 0; index2 < size; index2++) {
+    var point = input.charCodeAt(index2);
+    if (point >= 55296 && point <= 56319 && size > index2 + 1) {
+      var second = input.charCodeAt(index2 + 1);
       if (second >= 56320 && second <= 57343) {
         point = (point - 55296) * 1024 + second - 56320 + 65536;
-        index += 1;
+        index2 += 1;
       }
     }
     if (point < 128) {
@@ -4821,18 +4842,18 @@ function createCodewords(bitBuffer2, version2, errorCorrectionLevel2) {
     maxDataSize = Math.max(maxDataSize, dataSize);
   }
   const data = new Uint8Array(totalCodewords);
-  let index = 0;
+  let index2 = 0;
   let i, r;
   for (i = 0; i < maxDataSize; i++) {
     for (r = 0; r < ecTotalBlocks; r++) {
       if (i < dcData[r].length) {
-        data[index++] = dcData[r][i];
+        data[index2++] = dcData[r][i];
       }
     }
   }
   for (i = 0; i < ecCount; i++) {
     for (r = 0; r < ecTotalBlocks; r++) {
-      data[index++] = ecData[r][i];
+      data[index2++] = ecData[r][i];
     }
   }
   return data;
@@ -15475,9 +15496,14 @@ function instance$1($$self, $$props, $$invalidate) {
   let $stream;
   let $error;
   let $status;
-  component_subscribe($$self, stream, ($$value) => $$invalidate(1, $stream = $$value));
-  component_subscribe($$self, error, ($$value) => $$invalidate(2, $error = $$value));
-  component_subscribe($$self, status, ($$value) => $$invalidate(3, $status = $$value));
+  component_subscribe($$self, stream, ($$value) => $$invalidate(2, $stream = $$value));
+  component_subscribe($$self, error, ($$value) => $$invalidate(3, $error = $$value));
+  component_subscribe($$self, status, ($$value) => $$invalidate(4, $status = $$value));
+  onMount(() => {
+    return () => {
+      console.log("stop Component destroyed");
+    };
+  });
   const isMediaStream = (candidate) => candidate !== null && "getTracks" in candidate;
   function setStatus(params) {
     console.log(`Setting status ${params}`);
@@ -15508,18 +15534,20 @@ function instance$1($$self, $$props, $$invalidate) {
         setStatus("rejected");
       });
     };
-    const stopMediaStream = () => {
-      console.log("stopping media stream");
-      if (isMediaStream($stream)) {
-        $stream.getTracks().forEach((track) => {
-          track.stop();
-          $stream.removeTrack(track);
-        });
-        setStatus("stopped");
-      }
-    };
+    const stopMediaStream = stopMedia;
     return { stopMediaStream, startMediaStream };
   };
+  function stopMedia() {
+    console.log("stopping media stream");
+    if (isMediaStream($stream)) {
+      $stream.getTracks().forEach((track) => {
+        track.stop();
+        $stream.removeTrack(track);
+      });
+      console.log({ streams: $stream });
+      setStatus("stopped");
+    }
+  }
   return [useUserMedia];
 }
 class Use_usermedia extends SvelteComponent {
@@ -15604,8 +15632,8 @@ function create_fragment(ctx) {
     ctx[12](value);
   }
   let usermedia_props = {};
-  if (ctx[2] !== void 0) {
-    usermedia_props.useUserMedia = ctx[2];
+  if (ctx[4] !== void 0) {
+    usermedia_props.useUserMedia = ctx[4];
   }
   usermedia = new Use_usermedia({ props: usermedia_props });
   binding_callbacks.push(() => bind(usermedia, "useUserMedia", usermedia_useUserMedia_binding));
@@ -15668,7 +15696,7 @@ function create_fragment(ctx) {
       attr(video_1, "class", "scanner__video svelte-1jvnekp");
       attr(div0, "class", "scanner__aspect-ratio-container svelte-1jvnekp");
       attr(div2, "class", "scanner-tip svelte-1jvnekp");
-      attr(div3, "class", div3_class_value = null_to_empty(`scanner ${ctx[3] ? "" : "scanner--hidden"}`) + " svelte-1jvnekp");
+      attr(div3, "class", div3_class_value = null_to_empty(`scanner ${ctx[2] ? "" : "scanner--hidden"}`) + " svelte-1jvnekp");
     },
     m(target, anchor) {
       mount_component(usermedia, target, anchor);
@@ -15698,13 +15726,13 @@ function create_fragment(ctx) {
     },
     p(ctx2, [dirty]) {
       const usermedia_changes = {};
-      if (!updating_useUserMedia && dirty & 4) {
+      if (!updating_useUserMedia && dirty & 16) {
         updating_useUserMedia = true;
-        usermedia_changes.useUserMedia = ctx2[2];
+        usermedia_changes.useUserMedia = ctx2[4];
         add_flush_callback(() => updating_useUserMedia = false);
       }
       usermedia.$set(usermedia_changes);
-      if (!current || dirty & 8 && div3_class_value !== (div3_class_value = null_to_empty(`scanner ${ctx2[3] ? "" : "scanner--hidden"}`) + " svelte-1jvnekp")) {
+      if (!current || dirty & 4 && div3_class_value !== (div3_class_value = null_to_empty(`scanner ${ctx2[2] ? "" : "scanner--hidden"}`) + " svelte-1jvnekp")) {
         attr(div3, "class", div3_class_value);
       }
       if (default_slot) {
@@ -15759,32 +15787,32 @@ function instance($$self, $$props, $$invalidate) {
   component_subscribe($$self, error, ($$value) => $$invalidate(17, $error = $$value));
   let { $$slots: slots = {}, $$scope } = $$props;
   let { result = null } = $$props;
+  let { stopMediaStream = null } = $$props;
+  let startMediaStream;
   const dispatch2 = createEventDispatcher();
   let video = null;
   let canvas2 = null;
-  let stopMediaStream, startMediaStream;
   let useUserMedia;
-  let mounted;
-  onMount(async () => {
-    $$invalidate(7, mounted = true);
+  onMount(() => {
+    $$invalidate(6, { stopMediaStream, startMediaStream } = useUserMedia(), stopMediaStream, $$invalidate(7, startMediaStream));
+    return () => {
+      console.log("Component destroyed");
+      stopMediaStream();
+      $$invalidate(1, video.srcObject = null, video);
+    };
   });
   const startCapturing = () => {
-    console.log("Starting capture");
-    if (canvas2 === null || canvas2 === null || video === null || video === null) {
-      console.log("problem");
+    if (!canvas2 || !video)
       return;
-    }
     const context = canvas2.getContext("2d");
-    if (context === null) {
-      console.log("problem");
+    if (!context)
       return;
-    }
     const { width, height } = canvas2;
     context.drawImage(video, 0, 0, width, height);
     const imageData = context.getImageData(0, 0, width, height);
     const qrCode = jsQR(imageData.data, width, height);
     if (qrCode === null) {
-      console.log("problem");
+      console.log("timeout");
       setTimeout(startCapturing, 750);
     } else {
       $$invalidate(0, result = qrCode.data);
@@ -15798,8 +15826,8 @@ function instance($$self, $$props, $$invalidate) {
     if (canvas2 === null || canvas2 === null || video === null || video === null) {
       return;
     }
-    $$invalidate(4, canvas2.width = video.videoWidth, canvas2);
-    $$invalidate(4, canvas2.height = video.videoHeight, canvas2);
+    $$invalidate(3, canvas2.width = video.videoWidth, canvas2);
+    $$invalidate(3, canvas2.height = video.videoHeight, canvas2);
     if ($error !== null)
       ;
     else {
@@ -15808,12 +15836,12 @@ function instance($$self, $$props, $$invalidate) {
   };
   function usermedia_useUserMedia_binding(value) {
     useUserMedia = value;
-    $$invalidate(2, useUserMedia);
+    $$invalidate(4, useUserMedia);
   }
   function canvas_1_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
       canvas2 = $$value;
-      $$invalidate(4, canvas2);
+      $$invalidate(3, canvas2);
     });
   }
   function video_1_binding($$value) {
@@ -15826,16 +15854,14 @@ function instance($$self, $$props, $$invalidate) {
   $$self.$$set = ($$props2) => {
     if ("result" in $$props2)
       $$invalidate(0, result = $$props2.result);
+    if ("stopMediaStream" in $$props2)
+      $$invalidate(6, stopMediaStream = $$props2.stopMediaStream);
     if ("$$scope" in $$props2)
       $$invalidate(10, $$scope = $$props2.$$scope);
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & 1) {
-      $$invalidate(3, active2 = !result);
-    }
-    if ($$self.$$.dirty & 132) {
-      if (mounted)
-        $$invalidate(6, { stopMediaStream, startMediaStream } = useUserMedia(), startMediaStream);
+      $$invalidate(2, active2 = !result);
     }
     if ($$self.$$.dirty & 770) {
       if ($status === "resolved" && video !== null && $stream) {
@@ -15844,8 +15870,8 @@ function instance($$self, $$props, $$invalidate) {
         video.play().catch(console.error);
       }
     }
-    if ($$self.$$.dirty & 328) {
-      if (active2 && $status === "stopped") {
+    if ($$self.$$.dirty & 388) {
+      if (active2 && $status === "stopped" && startMediaStream) {
         startMediaStream();
       }
     }
@@ -15853,12 +15879,12 @@ function instance($$self, $$props, $$invalidate) {
   return [
     result,
     video,
-    useUserMedia,
     active2,
     canvas2,
+    useUserMedia,
     handleCanPlay,
+    stopMediaStream,
     startMediaStream,
-    mounted,
     $status,
     $stream,
     $$scope,
@@ -15872,8 +15898,8 @@ function instance($$self, $$props, $$invalidate) {
 class Scanner extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance, create_fragment, safe_not_equal, { result: 0 });
+    init(this, options, instance, create_fragment, safe_not_equal, { result: 0, stopMediaStream: 6 });
   }
 }
-export { HtmlTagHydration, Scanner, SvelteComponent, action_destroyer, add_flush_callback, add_render_callback, add_resize_listener, afterUpdate, append_hydration, assign, attr, base64Js, bind, binding_callbacks, browser, bs58, check_outros, children, claim_component, claim_element, claim_html_tag, claim_space, claim_svg_element, claim_text, commonjsGlobal, commonjsRequire, component_subscribe, createEventDispatcher, create_bidirectional_transition, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, fade, getAugmentedNamespace, getContext, get_all_dirty_from_scope, get_slot_changes, get_spread_object, get_spread_update, globals, group_outros, handle_promise, init, insert_hydration, is_function, listen, mount_component, noop, null_to_empty, onMount, prevent_default, query_selector_all, quintOut, run_all, safe_not_equal, select_option, select_value, setContext, set_data, set_input_value, set_store_value, set_style, slide, space, src_url_equal, svg_element, text, tick, toggle_class, transition_in, transition_out, update_await_block_branch, update_slot_base, writable, xlink_attr };
-//# sourceMappingURL=vendor-87cb2300.js.map
+export { HtmlTagHydration, Scanner, SvelteComponent, action_destroyer, add_flush_callback, add_render_callback, add_resize_listener, afterUpdate, append_hydration, assign, attr, base64Js, bind, binding_callbacks, browser, bs58, buffer, check_outros, children, claim_component, claim_element, claim_html_tag, claim_space, claim_svg_element, claim_text, commonjsGlobal, commonjsRequire, component_subscribe, createEventDispatcher, create_bidirectional_transition, create_component, create_slot, destroy_component, destroy_each, detach, element, empty, fade, getAugmentedNamespace, getContext, get_all_dirty_from_scope, get_slot_changes, get_spread_object, get_spread_update, globals, group_outros, handle_promise, ieee754, index, init, insert_hydration, is_function, listen, mount_component, noop, null_to_empty, onMount, prevent_default, query_selector_all, quintOut, run_all, safe_not_equal, select_option, select_value, setContext, set_data, set_input_value, set_store_value, set_style, slide, space, src_url_equal, svg_element, text, tick, toggle_class, transition_in, transition_out, update_await_block_branch, update_slot_base, writable, xlink_attr };
+//# sourceMappingURL=vendor-0410968b.js.map

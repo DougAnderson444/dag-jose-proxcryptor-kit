@@ -59227,9 +59227,8 @@ var hypnsBundle = createCommonjsModule(function(module, exports) {
                 var message = Buffer.from("any msg will do", "utf8");
                 var signature;
                 if (_this10.wallet) {
-                  signature = yield _this10.wallet.ed25519.sign(message);
-                  var maybeVerified = yield _this10.wallet.ed25519.verify(Buffer.from(_this10._keypair.publicKey, "hex"), message, Buffer.from(signature));
-                  return maybeVerified;
+                  var pk = yield _this10.wallet.getPublicKey();
+                  return !!pk;
                 } else {
                   if (!_this10._keypair.secretKey || Buffer.byteLength(_this10._keypair.secretKey, "hex") !== sodium.crypto_sign_SECRETKEYBYTES) {
                     return false;
@@ -59309,4 +59308,4 @@ class Component extends SvelteComponent {
   }
 }
 export { Component as default };
-//# sourceMappingURL=index-436b918d.js.map
+//# sourceMappingURL=index-be729d48.js.map
