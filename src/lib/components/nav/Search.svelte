@@ -10,39 +10,50 @@
 
 	let SNSWrapper;
 	let valid;
-	let pubKeyInput;
+	let inputElement;
 
-	$: value ? (handle = value) : null;
-	$: pubKey && console.log({ pubKey });
+	$: value && handleInput();
+	$: pubKey && handleValidate(pubKey);
 
 	onMount(async () => {
 		const Buffer = await import('buffer'); // Solana Web3.js uses Buffers instead of UInt8Array =/
 		global.Buffer = Buffer.Buffer;
+
+		const process = await import('process');
+		global.process = process;
 
 		({ SNSWrapper } = await import('@douganderson444/svelte-solana-name-service'));
 
 		let params = new URLSearchParams(location.search);
 		if (params.has('add')) {
 			pubKey = params.get('add');
-			pubKeyInput.focus();
+			inputElement.focus();
 		}
 	});
 
-	function handleValidate() {
-		console.log(`Validating ${value}`);
+	function handleInput() {
+		handle = value; // trigger check registry
+		// in the meantime, check whether this is a valid public key
+		handleValidate(value);
+	}
+
+	function handleValidate(value) {
+		// console.log(`Validating`, { value });
 
 		if (!value) return; // TODO: Handle better
 		// <!-- defined by schema -->
-		const valBytes = validatePubKey(value);
+		const valBytes = validatePubKey(value.toString());
+		// console.log({ valBytes });
 		if (valBytes) {
-			console.log('Valid', { value });
+			// console.log('Valid', { value: value.toString() });
 			valid = true;
-			pubKey = value;
+			pubKey = value.toString();
 		} else valid = false;
 	}
 </script>
 
 <svelte:head>
+	<!-- font awesome css  -->
 	<link
 		rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -62,16 +73,18 @@
 			class="searchTerm"
 			bind:value
 			placeholder="@handle or Public Key"
-			bind:this={pubKeyInput}
-			on:input={handleValidate}
-			on:change={handleValidate}
-			on:focus={handleValidate}
+			bind:this={inputElement}
+			on:input={handleInput}
+			on:change={handleInput}
+			on:focus={handleInput}
 		/>
 		<button type="submit" class="searchButton" on:click={() => {}}>
 			<i class="fa fa-search" />
 		</button>
 	</div>
-	{valid ? '✔️ Valid Public Key' : ''}
+	<div class="validity">
+		{valid ? '✔️ Valid ' + pubKey.toString() : ''}
+	</div>
 </div>
 
 {#if pubKey && valid}
@@ -79,6 +92,9 @@
 {/if}
 
 <style>
+	.validity {
+		margin: 0.25em 0;
+	}
 	input {
 		padding: 0.3em;
 		border-radius: 3px;
