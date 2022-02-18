@@ -40,7 +40,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@douganderson444/svelte-solana-name-service": "github:DougAnderson444/svelte-solana-name-service#76bb38262a8749dc443bd7b3d9af8ab95d900954",
+		"@douganderson444/svelte-solana-name-service": "github:DougAnderson444/svelte-solana-name-service",
 		"@ipld/dag-json": "^8.0.7",
 		"@peerpiper/svelte-web3-wallet-connector": "github:DougAnderson444/svelte-web3-wallet-connector",
 		"@stablelib/random": "^1.0.1",
@@ -51,7 +51,6 @@
 		"hypns-svelte-component": "github:DougAnderson444/hypns-svelte-component",
 		"immortal-db": "^1.1.0",
 		"ipfs-browser-global": "github:DougAnderson444/ipfs-browser-global",
-		"jsqr": "^1.4.0",
 		"qrcode": "^1.5.0",
 		"qrcode-scanner-svelte": "github:PeerPiper/qrcode-scanner-svelte"
 	}
