@@ -29,7 +29,21 @@ var __objRest = (source, exclude) => {
     }
   return target;
 };
-import { SvelteComponent, init, safe_not_equal, element, claim_element, children, detach, attr, set_style, insert_hydration, text, claim_text, set_data, space, empty, claim_space, group_outros, transition_out, check_outros, transition_in, setContext, afterUpdate, onMount, create_component, claim_component, mount_component, get_spread_update, get_spread_object, destroy_component, assign, writable, tick } from "./chunks/vendor-0410968b.js";
+var __accessCheck = (obj, member, msg) => {
+  if (!member.has(obj))
+    throw TypeError("Cannot " + msg);
+};
+var __privateAdd = (obj, member, value) => {
+  if (member.has(obj))
+    throw TypeError("Cannot add the same private member more than once");
+  member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
+};
+var __privateMethod = (obj, member, method) => {
+  __accessCheck(obj, member, "access private method");
+  return method;
+};
+var _update_scroll_positions, update_scroll_positions_fn;
+import { SvelteComponent, init, safe_not_equal, element, claim_element, children, detach, attr, set_style, insert_hydration, text, claim_text, set_data, space, empty, claim_space, group_outros, transition_out, check_outros, transition_in, setContext, afterUpdate, onMount, create_component, claim_component, mount_component, get_spread_update, get_spread_object, destroy_component, assign, writable, tick } from "./chunks/vendor-bb143dea.js";
 import { __vitePreload, init as init$1 } from "./chunks/singletons-f3a0af73.js";
 function create_else_block_1(ctx) {
   let switch_instance;
@@ -732,10 +746,10 @@ class Root extends SvelteComponent {
   }
 }
 const c = [
-  () => __vitePreload(() => import("./pages/__layout.svelte-611790c9.js"), true ? ["pages/__layout.svelte-611790c9.js","assets/pages/__layout.svelte-45c23654.css","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css"] : void 0),
-  () => __vitePreload(() => import("./error.svelte-74810df2.js"), true ? ["error.svelte-74810df2.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css"] : void 0),
-  () => __vitePreload(() => import("./pages/index.svelte-9621691c.js"), true ? ["pages/index.svelte-9621691c.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css","chunks/index-18c330cc.js","assets/index-02eec171.css","chunks/singletons-f3a0af73.js","chunks/stores-7187c4f5.js"] : void 0),
-  () => __vitePreload(() => import("./pages/_tag_.svelte-578ba91d.js"), true ? ["pages/_tag_.svelte-578ba91d.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css","chunks/stores-7187c4f5.js"] : void 0)
+  () => __vitePreload(() => import("./pages/__layout.svelte-928670df.js"), true ? ["pages/__layout.svelte-928670df.js","assets/pages/__layout.svelte-45c23654.css","chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css"] : void 0),
+  () => __vitePreload(() => import("./error.svelte-8854af65.js"), true ? ["error.svelte-8854af65.js","chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css"] : void 0),
+  () => __vitePreload(() => import("./pages/index.svelte-d6f532c5.js"), true ? ["pages/index.svelte-d6f532c5.js","chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css","chunks/index-65d5a0ec.js","assets/index-15c0bef7.css","chunks/singletons-f3a0af73.js","chunks/stores-67499347.js"] : void 0),
+  () => __vitePreload(() => import("./pages/_tag_.svelte-372fdb52.js"), true ? ["pages/_tag_.svelte-372fdb52.js","chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css","chunks/stores-67499347.js"] : void 0)
 ];
 const d = decodeURIComponent;
 const routes = [
@@ -766,6 +780,12 @@ function normalize_path(path, trailing_slash) {
   }
   return path;
 }
+const SCROLL_KEY = "sveltekit:scroll";
+let scroll_positions = {};
+try {
+  scroll_positions = JSON.parse(sessionStorage[SCROLL_KEY]);
+} catch {
+}
 function scroll_state() {
   return {
     x: pageXOffset,
@@ -781,6 +801,7 @@ function get_href(node) {
 }
 class Router {
   constructor({ base: base2, routes: routes2, trailing_slash, renderer }) {
+    __privateAdd(this, _update_scroll_positions);
     var _a, _b;
     this.base = base2;
     this.routes = routes2;
@@ -794,6 +815,9 @@ class Router {
     if (this.current_history_index === 0) {
       history.replaceState(__spreadProps(__spreadValues({}, history.state), { "sveltekit:index": 0 }), "", location.href);
     }
+    const scroll = scroll_positions[this.current_history_index];
+    if (scroll)
+      scrollTo(scroll.x, scroll.y);
     this.hash_navigating = false;
     this.callbacks = {
       before_navigate: [],
@@ -801,9 +825,7 @@ class Router {
     };
   }
   init_listeners() {
-    if ("scrollRestoration" in history) {
-      history.scrollRestoration = "manual";
-    }
+    history.scrollRestoration = "manual";
     addEventListener("beforeunload", (e) => {
       let should_block = false;
       const intent = {
@@ -819,18 +841,14 @@ class Router {
         history.scrollRestoration = "auto";
       }
     });
-    addEventListener("load", () => {
-      history.scrollRestoration = "manual";
-    });
-    let scroll_timer;
-    addEventListener("scroll", () => {
-      clearTimeout(scroll_timer);
-      scroll_timer = setTimeout(() => {
-        const new_state = __spreadProps(__spreadValues({}, history.state || {}), {
-          "sveltekit:scroll": scroll_state()
-        });
-        history.replaceState(new_state, document.title, window.location.href);
-      }, 200);
+    addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        __privateMethod(this, _update_scroll_positions, update_scroll_positions_fn).call(this);
+        try {
+          sessionStorage[SCROLL_KEY] = JSON.stringify(scroll_positions);
+        } catch {
+        }
+      }
     });
     const trigger_prefetch = (event) => {
       const a = find_anchor(event);
@@ -879,6 +897,7 @@ class Router {
       const [base2, hash2] = url.href.split("#");
       if (hash2 !== void 0 && base2 === location.href.split("#")[0]) {
         this.hash_navigating = true;
+        __privateMethod(this, _update_scroll_positions, update_scroll_positions_fn).call(this);
         const info = this.parse(url);
         if (info) {
           return this.renderer.update(info, [], false);
@@ -904,7 +923,7 @@ class Router {
           return;
         this._navigate({
           url: new URL(location.href),
-          scroll: event.state["sveltekit:scroll"],
+          scroll: scroll_positions[event.state["sveltekit:index"]],
           keepfocus: false,
           chain: [],
           details: null,
@@ -1011,6 +1030,7 @@ class Router {
       return new Promise(() => {
       });
     }
+    __privateMethod(this, _update_scroll_positions, update_scroll_positions_fn).call(this);
     accepted();
     if (!this.navigating) {
       dispatchEvent(new CustomEvent("sveltekit:navigation-start"));
@@ -1035,6 +1055,10 @@ class Router {
     }
   }
 }
+_update_scroll_positions = new WeakSet();
+update_scroll_positions_fn = function() {
+  scroll_positions[this.current_history_index] = scroll_state();
+};
 function coalesce_to_error(err) {
   return err instanceof Error || err && err.name && err.message ? err : new Error(JSON.stringify(err));
 }
@@ -1115,7 +1139,7 @@ function notifiable_store(value) {
 }
 function create_updated_store() {
   const { set, subscribe } = writable(false);
-  const initial = "1645046381824";
+  const initial = "1645191826674";
   let timeout;
   async function check() {
     clearTimeout(timeout);
@@ -1204,12 +1228,12 @@ class Renderer {
       this.autoscroll = false;
     }
   }
-  async start({ status, error, nodes, url, params }) {
+  async start({ status, error, nodes, params }) {
+    const url = new URL(location.href);
     const branch = [];
     let stuff = {};
     let result;
     let error_args;
-    url.hash = window.location.hash;
     try {
       for (let i = 0; i < nodes.length; i += 1) {
         const is_leaf = i === nodes.length - 1;
@@ -1231,6 +1255,7 @@ class Renderer {
         });
         if (props) {
           node.uses.dependencies.add(url.href);
+          node.uses.url = true;
         }
         branch.push(node);
         if (node && node.loaded) {
@@ -1565,7 +1590,8 @@ class Renderer {
           const changed_since_last_render = !previous || module !== previous.module || changed.url && previous.uses.url || changed.params.some((param) => previous.uses.params.has(param)) || changed.session && previous.uses.session || Array.from(previous.uses.dependencies).some((dep) => this.invalid.has(dep)) || stuff_changed && previous.uses.stuff;
           if (changed_since_last_render) {
             let props = {};
-            if (has_shadow && i === a.length - 1) {
+            const is_shadow_page = has_shadow && i === a.length - 1;
+            if (is_shadow_page) {
               const res = await fetch(`${url.pathname}${url.pathname.endsWith("/") ? "" : "/"}__data.json${url.search}`, {
                 headers: {
                   "x-sveltekit-load": "true"
@@ -1595,23 +1621,28 @@ class Renderer {
                 stuff
               });
             }
-            if (node && node.loaded) {
-              if (node.loaded.fallthrough) {
-                return;
+            if (node) {
+              if (is_shadow_page) {
+                node.uses.url = true;
               }
-              if (node.loaded.error) {
-                status = node.loaded.status;
-                error = node.loaded.error;
-              }
-              if (node.loaded.redirect) {
-                return {
-                  redirect: node.loaded.redirect,
-                  props: {},
-                  state: this.current
-                };
-              }
-              if (node.loaded.stuff) {
-                stuff_changed = true;
+              if (node.loaded) {
+                if (node.loaded.fallthrough) {
+                  return;
+                }
+                if (node.loaded.error) {
+                  status = node.loaded.status;
+                  error = node.loaded.error;
+                }
+                if (node.loaded.redirect) {
+                  return {
+                    redirect: node.loaded.redirect,
+                    props: {},
+                    state: this.current
+                  };
+                }
+                if (node.loaded.stuff) {
+                  stuff_changed = true;
+                }
               }
             }
           } else {
@@ -1727,4 +1758,4 @@ async function start({ paths, target, session, route, spa, trailing_slash, hydra
   dispatchEvent(new CustomEvent("sveltekit:start"));
 }
 export { start };
-//# sourceMappingURL=start-2dd9f6b7.js.map
+//# sourceMappingURL=start-32fe9038.js.map

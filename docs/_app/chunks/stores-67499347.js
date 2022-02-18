@@ -1,4 +1,4 @@
-import { getContext } from "./vendor-0410968b.js";
+import { getContext } from "./vendor-bb143dea.js";
 const getStores = () => {
   const stores = getContext("__svelte__");
   return {
@@ -25,4 +25,4 @@ const page = {
   }
 };
 export { page };
-//# sourceMappingURL=stores-7187c4f5.js.map
+//# sourceMappingURL=stores-67499347.js.map

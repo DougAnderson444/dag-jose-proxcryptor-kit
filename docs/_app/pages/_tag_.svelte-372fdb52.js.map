@@ -1,0 +1,1 @@
+{"version":3,"file":"_tag_.svelte-372fdb52.js","sources":["../../../../../src/routes/[tag].svelte"],"sourcesContent":["<script>\r\n\timport { page } from '$app/stores';\r\n\r\n\tconsole.log({ tag: $page.params.tag });\r\n</script>\r\n\r\n<slot />\r\n"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAGC,UAAQ,MAAM,KAAK,MAAM,OAAO;;;;;;;;;;;;;;"}

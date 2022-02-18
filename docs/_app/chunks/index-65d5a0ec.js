@@ -1,6 +1,6 @@
-import { SvelteComponent, init, safe_not_equal, create_slot, HtmlTagHydration, empty, claim_html_tag, insert_hydration, detach, element, text, space, claim_element, children, claim_text, claim_space, attr, append_hydration, listen, prevent_default, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, add_render_callback, create_bidirectional_transition, quintOut, slide, transition_out, createEventDispatcher, set_input_value, base64Js, bs58, group_outros, check_outros, handle_promise, update_await_block_branch, noop, set_data, destroy_each, onMount, svg_element, claim_svg_element, create_component, claim_component, mount_component, destroy_component, writable, component_subscribe, query_selector_all, binding_callbacks, bind, add_flush_callback, fade, browser, toggle_class, set_style, is_function, run_all, tick, set_store_value, Scanner, select_option, select_value } from "./vendor-0410968b.js";
+import { SvelteComponent, init, safe_not_equal, create_slot, HtmlTagHydration, empty, claim_html_tag, insert_hydration, detach, element, text, space, claim_element, children, claim_text, claim_space, attr, append_hydration, listen, prevent_default, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, add_render_callback, create_bidirectional_transition, quintOut, slide, transition_out, createEventDispatcher, set_input_value, base64Js, bs58, group_outros, check_outros, handle_promise, update_await_block_branch, noop, set_data, destroy_each, onMount, svg_element, claim_svg_element, create_component, claim_component, mount_component, destroy_component, writable, component_subscribe, query_selector_all, fade, browser, binding_callbacks, toggle_class, add_flush_callback, bind, set_style, is_function, run_all, tick, set_store_value, Scanner, select_option, select_value } from "./vendor-bb143dea.js";
 import { __vitePreload, router } from "./singletons-f3a0af73.js";
-import { page } from "./stores-7187c4f5.js";
+import { page } from "./stores-67499347.js";
 function fallback_block$2(ctx) {
   let textarea;
   let mounted;
@@ -272,7 +272,6 @@ function bufftoHex(buffer) {
   return out;
 }
 function validatePubKey(pubKey) {
-  console.log("Validating", { pubKey });
   if (!pubKey)
     return;
   try {
@@ -281,7 +280,6 @@ function validatePubKey(pubKey) {
       return pubKeyBytes;
     }
   } catch (error) {
-    console.log("Not base 64");
   }
   try {
     let b58Bytes = bs58.decode(pubKey);
@@ -289,7 +287,6 @@ function validatePubKey(pubKey) {
       return b58Bytes;
     }
   } catch (error) {
-    console.log("Not base 58");
   }
   const fromHexString = (hexString) => new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
   let hexb58Bytes = fromHexString(pubKey);
@@ -945,7 +942,7 @@ class PiperNet extends SvelteComponent {
     init(this, options, instance$i, create_fragment$j, safe_not_equal, { pubKey: 2, openHypns: 3 });
   }
 }
-function get_each_context$3(ctx, list, i) {
+function get_each_context$2(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[6] = list[i];
   return child_ctx;
@@ -1032,7 +1029,7 @@ function create_then_block$4(ctx) {
   let each_value = ctx[0];
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$3(get_each_context$3(ctx, each_value, i));
+    each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
   }
   const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
     each_blocks[i] = null;
@@ -1062,12 +1059,12 @@ function create_then_block$4(ctx) {
         each_value = ctx2[0];
         let i;
         for (i = 0; i < each_value.length; i += 1) {
-          const child_ctx = get_each_context$3(ctx2, each_value, i);
+          const child_ctx = get_each_context$2(ctx2, each_value, i);
           if (each_blocks[i]) {
             each_blocks[i].p(child_ctx, dirty);
             transition_in(each_blocks[i], 1);
           } else {
-            each_blocks[i] = create_each_block$3(child_ctx);
+            each_blocks[i] = create_each_block$2(child_ctx);
             each_blocks[i].c();
             transition_in(each_blocks[i], 1);
             each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
@@ -1102,7 +1099,7 @@ function create_then_block$4(ctx) {
     }
   };
 }
-function create_each_block$3(ctx) {
+function create_each_block$2(ctx) {
   let current;
   const default_slot_template = ctx[4].default;
   const default_slot = create_slot(default_slot_template, ctx, ctx[3], get_default_slot_context$2);
@@ -1419,7 +1416,7 @@ function create_fragment$g(ctx) {
       attr(svg, "xmlns", "http://www.w3.org/2000/svg");
       attr(svg, "xml:space", "preserve");
       attr(svg, "viewBox", "0 0 477.8 477.8");
-      attr(svg, "class", "svelte-1mxlzn6");
+      attr(svg, "class", "svelte-q8m63s");
     },
     m(target, anchor) {
       insert_hydration(target, svg, anchor);
@@ -1693,10 +1690,10 @@ function create_fragment$f(ctx) {
       this.h();
     },
     h() {
-      attr(div0, "class", "share-item svelte-f1r7zk");
-      attr(input, "class", "share-item svelte-f1r7zk");
+      attr(div0, "class", "share-item svelte-oto3uq");
+      attr(input, "class", "share-item svelte-oto3uq");
       attr(input, "placeholder", input_placeholder_value = "Share " + ctx[0] + " with:");
-      attr(div1, "class", "share svelte-f1r7zk");
+      attr(div1, "class", "share svelte-oto3uq");
     },
     m(target, anchor) {
       insert_hydration(target, div3, anchor);
@@ -1825,11 +1822,17 @@ class ShareTagWith extends SvelteComponent {
 var _Contacts_svelte_svelte_type_style_lang = "";
 const contacts = writable([]);
 const get_default_slot_changes_1 = (dirty) => ({});
-const get_default_slot_context_1 = (ctx) => ({ decryptedData: null });
-const get_default_slot_changes$1 = (dirty) => ({
-  decryptedData: dirty & 32
+const get_default_slot_context_1 = (ctx) => ({
+  decryptedData: null,
+  refreshedRootCID: ctx[2]
 });
-const get_default_slot_context$1 = (ctx) => ({ decryptedData: ctx[5] });
+const get_default_slot_changes$1 = (dirty) => ({
+  decryptedData: dirty & 64
+});
+const get_default_slot_context$1 = (ctx) => ({
+  decryptedData: ctx[6],
+  refreshedRootCID: ctx[2]
+});
 function create_else_block$3(ctx) {
   let current;
   const default_slot_template = ctx[12].default;
@@ -1884,10 +1887,10 @@ function create_if_block$a(ctx) {
     pending: create_pending_block$2,
     then: create_then_block$2,
     catch: create_catch_block$2,
-    value: 5,
+    value: 6,
     blocks: [, , ,]
   };
-  handle_promise(promise = ctx[5], info);
+  handle_promise(promise = ctx[6], info);
   return {
     c() {
       await_block_anchor = empty();
@@ -1907,7 +1910,7 @@ function create_if_block$a(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       info.ctx = ctx;
-      if (dirty & 32 && promise !== (promise = ctx[5]) && handle_promise(promise, info))
+      if (dirty & 64 && promise !== (promise = ctx[6]) && handle_promise(promise, info))
         ;
       else {
         update_await_block_branch(info, ctx, dirty);
@@ -1954,7 +1957,7 @@ function create_then_block$2(ctx) {
     props: {
       tag: ctx[0],
       setAccess: ctx[1],
-      contacts: ctx[4]
+      contacts: ctx[5]
     }
   });
   const default_slot_template = ctx[12].default;
@@ -1986,11 +1989,11 @@ function create_then_block$2(ctx) {
         sharetagwith_changes.tag = ctx2[0];
       if (dirty & 2)
         sharetagwith_changes.setAccess = ctx2[1];
-      if (dirty & 16)
-        sharetagwith_changes.contacts = ctx2[4];
+      if (dirty & 32)
+        sharetagwith_changes.contacts = ctx2[5];
       sharetagwith.$set(sharetagwith_changes);
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & 2080)) {
+        if (default_slot.p && (!current || dirty & 2112)) {
           update_slot_base(default_slot, default_slot_template, ctx2, ctx2[11], !current ? get_all_dirty_from_scope(ctx2[11]) : get_slot_changes(default_slot_template, ctx2[11], dirty, get_default_slot_changes$1), get_default_slot_context$1);
         }
       }
@@ -2045,7 +2048,7 @@ function create_fragment$e(ctx) {
   const if_block_creators = [create_if_block$a, create_else_block$3];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
-    if (ctx2[3] && ctx2[2] && ctx2[5])
+    if (ctx2[4] && ctx2[3] && ctx2[6])
       return 0;
     return 1;
   }
@@ -2106,7 +2109,7 @@ function create_fragment$e(ctx) {
 }
 function instance$e($$self, $$props, $$invalidate) {
   let $contacts;
-  component_subscribe($$self, contacts, ($$value) => $$invalidate(4, $contacts = $$value));
+  component_subscribe($$self, contacts, ($$value) => $$invalidate(5, $contacts = $$value));
   let { $$slots: slots = {}, $$scope } = $$props;
   let { getTagNode } = $$props;
   let { decrypt } = $$props;
@@ -2118,36 +2121,39 @@ function instance$e($$self, $$props, $$invalidate) {
   let currentRoodCID;
   let ready;
   async function refreshedRootCID() {
-    $$invalidate(3, ready = false);
+    console.log({ tag: tag2 });
+    $$invalidate(4, ready = false);
     $$invalidate(10, currentRoodCID = rootCID);
-    $$invalidate(2, tagNode = await getTagNode(tag2));
+    $$invalidate(3, tagNode = await getTagNode(tag2));
+    console.log(tag2, { tagNode });
     if (tagNode && tagNode.hasOwnProperty("encryptedData"))
-      $$invalidate(5, decryptedData = await decrypt(tagNode));
-    $$invalidate(3, ready = true);
+      $$invalidate(6, decryptedData = await decrypt(tagNode));
+    $$invalidate(4, ready = true);
   }
   $$self.$$set = ($$props2) => {
     if ("getTagNode" in $$props2)
-      $$invalidate(6, getTagNode = $$props2.getTagNode);
+      $$invalidate(7, getTagNode = $$props2.getTagNode);
     if ("decrypt" in $$props2)
-      $$invalidate(7, decrypt = $$props2.decrypt);
+      $$invalidate(8, decrypt = $$props2.decrypt);
     if ("tag" in $$props2)
       $$invalidate(0, tag2 = $$props2.tag);
     if ("rootCID" in $$props2)
-      $$invalidate(8, rootCID = $$props2.rootCID);
+      $$invalidate(9, rootCID = $$props2.rootCID);
     if ("setAccess" in $$props2)
       $$invalidate(1, setAccess = $$props2.setAccess);
     if ("$$scope" in $$props2)
       $$invalidate(11, $$scope = $$props2.$$scope);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 1281) {
-      if (tag2 || rootCID && currentRoodCID !== rootCID)
+    if ($$self.$$.dirty & 1537) {
+      if (tag2 && rootCID && currentRoodCID !== rootCID)
         refreshedRootCID();
     }
   };
   return [
     tag2,
     setAccess,
+    refreshedRootCID,
     tagNode,
     ready,
     $contacts,
@@ -2155,7 +2161,6 @@ function instance$e($$self, $$props, $$invalidate) {
     getTagNode,
     decrypt,
     rootCID,
-    refreshedRootCID,
     currentRoodCID,
     $$scope,
     slots
@@ -2165,33 +2170,33 @@ class Common extends SvelteComponent {
   constructor(options) {
     super();
     init(this, options, instance$e, create_fragment$e, safe_not_equal, {
-      getTagNode: 6,
-      decrypt: 7,
+      getTagNode: 7,
+      decrypt: 8,
       tag: 0,
-      rootCID: 8,
+      rootCID: 9,
       setAccess: 1,
-      refreshedRootCID: 9
+      refreshedRootCID: 2
     });
   }
   get refreshedRootCID() {
-    return this.$$.ctx[9];
+    return this.$$.ctx[2];
   }
 }
 var DAGJose_svelte_svelte_type_style_lang = "";
 const get_default_slot_changes = (dirty) => ({
-  decryptedData: dirty & 4194304,
-  getTagNodes: dirty & 128,
-  checkAccess: dirty & 64,
-  setAccess: dirty & 32,
-  decryptFromTagNode: dirty & 16
+  getTagNodes: dirty & 32,
+  checkAccess: dirty & 16,
+  setAccess: dirty & 8,
+  decryptFromTagNode: dirty & 4
 });
 const get_default_slot_context = (ctx) => ({
-  handleSubmit: ctx[10],
-  decryptedData: ctx[22],
-  getTagNodes: ctx[7],
-  checkAccess: ctx[6],
-  setAccess: ctx[5],
-  decryptFromTagNode: ctx[4]
+  handleSubmit: ctx[7],
+  decrypt: ctx[6],
+  getTagNodes: ctx[5],
+  getTagNode: ctx[8],
+  checkAccess: ctx[4],
+  setAccess: ctx[3],
+  decryptFromTagNode: ctx[2]
 });
 function create_else_block$2(ctx) {
   let t;
@@ -2216,42 +2221,21 @@ function create_else_block$2(ctx) {
 }
 function create_if_block$9(ctx) {
   let div;
-  let common;
-  let updating_refreshedRootCID;
   let current;
-  function common_refreshedRootCID_binding(value) {
-    ctx[19](value);
-  }
-  let common_props = {
-    getTagNode: ctx[11],
-    decrypt: ctx[9],
-    tag: ctx[2],
-    rootCID: ctx[0],
-    setAccess: ctx[5],
-    $$slots: {
-      default: [
-        create_default_slot$4,
-        ({ decryptedData }) => ({ 22: decryptedData }),
-        ({ decryptedData }) => decryptedData ? 4194304 : 0
-      ]
-    },
-    $$scope: { ctx }
-  };
-  if (ctx[8] !== void 0) {
-    common_props.refreshedRootCID = ctx[8];
-  }
-  common = new Common({ props: common_props });
-  binding_callbacks.push(() => bind(common, "refreshedRootCID", common_refreshedRootCID_binding));
+  const default_slot_template = ctx[19].default;
+  const default_slot = create_slot(default_slot_template, ctx, ctx[18], get_default_slot_context);
   return {
     c() {
       div = element("div");
-      create_component(common.$$.fragment);
+      if (default_slot)
+        default_slot.c();
       this.h();
     },
     l(nodes) {
       div = claim_element(nodes, "DIV", { class: true });
       var div_nodes = children(div);
-      claim_component(common.$$.fragment, div_nodes);
+      if (default_slot)
+        default_slot.l(div_nodes);
       div_nodes.forEach(detach);
       this.h();
     },
@@ -2260,67 +2244,15 @@ function create_if_block$9(ctx) {
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
-      mount_component(common, div, null);
-      current = true;
-    },
-    p(ctx2, dirty) {
-      const common_changes = {};
-      if (dirty & 4)
-        common_changes.tag = ctx2[2];
-      if (dirty & 1)
-        common_changes.rootCID = ctx2[0];
-      if (dirty & 32)
-        common_changes.setAccess = ctx2[5];
-      if (dirty & 5243120) {
-        common_changes.$$scope = { dirty, ctx: ctx2 };
-      }
-      if (!updating_refreshedRootCID && dirty & 256) {
-        updating_refreshedRootCID = true;
-        common_changes.refreshedRootCID = ctx2[8];
-        add_flush_callback(() => updating_refreshedRootCID = false);
-      }
-      common.$set(common_changes);
-    },
-    i(local) {
-      if (current)
-        return;
-      transition_in(common.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      transition_out(common.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      if (detaching)
-        detach(div);
-      destroy_component(common);
-    }
-  };
-}
-function create_default_slot$4(ctx) {
-  let current;
-  const default_slot_template = ctx[18].default;
-  const default_slot = create_slot(default_slot_template, ctx, ctx[20], get_default_slot_context);
-  return {
-    c() {
-      if (default_slot)
-        default_slot.c();
-    },
-    l(nodes) {
-      if (default_slot)
-        default_slot.l(nodes);
-    },
-    m(target, anchor) {
       if (default_slot) {
-        default_slot.m(target, anchor);
+        default_slot.m(div, null);
       }
       current = true;
     },
     p(ctx2, dirty) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & 5243120)) {
-          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[20], !current ? get_all_dirty_from_scope(ctx2[20]) : get_slot_changes(default_slot_template, ctx2[20], dirty, get_default_slot_changes), get_default_slot_context);
+        if (default_slot.p && (!current || dirty & 262204)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[18], !current ? get_all_dirty_from_scope(ctx2[18]) : get_slot_changes(default_slot_template, ctx2[18], dirty, get_default_slot_changes), get_default_slot_context);
         }
       }
     },
@@ -2335,6 +2267,8 @@ function create_default_slot$4(ctx) {
       current = false;
     },
     d(detaching) {
+      if (detaching)
+        detach(div);
       if (default_slot)
         default_slot.d(detaching);
     }
@@ -2351,7 +2285,7 @@ function create_fragment$d(ctx) {
   const if_block_creators = [create_if_block$9, create_else_block$2];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
-    if (ctx2[1] && ctx2[3])
+    if (ctx2[0] && ctx2[1])
       return 0;
     return 1;
   }
@@ -2449,37 +2383,35 @@ function instance$d($$self, $$props, $$invalidate) {
   let decryptFromTagNode;
   let setAccess, checkAccess;
   let getTagNodes;
-  let refreshedRootCID;
+  let { refreshedRootCID } = $$props;
   let { onSubmitted = () => {
   } } = $$props;
   onMount(async () => {
     const { ImmortalDB } = await __vitePreload(() => import("./index-17ddc90e.js"), true ? [] : void 0);
-    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-3eefc414.js"), true ? ["chunks/dagjosecryptor-3eefc414.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css","chunks/elliptic-eff0a372.js","chunks/singletons-f3a0af73.js","chunks/stores-7187c4f5.js"] : void 0);
+    const { DagJoseCryptor } = await __vitePreload(() => import("./dagjosecryptor-0787eabc.js"), true ? ["chunks/dagjosecryptor-0787eabc.js","chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css","chunks/hash-2a1eb12b.js","chunks/singletons-f3a0af73.js","chunks/stores-67499347.js"] : void 0);
     loadRootCID = async () => {
-      await ipfsNode;
       if (rootCID)
         return true;
       let res = await ImmortalDB.get(ROOT_CID);
       if (!res) {
-        $$invalidate(0, rootCID = false);
+        $$invalidate(9, rootCID = false);
         return true;
       }
-      $$invalidate(0, rootCID = CID.asCID(res) || CID.parse(res));
+      $$invalidate(9, rootCID = CID.asCID(res) || CID.parse(res));
       console.log("rootCID set in loadRootCID");
       return true;
     };
     await loadRootCID();
     $$invalidate(17, setJoseCryptor = async () => {
-      await ipfsNode;
       $$invalidate(16, joseCryptor = new DagJoseCryptor(ipfsNode, proxcryptor, rootCID));
       if (!rootCID)
-        $$invalidate(3, loaded = true);
+        $$invalidate(1, loaded = true);
     });
     $$invalidate(15, handleRootCIDUpdate = async () => {
-      $$invalidate(0, rootCID = joseCryptor.rootCID);
+      $$invalidate(9, rootCID = joseCryptor.rootCID);
       console.log("Updating rootCID", { rootCID: rootCID.toString() });
       ImmortalDB.set(ROOT_CID, rootCID.toString());
-      $$invalidate(3, loaded = true);
+      $$invalidate(1, loaded = true);
     });
   });
   let decrypt = async (data) => await joseCryptor.selfDecrypt(data);
@@ -2529,28 +2461,26 @@ function instance$d($$self, $$props, $$invalidate) {
       console.warn(`${tag3} no DAG data`);
     }
   }
-  function common_refreshedRootCID_binding(value) {
-    refreshedRootCID = value;
-    $$invalidate(8, refreshedRootCID);
-  }
   $$self.$$set = ($$props2) => {
     if ("rootCID" in $$props2)
-      $$invalidate(0, rootCID = $$props2.rootCID);
+      $$invalidate(9, rootCID = $$props2.rootCID);
     if ("proxcryptor" in $$props2)
-      $$invalidate(1, proxcryptor = $$props2.proxcryptor);
+      $$invalidate(0, proxcryptor = $$props2.proxcryptor);
     if ("ipfsNode" in $$props2)
-      $$invalidate(12, ipfsNode = $$props2.ipfsNode);
+      $$invalidate(10, ipfsNode = $$props2.ipfsNode);
     if ("CID" in $$props2)
-      $$invalidate(13, CID = $$props2.CID);
+      $$invalidate(11, CID = $$props2.CID);
     if ("tag" in $$props2)
-      $$invalidate(2, tag2 = $$props2.tag);
+      $$invalidate(12, tag2 = $$props2.tag);
+    if ("refreshedRootCID" in $$props2)
+      $$invalidate(13, refreshedRootCID = $$props2.refreshedRootCID);
     if ("onSubmitted" in $$props2)
       $$invalidate(14, onSubmitted = $$props2.onSubmitted);
     if ("$$scope" in $$props2)
-      $$invalidate(20, $$scope = $$props2.$$scope);
+      $$invalidate(18, $$scope = $$props2.$$scope);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty & 131074) {
+    if ($$self.$$.dirty & 131073) {
       if (proxcryptor && setJoseCryptor)
         setJoseCryptor();
     }
@@ -2560,38 +2490,38 @@ function instance$d($$self, $$props, $$invalidate) {
     }
   };
   return [
-    rootCID,
     proxcryptor,
-    tag2,
     loaded,
     decryptFromTagNode,
     setAccess,
     checkAccess,
     getTagNodes,
-    refreshedRootCID,
     decrypt,
     handleSubmit,
     getTagNode,
+    rootCID,
     ipfsNode,
     CID,
+    tag2,
+    refreshedRootCID,
     onSubmitted,
     handleRootCIDUpdate,
     joseCryptor,
     setJoseCryptor,
-    slots,
-    common_refreshedRootCID_binding,
-    $$scope
+    $$scope,
+    slots
   ];
 }
 class DAGJose extends SvelteComponent {
   constructor(options) {
     super();
     init(this, options, instance$d, create_fragment$d, safe_not_equal, {
-      rootCID: 0,
-      proxcryptor: 1,
-      ipfsNode: 12,
-      CID: 13,
-      tag: 2,
+      rootCID: 9,
+      proxcryptor: 0,
+      ipfsNode: 10,
+      CID: 11,
+      tag: 12,
+      refreshedRootCID: 13,
       onSubmitted: 14
     });
   }
@@ -3361,7 +3291,7 @@ function create_then_block$1(ctx) {
     ctx[15](value);
   }
   let qrcodeicon_props = {
-    $$slots: { default: [create_default_slot$3] },
+    $$slots: { default: [create_default_slot$4] },
     $$scope: { ctx }
   };
   if (ctx[6] !== void 0) {
@@ -3516,7 +3446,7 @@ function create_default_slot_2$1(ctx) {
     }
   };
 }
-function create_default_slot_1$2(ctx) {
+function create_default_slot_1$3(ctx) {
   let qrcode;
   let current;
   qrcode = new QRCode_1({
@@ -3561,7 +3491,7 @@ function create_default_slot_1$2(ctx) {
     }
   };
 }
-function create_default_slot$3(ctx) {
+function create_default_slot$4(ctx) {
   let modal;
   let updating_modal;
   let current;
@@ -3569,7 +3499,7 @@ function create_default_slot$3(ctx) {
     ctx[14](value);
   }
   let modal_props = {
-    $$slots: { default: [create_default_slot_1$2] },
+    $$slots: { default: [create_default_slot_1$3] },
     $$scope: { ctx }
   };
   if (ctx[6] !== void 0) {
@@ -4436,7 +4366,7 @@ class ScanIcon extends SvelteComponent {
   }
 }
 var SearchResults_svelte_svelte_type_style_lang = "";
-function create_default_slot$2(ctx) {
+function create_default_slot$3(ctx) {
   let div2;
   let h1;
   let t0;
@@ -4579,7 +4509,7 @@ function create_fragment$6(ctx) {
   modal = new Modal({
     props: {
       modal: true,
-      $$slots: { default: [create_default_slot$2] },
+      $$slots: { default: [create_default_slot$3] },
       $$scope: { ctx }
     }
   });
@@ -4789,14 +4719,15 @@ function create_fragment$5(ctx) {
   let link;
   let t0;
   let t1;
-  let div1;
+  let div2;
   let div0;
   let input;
   let t2;
   let button;
   let i;
   let t3;
-  let t4_value = ctx[5] ? "\u2714\uFE0F Valid Public Key" : "";
+  let div1;
+  let t4_value = ctx[5] ? "\u2714\uFE0F Valid " + ctx[1].toString() : "";
   let t4;
   let t5;
   let if_block1_anchor;
@@ -4812,13 +4743,14 @@ function create_fragment$5(ctx) {
       if (if_block0)
         if_block0.c();
       t1 = space();
-      div1 = element("div");
+      div2 = element("div");
       div0 = element("div");
       input = element("input");
       t2 = space();
       button = element("button");
       i = element("i");
       t3 = space();
+      div1 = element("div");
       t4 = text(t4_value);
       t5 = space();
       if (if_block1)
@@ -4827,7 +4759,7 @@ function create_fragment$5(ctx) {
       this.h();
     },
     l(nodes) {
-      const head_nodes = query_selector_all('[data-svelte="svelte-1x91wnq"]', document.head);
+      const head_nodes = query_selector_all('[data-svelte="svelte-yteug7"]', document.head);
       link = claim_element(head_nodes, "LINK", {
         rel: true,
         href: true,
@@ -4840,9 +4772,9 @@ function create_fragment$5(ctx) {
       if (if_block0)
         if_block0.l(nodes);
       t1 = claim_space(nodes);
-      div1 = claim_element(nodes, "DIV", { class: true });
-      var div1_nodes = children(div1);
-      div0 = claim_element(div1_nodes, "DIV", { class: true });
+      div2 = claim_element(nodes, "DIV", { class: true });
+      var div2_nodes = children(div2);
+      div0 = claim_element(div2_nodes, "DIV", { class: true });
       var div0_nodes = children(div0);
       input = claim_element(div0_nodes, "INPUT", { class: true, placeholder: true });
       t2 = claim_space(div0_nodes);
@@ -4852,9 +4784,12 @@ function create_fragment$5(ctx) {
       children(i).forEach(detach);
       button_nodes.forEach(detach);
       div0_nodes.forEach(detach);
-      t3 = claim_space(div1_nodes);
+      t3 = claim_space(div2_nodes);
+      div1 = claim_element(div2_nodes, "DIV", { class: true });
+      var div1_nodes = children(div1);
       t4 = claim_text(div1_nodes, t4_value);
       div1_nodes.forEach(detach);
+      div2_nodes.forEach(detach);
       t5 = claim_space(nodes);
       if (if_block1)
         if_block1.l(nodes);
@@ -4867,13 +4802,14 @@ function create_fragment$5(ctx) {
       attr(link, "integrity", "sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==");
       attr(link, "crossorigin", "anonymous");
       attr(link, "referrerpolicy", "no-referrer");
-      attr(input, "class", "searchTerm svelte-16ch2cw");
+      attr(input, "class", "searchTerm svelte-1ln7uo");
       attr(input, "placeholder", "@handle or Public Key");
       attr(i, "class", "fa fa-search");
       attr(button, "type", "submit");
-      attr(button, "class", "searchButton svelte-16ch2cw");
-      attr(div0, "class", "search svelte-16ch2cw");
-      attr(div1, "class", "sb-example-1 svelte-16ch2cw");
+      attr(button, "class", "searchButton svelte-1ln7uo");
+      attr(div0, "class", "search svelte-1ln7uo");
+      attr(div1, "class", "validity svelte-1ln7uo");
+      attr(div2, "class", "sb-example-1 svelte-1ln7uo");
     },
     m(target, anchor) {
       append_hydration(document.head, link);
@@ -4881,15 +4817,16 @@ function create_fragment$5(ctx) {
       if (if_block0)
         if_block0.m(target, anchor);
       insert_hydration(target, t1, anchor);
-      insert_hydration(target, div1, anchor);
-      append_hydration(div1, div0);
+      insert_hydration(target, div2, anchor);
+      append_hydration(div2, div0);
       append_hydration(div0, input);
       set_input_value(input, ctx[0]);
       ctx[10](input);
       append_hydration(div0, t2);
       append_hydration(div0, button);
       append_hydration(button, i);
-      append_hydration(div1, t3);
+      append_hydration(div2, t3);
+      append_hydration(div2, div1);
       append_hydration(div1, t4);
       insert_hydration(target, t5, anchor);
       if (if_block1)
@@ -4930,7 +4867,7 @@ function create_fragment$5(ctx) {
       if (dirty & 1 && input.value !== ctx2[0]) {
         set_input_value(input, ctx2[0]);
       }
-      if ((!current || dirty & 32) && t4_value !== (t4_value = ctx2[5] ? "\u2714\uFE0F Valid Public Key" : ""))
+      if ((!current || dirty & 34) && t4_value !== (t4_value = ctx2[5] ? "\u2714\uFE0F Valid " + ctx2[1].toString() : ""))
         set_data(t4, t4_value);
       if (ctx2[1] && ctx2[5]) {
         if (if_block1) {
@@ -4973,7 +4910,7 @@ function create_fragment$5(ctx) {
       if (detaching)
         detach(t1);
       if (detaching)
-        detach(div1);
+        detach(div2);
       ctx[10](null);
       if (detaching)
         detach(t5);
@@ -4995,28 +4932,34 @@ function instance$5($$self, $$props, $$invalidate) {
   let { handleAddContact } = $$props;
   let SNSWrapper;
   let valid;
-  let pubKeyInput;
+  let inputElement;
   onMount(async () => {
-    const Buffer = await __vitePreload(() => import("./vendor-0410968b.js").then(function(n) {
+    const Buffer = await __vitePreload(() => import("./vendor-bb143dea.js").then(function(n) {
       return n.index;
-    }), true ? ["chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css"] : void 0);
+    }), true ? ["chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css"] : void 0);
     global.Buffer = Buffer.Buffer;
-    $$invalidate(4, { SNSWrapper } = await __vitePreload(() => import("./index-93099a72.js"), true ? ["chunks/index-93099a72.js","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css","chunks/elliptic-eff0a372.js"] : void 0), SNSWrapper);
+    const process = await __vitePreload(() => import("./browser-fd4a3192.js").then(function(n) {
+      return n.browser;
+    }), true ? [] : void 0);
+    global.process = process;
+    $$invalidate(4, { SNSWrapper } = await __vitePreload(() => import("./index-d300ab19.js"), true ? ["chunks/index-d300ab19.js","chunks/hash-2a1eb12b.js","chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css"] : void 0), SNSWrapper);
     let params = new URLSearchParams(location.search);
     if (params.has("add")) {
       $$invalidate(1, pubKey = params.get("add"));
-      pubKeyInput.focus();
+      inputElement.focus();
     }
   });
-  function handleValidate() {
-    console.log(`Validating ${value}`);
-    if (!value)
+  function handleInput() {
+    $$invalidate(2, handle = value);
+    handleValidate(value);
+  }
+  function handleValidate(value2) {
+    if (!value2)
       return;
-    const valBytes = validatePubKey(value);
+    const valBytes = validatePubKey(value2.toString());
     if (valBytes) {
-      console.log("Valid", { value });
       $$invalidate(5, valid = true);
-      $$invalidate(1, pubKey = value);
+      $$invalidate(1, pubKey = value2.toString());
     } else
       $$invalidate(5, valid = false);
   }
@@ -5030,8 +4973,8 @@ function instance$5($$self, $$props, $$invalidate) {
   }
   function input_binding($$value) {
     binding_callbacks[$$value ? "unshift" : "push"](() => {
-      pubKeyInput = $$value;
-      $$invalidate(6, pubKeyInput);
+      inputElement = $$value;
+      $$invalidate(6, inputElement);
     });
   }
   $$self.$$set = ($$props2) => {
@@ -5046,10 +4989,10 @@ function instance$5($$self, $$props, $$invalidate) {
   };
   $$self.$$.update = () => {
     if ($$self.$$.dirty & 1) {
-      value ? $$invalidate(2, handle = value) : null;
+      value && handleInput();
     }
     if ($$self.$$.dirty & 2) {
-      pubKey && console.log({ pubKey });
+      pubKey && handleValidate(pubKey);
     }
   };
   return [
@@ -5059,8 +5002,8 @@ function instance$5($$self, $$props, $$invalidate) {
     handleAddContact,
     SNSWrapper,
     valid,
-    pubKeyInput,
-    handleValidate,
+    inputElement,
+    handleInput,
     switch_instance_pubKey_binding,
     input_input_handler,
     input_binding
@@ -5077,8 +5020,7 @@ class Search extends SvelteComponent {
     });
   }
 }
-var Contacts_svelte_svelte_type_style_lang = "";
-function get_each_context$2(ctx, list, i) {
+function get_each_context$1(ctx, list, i) {
   const child_ctx = ctx.slice();
   child_ctx[7] = list[i].handle;
   child_ctx[8] = list[i].pubKey;
@@ -5087,10 +5029,10 @@ function get_each_context$2(ctx, list, i) {
 function create_if_block$3(ctx) {
   let each_1_anchor;
   let current;
-  let each_value = ctx[3];
+  let each_value = ctx[0];
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$2(get_each_context$2(ctx, each_value, i));
+    each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
   }
   const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
     each_blocks[i] = null;
@@ -5116,16 +5058,16 @@ function create_if_block$3(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if (dirty[0] & 1073752095) {
-        each_value = ctx2[3];
+      if (dirty & 6207) {
+        each_value = ctx2[0];
         let i;
         for (i = 0; i < each_value.length; i += 1) {
-          const child_ctx = get_each_context$2(ctx2, each_value, i);
+          const child_ctx = get_each_context$1(ctx2, each_value, i);
           if (each_blocks[i]) {
             each_blocks[i].p(child_ctx, dirty);
             transition_in(each_blocks[i], 1);
           } else {
-            each_blocks[i] = create_each_block$2(child_ctx);
+            each_blocks[i] = create_each_block$1(child_ctx);
             each_blocks[i].c();
             transition_in(each_blocks[i], 1);
             each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
@@ -5160,7 +5102,7 @@ function create_if_block$3(ctx) {
     }
   };
 }
-function create_handle_slot$1(ctx) {
+function create_handle_slot(ctx) {
   let span;
   let t_value = ctx[7] + "";
   let t;
@@ -5185,7 +5127,7 @@ function create_handle_slot$1(ctx) {
       append_hydration(span, t);
     },
     p(ctx2, dirty) {
-      if (dirty[0] & 8 && t_value !== (t_value = ctx2[7] + ""))
+      if (dirty & 1 && t_value !== (t_value = ctx2[7] + ""))
         set_data(t, t_value);
     },
     d(detaching) {
@@ -5194,7 +5136,7 @@ function create_handle_slot$1(ctx) {
     }
   };
 }
-function create_publicKey_slot$1(ctx) {
+function create_publicKey_slot(ctx) {
   let span;
   let t0;
   let small;
@@ -5229,7 +5171,7 @@ function create_publicKey_slot$1(ctx) {
       append_hydration(small, t1);
     },
     p(ctx2, dirty) {
-      if (dirty[0] & 8 && t1_value !== (t1_value = ctx2[8] + ""))
+      if (dirty & 1 && t1_value !== (t1_value = ctx2[8] + ""))
         set_data(t1, t1_value);
     },
     d(detaching) {
@@ -5243,9 +5185,9 @@ function create_if_block_2(ctx) {
   let current;
   tagaccess = new TagAccess({
     props: {
-      tag: ctx[13].tag,
+      tag: ctx[12].tag,
       pubKey: ctx[8],
-      checkAccess: ctx[2]
+      checkAccess: ctx[3]
     }
   });
   return {
@@ -5261,12 +5203,12 @@ function create_if_block_2(ctx) {
     },
     p(ctx2, dirty) {
       const tagaccess_changes = {};
-      if (dirty[0] & 8192)
-        tagaccess_changes.tag = ctx2[13].tag;
-      if (dirty[0] & 8)
+      if (dirty & 4096)
+        tagaccess_changes.tag = ctx2[12].tag;
+      if (dirty & 1)
         tagaccess_changes.pubKey = ctx2[8];
-      if (dirty[0] & 4)
-        tagaccess_changes.checkAccess = ctx2[2];
+      if (dirty & 8)
+        tagaccess_changes.checkAccess = ctx2[3];
       tagaccess.$set(tagaccess_changes);
     },
     i(local) {
@@ -5289,7 +5231,7 @@ function create_if_block_1$1(ctx) {
   let current;
   tagvalue = new TagValue({
     props: {
-      tagNode: ctx[13],
+      tagNode: ctx[12],
       decryptFromTagNode: ctx[4]
     }
   });
@@ -5306,9 +5248,9 @@ function create_if_block_1$1(ctx) {
     },
     p(ctx2, dirty) {
       const tagvalue_changes = {};
-      if (dirty[0] & 8192)
-        tagvalue_changes.tagNode = ctx2[13];
-      if (dirty[0] & 16)
+      if (dirty & 4096)
+        tagvalue_changes.tagNode = ctx2[12];
+      if (dirty & 16)
         tagvalue_changes.decryptFromTagNode = ctx2[4];
       tagvalue.$set(tagvalue_changes);
     },
@@ -5327,12 +5269,12 @@ function create_if_block_1$1(ctx) {
     }
   };
 }
-function create_default_slot_3(ctx) {
+function create_default_slot_1$2(ctx) {
   let t;
   let if_block1_anchor;
   let current;
-  let if_block0 = create_if_block_2(ctx);
-  let if_block1 = ctx[13].tag === "Profile" && create_if_block_1$1(ctx);
+  let if_block0 = ctx[12].tag && create_if_block_2(ctx);
+  let if_block1 = ctx[12].tag === "Profile" && create_if_block_1$1(ctx);
   return {
     c() {
       if (if_block0)
@@ -5360,11 +5302,29 @@ function create_default_slot_3(ctx) {
       current = true;
     },
     p(ctx2, dirty) {
-      if_block0.p(ctx2, dirty);
-      if (ctx2[13].tag === "Profile") {
+      if (ctx2[12].tag) {
+        if (if_block0) {
+          if_block0.p(ctx2, dirty);
+          if (dirty & 4096) {
+            transition_in(if_block0, 1);
+          }
+        } else {
+          if_block0 = create_if_block_2(ctx2);
+          if_block0.c();
+          transition_in(if_block0, 1);
+          if_block0.m(t.parentNode, t);
+        }
+      } else if (if_block0) {
+        group_outros();
+        transition_out(if_block0, 1, 1, () => {
+          if_block0 = null;
+        });
+        check_outros();
+      }
+      if (ctx2[12].tag === "Profile") {
         if (if_block1) {
           if_block1.p(ctx2, dirty);
-          if (dirty[0] & 8192) {
+          if (dirty & 4096) {
             transition_in(if_block1, 1);
           }
         } else {
@@ -5405,18 +5365,18 @@ function create_default_slot_3(ctx) {
     }
   };
 }
-function create_default_slot_2(ctx) {
+function create_default_slot$2(ctx) {
   let gettags;
   let current;
   gettags = new GetTags({
     props: {
-      rootCID: ctx[30],
-      getTagNodes: ctx[0],
+      rootCID: ctx[11],
+      getTagNodes: ctx[2],
       $$slots: {
         default: [
-          create_default_slot_3,
-          ({ tagNode }) => ({ 13: tagNode }),
-          ({ tagNode }) => [tagNode ? 8192 : 0]
+          create_default_slot_1$2,
+          ({ tagNode }) => ({ 12: tagNode }),
+          ({ tagNode }) => tagNode ? 4096 : 0
         ]
       },
       $$scope: { ctx }
@@ -5435,11 +5395,11 @@ function create_default_slot_2(ctx) {
     },
     p(ctx2, dirty) {
       const gettags_changes = {};
-      if (dirty[0] & 1073741824)
-        gettags_changes.rootCID = ctx2[30];
-      if (dirty[0] & 1)
-        gettags_changes.getTagNodes = ctx2[0];
-      if (dirty[0] & 8220 | dirty[1] & 1) {
+      if (dirty & 2048)
+        gettags_changes.rootCID = ctx2[11];
+      if (dirty & 4)
+        gettags_changes.getTagNodes = ctx2[2];
+      if (dirty & 12313) {
         gettags_changes.$$scope = { dirty, ctx: ctx2 };
       }
       gettags.$set(gettags_changes);
@@ -5469,15 +5429,15 @@ function create_latest_slot(ctx) {
       openHypns: ctx[1],
       $$slots: {
         default: [
-          create_default_slot_2,
-          ({ latestHypns }) => ({ 30: latestHypns }),
-          ({ latestHypns }) => [latestHypns ? 1073741824 : 0]
+          create_default_slot$2,
+          ({ latestHypns }) => ({ 11: latestHypns }),
+          ({ latestHypns }) => latestHypns ? 2048 : 0
         ]
       },
       $$scope: { ctx }
     }
   });
-  pipernet.$on("onMessage", ctx[11]);
+  pipernet.$on("onMessage", ctx[5]);
   return {
     c() {
       span = element("span");
@@ -5501,11 +5461,11 @@ function create_latest_slot(ctx) {
     },
     p(ctx2, dirty) {
       const pipernet_changes = {};
-      if (dirty[0] & 8)
+      if (dirty & 1)
         pipernet_changes.pubKey = ctx2[8];
-      if (dirty[0] & 2)
+      if (dirty & 2)
         pipernet_changes.openHypns = ctx2[1];
-      if (dirty[0] & 1073741853 | dirty[1] & 1) {
+      if (dirty & 10269) {
         pipernet_changes.$$scope = { dirty, ctx: ctx2 };
       }
       pipernet.$set(pipernet_changes);
@@ -5527,7 +5487,7 @@ function create_latest_slot(ctx) {
     }
   };
 }
-function create_each_block$2(ctx) {
+function create_each_block$1(ctx) {
   let div;
   let contactcard;
   let t;
@@ -5536,8 +5496,8 @@ function create_each_block$2(ctx) {
     props: {
       $$slots: {
         latest: [create_latest_slot],
-        publicKey: [create_publicKey_slot$1],
-        handle: [create_handle_slot$1]
+        publicKey: [create_publicKey_slot],
+        handle: [create_handle_slot]
       },
       $$scope: { ctx }
     }
@@ -5558,7 +5518,7 @@ function create_each_block$2(ctx) {
       this.h();
     },
     h() {
-      attr(div, "class", "card-container svelte-rpa35j");
+      attr(div, "class", "card-container");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -5568,7 +5528,7 @@ function create_each_block$2(ctx) {
     },
     p(ctx2, dirty) {
       const contactcard_changes = {};
-      if (dirty[0] & 31 | dirty[1] & 1) {
+      if (dirty & 8223) {
         contactcard_changes.$$scope = { dirty, ctx: ctx2 };
       }
       contactcard.$set(contactcard_changes);
@@ -5590,13 +5550,177 @@ function create_each_block$2(ctx) {
     }
   };
 }
+function create_fragment$4(ctx) {
+  let if_block_anchor;
+  let current;
+  let if_block = ctx[0] && create_if_block$3(ctx);
+  return {
+    c() {
+      if (if_block)
+        if_block.c();
+      if_block_anchor = empty();
+    },
+    l(nodes) {
+      if (if_block)
+        if_block.l(nodes);
+      if_block_anchor = empty();
+    },
+    m(target, anchor) {
+      if (if_block)
+        if_block.m(target, anchor);
+      insert_hydration(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      if (ctx2[0]) {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+          if (dirty & 1) {
+            transition_in(if_block, 1);
+          }
+        } else {
+          if_block = create_if_block$3(ctx2);
+          if_block.c();
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        group_outros();
+        transition_out(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        check_outros();
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (if_block)
+        if_block.d(detaching);
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
+function instance$4($$self, $$props, $$invalidate) {
+  let { decryptedData } = $$props;
+  let { openHypns } = $$props;
+  let { getTagNodes } = $$props;
+  let { checkAccess } = $$props;
+  let { decryptFromTagNode } = $$props;
+  console.log("ShowContacts", { decryptedData });
+  const dispatch = createEventDispatcher();
+  function handleMessenger(event) {
+    console.log("handleMessenger pubKey to rx'd msg value", { event });
+    dispatch("incomingPubKey", { pubKeyHex: event.detail.pubKeyHex });
+  }
+  $$self.$$set = ($$props2) => {
+    if ("decryptedData" in $$props2)
+      $$invalidate(0, decryptedData = $$props2.decryptedData);
+    if ("openHypns" in $$props2)
+      $$invalidate(1, openHypns = $$props2.openHypns);
+    if ("getTagNodes" in $$props2)
+      $$invalidate(2, getTagNodes = $$props2.getTagNodes);
+    if ("checkAccess" in $$props2)
+      $$invalidate(3, checkAccess = $$props2.checkAccess);
+    if ("decryptFromTagNode" in $$props2)
+      $$invalidate(4, decryptFromTagNode = $$props2.decryptFromTagNode);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & 1) {
+      decryptedData && console.log({ decryptedData });
+    }
+  };
+  return [
+    decryptedData,
+    openHypns,
+    getTagNodes,
+    checkAccess,
+    decryptFromTagNode,
+    handleMessenger
+  ];
+}
+class ShowContacts extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$4, create_fragment$4, safe_not_equal, {
+      decryptedData: 0,
+      openHypns: 1,
+      getTagNodes: 2,
+      checkAccess: 3,
+      decryptFromTagNode: 4
+    });
+  }
+}
+var Contacts_svelte_svelte_type_style_lang = "";
+function create_if_block$2(ctx) {
+  let showcontacts;
+  let current;
+  showcontacts = new ShowContacts({
+    props: {
+      decryptedData: ctx[3],
+      getTagNodes: ctx[0],
+      openHypns: ctx[1],
+      checkAccess: ctx[2],
+      decryptFromTagNode: ctx[4]
+    }
+  });
+  showcontacts.$on("incomingPubKey", ctx[11]);
+  return {
+    c() {
+      create_component(showcontacts.$$.fragment);
+    },
+    l(nodes) {
+      claim_component(showcontacts.$$.fragment, nodes);
+    },
+    m(target, anchor) {
+      mount_component(showcontacts, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const showcontacts_changes = {};
+      if (dirty & 8)
+        showcontacts_changes.decryptedData = ctx2[3];
+      if (dirty & 1)
+        showcontacts_changes.getTagNodes = ctx2[0];
+      if (dirty & 2)
+        showcontacts_changes.openHypns = ctx2[1];
+      if (dirty & 4)
+        showcontacts_changes.checkAccess = ctx2[2];
+      if (dirty & 16)
+        showcontacts_changes.decryptFromTagNode = ctx2[4];
+      showcontacts.$set(showcontacts_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(showcontacts.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(showcontacts.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(showcontacts, detaching);
+    }
+  };
+}
 function create_default_slot_1$1(ctx) {
   let switch_instance;
   let updating_result;
   let switch_instance_anchor;
   let current;
   function switch_instance_result_binding(value) {
-    ctx[18](value);
+    ctx[17](value);
   }
   var switch_value = ctx[6];
   function switch_props(ctx2) {
@@ -5609,7 +5733,7 @@ function create_default_slot_1$1(ctx) {
   if (switch_value) {
     switch_instance = new switch_value(switch_props(ctx));
     binding_callbacks.push(() => bind(switch_instance, "result", switch_instance_result_binding));
-    switch_instance.$on("successfulScan", ctx[19]);
+    switch_instance.$on("successfulScan", ctx[18]);
   }
   return {
     c() {
@@ -5631,7 +5755,7 @@ function create_default_slot_1$1(ctx) {
     },
     p(ctx2, dirty) {
       const switch_instance_changes = {};
-      if (!updating_result && dirty[0] & 256) {
+      if (!updating_result && dirty & 256) {
         updating_result = true;
         switch_instance_changes.result = ctx2[8];
         add_flush_callback(() => updating_result = false);
@@ -5648,7 +5772,7 @@ function create_default_slot_1$1(ctx) {
         if (switch_value) {
           switch_instance = new switch_value(switch_props(ctx2));
           binding_callbacks.push(() => bind(switch_instance, "result", switch_instance_result_binding));
-          switch_instance.$on("successfulScan", ctx2[19]);
+          switch_instance.$on("successfulScan", ctx2[18]);
           create_component(switch_instance.$$.fragment);
           transition_in(switch_instance.$$.fragment, 1);
           mount_component(switch_instance, switch_instance_anchor.parentNode, switch_instance_anchor);
@@ -5703,9 +5827,9 @@ function create_default_slot$1(ctx) {
     },
     p(ctx2, dirty) {
       const modal_changes = {};
-      if (dirty[0] & 32)
+      if (dirty & 32)
         modal_changes.modal = ctx2[5];
-      if (dirty[0] & 352 | dirty[1] & 1) {
+      if (dirty & 268435808) {
         modal_changes.$$scope = { dirty, ctx: ctx2 };
       }
       modal.$set(modal_changes);
@@ -5725,7 +5849,7 @@ function create_default_slot$1(ctx) {
     }
   };
 }
-function create_fragment$4(ctx) {
+function create_fragment$3(ctx) {
   let t0;
   let div2;
   let div0;
@@ -5736,12 +5860,12 @@ function create_fragment$4(ctx) {
   let div1;
   let scanicon;
   let current;
-  let if_block = ctx[3] && create_if_block$3(ctx);
+  let if_block = ctx[3] && create_if_block$2(ctx);
   function search_handle_binding(value) {
-    ctx[16](value);
+    ctx[15](value);
   }
   function search_pubKey_binding(value) {
-    ctx[17](value);
+    ctx[16](value);
   }
   let search_props = {
     handleAddContact: ctx[9]
@@ -5762,7 +5886,7 @@ function create_fragment$4(ctx) {
       $$scope: { ctx }
     }
   });
-  scanicon.$on("click", ctx[20]);
+  scanicon.$on("click", ctx[19]);
   return {
     c() {
       if (if_block)
@@ -5812,15 +5936,15 @@ function create_fragment$4(ctx) {
       mount_component(scanicon, div1, null);
       current = true;
     },
-    p(ctx2, dirty) {
+    p(ctx2, [dirty]) {
       if (ctx2[3]) {
         if (if_block) {
           if_block.p(ctx2, dirty);
-          if (dirty[0] & 8) {
+          if (dirty & 8) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$3(ctx2);
+          if_block = create_if_block$2(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(t0.parentNode, t0);
@@ -5833,21 +5957,21 @@ function create_fragment$4(ctx) {
         check_outros();
       }
       const search_changes = {};
-      if (!updating_handle && dirty[0] & 128) {
+      if (!updating_handle && dirty & 128) {
         updating_handle = true;
         search_changes.handle = ctx2[7];
         add_flush_callback(() => updating_handle = false);
       }
-      if (!updating_pubKey && dirty[0] & 256) {
+      if (!updating_pubKey && dirty & 256) {
         updating_pubKey = true;
         search_changes.pubKey = ctx2[8];
         add_flush_callback(() => updating_pubKey = false);
       }
       search2.$set(search_changes);
       const scanicon_changes = {};
-      if (dirty[0] & 32)
+      if (dirty & 32)
         scanicon_changes.scan = ctx2[5];
-      if (dirty[0] & 352 | dirty[1] & 1) {
+      if (dirty & 268435808) {
         scanicon_changes.$$scope = { dirty, ctx: ctx2 };
       }
       scanicon.$set(scanicon_changes);
@@ -5879,12 +6003,12 @@ function create_fragment$4(ctx) {
   };
 }
 const tag = "Contacts";
-function instance$4($$self, $$props, $$invalidate) {
+function instance$3($$self, $$props, $$invalidate) {
   let selected;
   let $page;
   let $contacts;
-  component_subscribe($$self, page, ($$value) => $$invalidate(23, $page = $$value));
-  component_subscribe($$self, contacts, ($$value) => $$invalidate(15, $contacts = $$value));
+  component_subscribe($$self, page, ($$value) => $$invalidate(22, $page = $$value));
+  component_subscribe($$self, contacts, ($$value) => $$invalidate(14, $contacts = $$value));
   let { getTagNodes } = $$props;
   let { openHypns } = $$props;
   let { checkAccess } = $$props;
@@ -5893,7 +6017,6 @@ function instance$4($$self, $$props, $$invalidate) {
   const dispatch = createEventDispatcher();
   let schema;
   let handle, pubKey, pubKeyInput;
-  let tagNode;
   let scan;
   onMount(async () => {
     let params = new URLSearchParams(location.search);
@@ -5940,7 +6063,7 @@ function instance$4($$self, $$props, $$invalidate) {
     $$invalidate(8, pubKey = key);
   }
   function handleMessenger(event) {
-    console.log("Setting pubKey to rx'd msg value");
+    console.log("Setting pubKey to rx'd msg value", { event });
     $$invalidate(8, pubKey = event.detail.pubKeyHex);
   }
   function handleModalClose() {
@@ -5983,20 +6106,20 @@ function instance$4($$self, $$props, $$invalidate) {
       $$invalidate(4, decryptFromTagNode = $$props2.decryptFromTagNode);
   };
   $$self.$$.update = () => {
-    if ($$self.$$.dirty[0] & 8) {
+    if ($$self.$$.dirty & 8) {
       if (decryptedData)
         set_store_value(contacts, $contacts = decryptedData, $contacts);
     }
-    if ($$self.$$.dirty[0] & 32768) {
+    if ($$self.$$.dirty & 16384) {
       $contacts && console.log($contacts);
     }
-    if ($$self.$$.dirty[0] & 32) {
+    if ($$self.$$.dirty & 32) {
       $$invalidate(6, selected = scan ? Scanner : null);
     }
-    if ($$self.$$.dirty[0] & 64) {
+    if ($$self.$$.dirty & 64) {
       selected && console.log({ selected });
     }
-    if ($$self.$$.dirty[0] & 32) {
+    if ($$self.$$.dirty & 32) {
       scan && console.log({ scan });
     }
   };
@@ -6014,7 +6137,6 @@ function instance$4($$self, $$props, $$invalidate) {
     handleConnect,
     handleMessenger,
     handleModalClose,
-    tagNode,
     onSubmitted,
     $contacts,
     search_handle_binding,
@@ -6027,342 +6149,20 @@ function instance$4($$self, $$props, $$invalidate) {
 class Contacts extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$4, create_fragment$4, safe_not_equal, {
+    init(this, options, instance$3, create_fragment$3, safe_not_equal, {
       getTagNodes: 0,
       openHypns: 1,
       checkAccess: 2,
       decryptedData: 3,
       decryptFromTagNode: 4,
-      onSubmitted: 14
-    }, null, [-1, -1]);
+      onSubmitted: 13
+    });
   }
   get onSubmitted() {
-    return this.$$.ctx[14];
+    return this.$$.ctx[13];
   }
 }
-function get_each_context$1(ctx, list, i) {
-  const child_ctx = ctx.slice();
-  child_ctx[2] = list[i].handle;
-  child_ctx[3] = list[i].pubKey;
-  return child_ctx;
-}
-function create_if_block$2(ctx) {
-  let each_1_anchor;
-  let current;
-  let each_value = ctx[0];
-  let each_blocks = [];
-  for (let i = 0; i < each_value.length; i += 1) {
-    each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
-  }
-  const out = (i) => transition_out(each_blocks[i], 1, 1, () => {
-    each_blocks[i] = null;
-  });
-  return {
-    c() {
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].c();
-      }
-      each_1_anchor = empty();
-    },
-    l(nodes) {
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].l(nodes);
-      }
-      each_1_anchor = empty();
-    },
-    m(target, anchor) {
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        each_blocks[i].m(target, anchor);
-      }
-      insert_hydration(target, each_1_anchor, anchor);
-      current = true;
-    },
-    p(ctx2, dirty) {
-      if (dirty & 1) {
-        each_value = ctx2[0];
-        let i;
-        for (i = 0; i < each_value.length; i += 1) {
-          const child_ctx = get_each_context$1(ctx2, each_value, i);
-          if (each_blocks[i]) {
-            each_blocks[i].p(child_ctx, dirty);
-            transition_in(each_blocks[i], 1);
-          } else {
-            each_blocks[i] = create_each_block$1(child_ctx);
-            each_blocks[i].c();
-            transition_in(each_blocks[i], 1);
-            each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-          }
-        }
-        group_outros();
-        for (i = each_value.length; i < each_blocks.length; i += 1) {
-          out(i);
-        }
-        check_outros();
-      }
-    },
-    i(local) {
-      if (current)
-        return;
-      for (let i = 0; i < each_value.length; i += 1) {
-        transition_in(each_blocks[i]);
-      }
-      current = true;
-    },
-    o(local) {
-      each_blocks = each_blocks.filter(Boolean);
-      for (let i = 0; i < each_blocks.length; i += 1) {
-        transition_out(each_blocks[i]);
-      }
-      current = false;
-    },
-    d(detaching) {
-      destroy_each(each_blocks, detaching);
-      if (detaching)
-        detach(each_1_anchor);
-    }
-  };
-}
-function create_handle_slot(ctx) {
-  let span;
-  let t_value = ctx[2] + "";
-  let t;
-  return {
-    c() {
-      span = element("span");
-      t = text(t_value);
-      this.h();
-    },
-    l(nodes) {
-      span = claim_element(nodes, "SPAN", { slot: true });
-      var span_nodes = children(span);
-      t = claim_text(span_nodes, t_value);
-      span_nodes.forEach(detach);
-      this.h();
-    },
-    h() {
-      attr(span, "slot", "handle");
-    },
-    m(target, anchor) {
-      insert_hydration(target, span, anchor);
-      append_hydration(span, t);
-    },
-    p(ctx2, dirty) {
-      if (dirty & 1 && t_value !== (t_value = ctx2[2] + ""))
-        set_data(t, t_value);
-    },
-    d(detaching) {
-      if (detaching)
-        detach(span);
-    }
-  };
-}
-function create_publicKey_slot(ctx) {
-  let span;
-  let t0;
-  let small;
-  let t1_value = ctx[3] + "";
-  let t1;
-  return {
-    c() {
-      span = element("span");
-      t0 = text("PubKey: ");
-      small = element("small");
-      t1 = text(t1_value);
-      this.h();
-    },
-    l(nodes) {
-      span = claim_element(nodes, "SPAN", { slot: true });
-      var span_nodes = children(span);
-      t0 = claim_text(span_nodes, "PubKey: ");
-      small = claim_element(span_nodes, "SMALL", {});
-      var small_nodes = children(small);
-      t1 = claim_text(small_nodes, t1_value);
-      small_nodes.forEach(detach);
-      span_nodes.forEach(detach);
-      this.h();
-    },
-    h() {
-      attr(span, "slot", "publicKey");
-    },
-    m(target, anchor) {
-      insert_hydration(target, span, anchor);
-      append_hydration(span, t0);
-      append_hydration(span, small);
-      append_hydration(small, t1);
-    },
-    p(ctx2, dirty) {
-      if (dirty & 1 && t1_value !== (t1_value = ctx2[3] + ""))
-        set_data(t1, t1_value);
-    },
-    d(detaching) {
-      if (detaching)
-        detach(span);
-    }
-  };
-}
-function create_each_block$1(ctx) {
-  let div;
-  let contactcard;
-  let t;
-  let current;
-  contactcard = new ContactCard({
-    props: {
-      $$slots: {
-        publicKey: [create_publicKey_slot],
-        handle: [create_handle_slot]
-      },
-      $$scope: { ctx }
-    }
-  });
-  return {
-    c() {
-      div = element("div");
-      create_component(contactcard.$$.fragment);
-      t = space();
-      this.h();
-    },
-    l(nodes) {
-      div = claim_element(nodes, "DIV", { class: true });
-      var div_nodes = children(div);
-      claim_component(contactcard.$$.fragment, div_nodes);
-      t = claim_space(div_nodes);
-      div_nodes.forEach(detach);
-      this.h();
-    },
-    h() {
-      attr(div, "class", "card-container");
-    },
-    m(target, anchor) {
-      insert_hydration(target, div, anchor);
-      mount_component(contactcard, div, null);
-      append_hydration(div, t);
-      current = true;
-    },
-    p(ctx2, dirty) {
-      const contactcard_changes = {};
-      if (dirty & 65) {
-        contactcard_changes.$$scope = { dirty, ctx: ctx2 };
-      }
-      contactcard.$set(contactcard_changes);
-    },
-    i(local) {
-      if (current)
-        return;
-      transition_in(contactcard.$$.fragment, local);
-      current = true;
-    },
-    o(local) {
-      transition_out(contactcard.$$.fragment, local);
-      current = false;
-    },
-    d(detaching) {
-      if (detaching)
-        detach(div);
-      destroy_component(contactcard);
-    }
-  };
-}
-function create_fragment$3(ctx) {
-  let t0;
-  let t1;
-  let t2;
-  let if_block_anchor;
-  let current;
-  let if_block = ctx[0] && create_if_block$2(ctx);
-  return {
-    c() {
-      t0 = text("decryptedData : ");
-      t1 = text(ctx[0]);
-      t2 = space();
-      if (if_block)
-        if_block.c();
-      if_block_anchor = empty();
-    },
-    l(nodes) {
-      t0 = claim_text(nodes, "decryptedData : ");
-      t1 = claim_text(nodes, ctx[0]);
-      t2 = claim_space(nodes);
-      if (if_block)
-        if_block.l(nodes);
-      if_block_anchor = empty();
-    },
-    m(target, anchor) {
-      insert_hydration(target, t0, anchor);
-      insert_hydration(target, t1, anchor);
-      insert_hydration(target, t2, anchor);
-      if (if_block)
-        if_block.m(target, anchor);
-      insert_hydration(target, if_block_anchor, anchor);
-      current = true;
-    },
-    p(ctx2, [dirty]) {
-      if (!current || dirty & 1)
-        set_data(t1, ctx2[0]);
-      if (ctx2[0]) {
-        if (if_block) {
-          if_block.p(ctx2, dirty);
-          if (dirty & 1) {
-            transition_in(if_block, 1);
-          }
-        } else {
-          if_block = create_if_block$2(ctx2);
-          if_block.c();
-          transition_in(if_block, 1);
-          if_block.m(if_block_anchor.parentNode, if_block_anchor);
-        }
-      } else if (if_block) {
-        group_outros();
-        transition_out(if_block, 1, 1, () => {
-          if_block = null;
-        });
-        check_outros();
-      }
-    },
-    i(local) {
-      if (current)
-        return;
-      transition_in(if_block);
-      current = true;
-    },
-    o(local) {
-      transition_out(if_block);
-      current = false;
-    },
-    d(detaching) {
-      if (detaching)
-        detach(t0);
-      if (detaching)
-        detach(t1);
-      if (detaching)
-        detach(t2);
-      if (if_block)
-        if_block.d(detaching);
-      if (detaching)
-        detach(if_block_anchor);
-    }
-  };
-}
-function instance$3($$self, $$props, $$invalidate) {
-  let decryptedData;
-  let $contacts;
-  component_subscribe($$self, contacts, ($$value) => $$invalidate(1, $contacts = $$value));
-  $$self.$$.update = () => {
-    if ($$self.$$.dirty & 2) {
-      $contacts && console.log($contacts);
-    }
-    if ($$self.$$.dirty & 2) {
-      $$invalidate(0, decryptedData = $contacts);
-    }
-  };
-  return [decryptedData, $contacts];
-}
-class ShowContacts extends SvelteComponent {
-  constructor(options) {
-    super();
-    init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
-  }
-}
-const CONTACTS = "Show Contacts";
+const CONTACTS = "Contacts";
 const PROFILE = "Profile";
 const Components = {
   [PROFILE]: { name: PROFILE, component: Profile, tag: PROFILE },
@@ -6483,8 +6283,8 @@ class ShowRoot extends SvelteComponent {
 }
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[22] = list[i][0];
-  child_ctx[23] = list[i][1];
+  child_ctx[26] = list[i][0];
+  child_ctx[27] = list[i][1];
   return child_ctx;
 }
 function create_else_block_1(ctx) {
@@ -6520,7 +6320,7 @@ function create_if_block_1(ctx) {
   let switch_instance_anchor;
   let current;
   function switch_instance_wallet_binding(value) {
-    ctx[8](value);
+    ctx[9](value);
   }
   var switch_value = ctx[6];
   function switch_props(ctx2) {
@@ -6603,7 +6403,7 @@ function create_if_block_1(ctx) {
 }
 function create_each_block(ctx) {
   let option;
-  let t_value = ctx[22] + "";
+  let t_value = ctx[26] + "";
   let t;
   let option_value_value;
   return {
@@ -6620,7 +6420,7 @@ function create_each_block(ctx) {
       this.h();
     },
     h() {
-      option.__value = option_value_value = ctx[23];
+      option.__value = option_value_value = ctx[27];
       option.value = option.__value;
     },
     m(target, anchor) {
@@ -6662,166 +6462,108 @@ function create_else_block(ctx) {
   };
 }
 function create_if_block(ctx) {
-  let dagjose0;
+  let dagjose;
   let updating_rootCID;
-  let t;
-  let dagjose1;
-  let updating_rootCID_1;
   let current;
-  function dagjose0_rootCID_binding(value) {
-    ctx[12](value);
+  function dagjose_rootCID_binding(value) {
+    ctx[15](value);
   }
-  let dagjose0_props = {
+  let dagjose_props = {
     proxcryptor: ctx[0].proxcryptor,
     ipfsNode: ctx[3],
     CID: ctx[4],
+    refreshedRootCID: ctx[8],
     tag: ctx[2].tag,
     onSubmitted: ctx[7],
     $$slots: {
       default: [
-        create_default_slot_1,
-        ({ decryptedData, getTagNodes, checkAccess, setAccess, handleSubmit, decryptFromTagNode }) => ({
-          16: decryptedData,
-          17: getTagNodes,
-          18: checkAccess,
-          19: setAccess,
-          20: handleSubmit,
-          21: decryptFromTagNode
-        }),
-        ({ decryptedData, getTagNodes, checkAccess, setAccess, handleSubmit, decryptFromTagNode }) => (decryptedData ? 65536 : 0) | (getTagNodes ? 131072 : 0) | (checkAccess ? 262144 : 0) | (setAccess ? 524288 : 0) | (handleSubmit ? 1048576 : 0) | (decryptFromTagNode ? 2097152 : 0)
-      ]
-    },
-    $$scope: { ctx }
-  };
-  if (ctx[1] !== void 0) {
-    dagjose0_props.rootCID = ctx[1];
-  }
-  dagjose0 = new DAGJose({ props: dagjose0_props });
-  binding_callbacks.push(() => bind(dagjose0, "rootCID", dagjose0_rootCID_binding));
-  function dagjose1_rootCID_binding(value) {
-    ctx[13](value);
-  }
-  let dagjose1_props = {
-    proxcryptor: ctx[0].proxcryptor,
-    ipfsNode: ctx[3],
-    CID: ctx[4],
-    tag: "Contacts",
-    onSubmitted: ctx[7],
-    $$slots: {
-      default: [
         create_default_slot,
-        ({ decryptedData, getTagNodes, checkAccess, setAccess, handleSubmit, decryptFromTagNode }) => ({
-          16: decryptedData,
-          17: getTagNodes,
-          18: checkAccess,
-          19: setAccess,
-          20: handleSubmit,
-          21: decryptFromTagNode
+        ({ getTagNodes, getTagNode, checkAccess, setAccess, handleSubmit, decryptFromTagNode, decrypt }) => ({
+          18: getTagNodes,
+          19: getTagNode,
+          20: checkAccess,
+          21: setAccess,
+          22: handleSubmit,
+          23: decryptFromTagNode,
+          24: decrypt
         }),
-        ({ decryptedData, getTagNodes, checkAccess, setAccess, handleSubmit, decryptFromTagNode }) => (decryptedData ? 65536 : 0) | (getTagNodes ? 131072 : 0) | (checkAccess ? 262144 : 0) | (setAccess ? 524288 : 0) | (handleSubmit ? 1048576 : 0) | (decryptFromTagNode ? 2097152 : 0)
+        ({ getTagNodes, getTagNode, checkAccess, setAccess, handleSubmit, decryptFromTagNode, decrypt }) => (getTagNodes ? 262144 : 0) | (getTagNode ? 524288 : 0) | (checkAccess ? 1048576 : 0) | (setAccess ? 2097152 : 0) | (handleSubmit ? 4194304 : 0) | (decryptFromTagNode ? 8388608 : 0) | (decrypt ? 16777216 : 0)
       ]
     },
     $$scope: { ctx }
   };
   if (ctx[1] !== void 0) {
-    dagjose1_props.rootCID = ctx[1];
+    dagjose_props.rootCID = ctx[1];
   }
-  dagjose1 = new DAGJose({ props: dagjose1_props });
-  binding_callbacks.push(() => bind(dagjose1, "rootCID", dagjose1_rootCID_binding));
+  dagjose = new DAGJose({ props: dagjose_props });
+  binding_callbacks.push(() => bind(dagjose, "rootCID", dagjose_rootCID_binding));
   return {
     c() {
-      create_component(dagjose0.$$.fragment);
-      t = space();
-      create_component(dagjose1.$$.fragment);
+      create_component(dagjose.$$.fragment);
     },
     l(nodes) {
-      claim_component(dagjose0.$$.fragment, nodes);
-      t = claim_space(nodes);
-      claim_component(dagjose1.$$.fragment, nodes);
+      claim_component(dagjose.$$.fragment, nodes);
     },
     m(target, anchor) {
-      mount_component(dagjose0, target, anchor);
-      insert_hydration(target, t, anchor);
-      mount_component(dagjose1, target, anchor);
+      mount_component(dagjose, target, anchor);
       current = true;
     },
     p(ctx2, dirty) {
-      const dagjose0_changes = {};
+      const dagjose_changes = {};
       if (dirty & 1)
-        dagjose0_changes.proxcryptor = ctx2[0].proxcryptor;
+        dagjose_changes.proxcryptor = ctx2[0].proxcryptor;
       if (dirty & 8)
-        dagjose0_changes.ipfsNode = ctx2[3];
+        dagjose_changes.ipfsNode = ctx2[3];
       if (dirty & 16)
-        dagjose0_changes.CID = ctx2[4];
+        dagjose_changes.CID = ctx2[4];
+      if (dirty & 256)
+        dagjose_changes.refreshedRootCID = ctx2[8];
       if (dirty & 4)
-        dagjose0_changes.tag = ctx2[2].tag;
+        dagjose_changes.tag = ctx2[2].tag;
       if (dirty & 128)
-        dagjose0_changes.onSubmitted = ctx2[7];
-      if (dirty & 71237796) {
-        dagjose0_changes.$$scope = { dirty, ctx: ctx2 };
+        dagjose_changes.onSubmitted = ctx2[7];
+      if (dirty & 1107034534) {
+        dagjose_changes.$$scope = { dirty, ctx: ctx2 };
       }
       if (!updating_rootCID && dirty & 2) {
         updating_rootCID = true;
-        dagjose0_changes.rootCID = ctx2[1];
+        dagjose_changes.rootCID = ctx2[1];
         add_flush_callback(() => updating_rootCID = false);
       }
-      dagjose0.$set(dagjose0_changes);
-      const dagjose1_changes = {};
-      if (dirty & 1)
-        dagjose1_changes.proxcryptor = ctx2[0].proxcryptor;
-      if (dirty & 8)
-        dagjose1_changes.ipfsNode = ctx2[3];
-      if (dirty & 16)
-        dagjose1_changes.CID = ctx2[4];
-      if (dirty & 128)
-        dagjose1_changes.onSubmitted = ctx2[7];
-      if (dirty & 70713376) {
-        dagjose1_changes.$$scope = { dirty, ctx: ctx2 };
-      }
-      if (!updating_rootCID_1 && dirty & 2) {
-        updating_rootCID_1 = true;
-        dagjose1_changes.rootCID = ctx2[1];
-        add_flush_callback(() => updating_rootCID_1 = false);
-      }
-      dagjose1.$set(dagjose1_changes);
+      dagjose.$set(dagjose_changes);
     },
     i(local) {
       if (current)
         return;
-      transition_in(dagjose0.$$.fragment, local);
-      transition_in(dagjose1.$$.fragment, local);
+      transition_in(dagjose.$$.fragment, local);
       current = true;
     },
     o(local) {
-      transition_out(dagjose0.$$.fragment, local);
-      transition_out(dagjose1.$$.fragment, local);
+      transition_out(dagjose.$$.fragment, local);
       current = false;
     },
     d(detaching) {
-      destroy_component(dagjose0, detaching);
-      if (detaching)
-        detach(t);
-      destroy_component(dagjose1, detaching);
+      destroy_component(dagjose, detaching);
     }
   };
 }
-function create_default_slot_1(ctx) {
+function create_default_slot_2(ctx) {
   let switch_instance;
   let updating_onSubmitted;
   let switch_instance_anchor;
   let current;
   function switch_instance_onSubmitted_binding(value) {
-    ctx[11](value);
+    ctx[12](value);
   }
   var switch_value = ctx[2].component;
   function switch_props(ctx2) {
     let switch_instance_props = {
-      decryptedData: ctx2[16],
-      getTagNodes: ctx2[17],
-      checkAccess: ctx2[18],
-      setAccess: ctx2[19],
+      decryptedData: ctx2[25],
+      getTagNodes: ctx2[18],
+      checkAccess: ctx2[20],
+      setAccess: ctx2[21],
       openHypns: ctx2[5],
-      decryptFromTagNode: ctx2[21]
+      decryptFromTagNode: ctx2[23]
     };
     if (ctx2[7] !== void 0) {
       switch_instance_props.onSubmitted = ctx2[7];
@@ -6832,8 +6574,8 @@ function create_default_slot_1(ctx) {
     switch_instance = new switch_value(switch_props(ctx));
     binding_callbacks.push(() => bind(switch_instance, "onSubmitted", switch_instance_onSubmitted_binding));
     switch_instance.$on("handleSubmit", function() {
-      if (is_function(ctx[20]))
-        ctx[20].apply(this, arguments);
+      if (is_function(ctx[22]))
+        ctx[22].apply(this, arguments);
     });
   }
   return {
@@ -6857,18 +6599,18 @@ function create_default_slot_1(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const switch_instance_changes = {};
-      if (dirty & 65536)
-        switch_instance_changes.decryptedData = ctx[16];
-      if (dirty & 131072)
-        switch_instance_changes.getTagNodes = ctx[17];
+      if (dirty & 33554432)
+        switch_instance_changes.decryptedData = ctx[25];
       if (dirty & 262144)
-        switch_instance_changes.checkAccess = ctx[18];
-      if (dirty & 524288)
-        switch_instance_changes.setAccess = ctx[19];
+        switch_instance_changes.getTagNodes = ctx[18];
+      if (dirty & 1048576)
+        switch_instance_changes.checkAccess = ctx[20];
+      if (dirty & 2097152)
+        switch_instance_changes.setAccess = ctx[21];
       if (dirty & 32)
         switch_instance_changes.openHypns = ctx[5];
-      if (dirty & 2097152)
-        switch_instance_changes.decryptFromTagNode = ctx[21];
+      if (dirty & 8388608)
+        switch_instance_changes.decryptFromTagNode = ctx[23];
       if (!updating_onSubmitted && dirty & 128) {
         updating_onSubmitted = true;
         switch_instance_changes.onSubmitted = ctx[7];
@@ -6887,8 +6629,8 @@ function create_default_slot_1(ctx) {
           switch_instance = new switch_value(switch_props(ctx));
           binding_callbacks.push(() => bind(switch_instance, "onSubmitted", switch_instance_onSubmitted_binding));
           switch_instance.$on("handleSubmit", function() {
-            if (is_function(ctx[20]))
-              ctx[20].apply(this, arguments);
+            if (is_function(ctx[22]))
+              ctx[22].apply(this, arguments);
           });
           create_component(switch_instance.$$.fragment);
           transition_in(switch_instance.$$.fragment, 1);
@@ -6920,21 +6662,21 @@ function create_default_slot_1(ctx) {
     }
   };
 }
-function create_default_slot(ctx) {
+function create_default_slot_1(ctx) {
   let contacts2;
   let current;
   contacts2 = new Contacts({
     props: {
-      getTagNodes: ctx[17],
+      getTagNodes: ctx[18],
       openHypns: ctx[5],
-      checkAccess: ctx[18],
-      decryptedData: ctx[16],
-      decryptFromTagNode: ctx[21]
+      checkAccess: ctx[20],
+      decryptedData: ctx[25],
+      decryptFromTagNode: ctx[23]
     }
   });
   contacts2.$on("handleSubmit", function() {
-    if (is_function(ctx[20]))
-      ctx[20].apply(this, arguments);
+    if (is_function(ctx[22]))
+      ctx[22].apply(this, arguments);
   });
   return {
     c() {
@@ -6950,16 +6692,16 @@ function create_default_slot(ctx) {
     p(new_ctx, dirty) {
       ctx = new_ctx;
       const contacts_changes = {};
-      if (dirty & 131072)
-        contacts_changes.getTagNodes = ctx[17];
+      if (dirty & 262144)
+        contacts_changes.getTagNodes = ctx[18];
       if (dirty & 32)
         contacts_changes.openHypns = ctx[5];
-      if (dirty & 262144)
-        contacts_changes.checkAccess = ctx[18];
-      if (dirty & 65536)
-        contacts_changes.decryptedData = ctx[16];
-      if (dirty & 2097152)
-        contacts_changes.decryptFromTagNode = ctx[21];
+      if (dirty & 1048576)
+        contacts_changes.checkAccess = ctx[20];
+      if (dirty & 33554432)
+        contacts_changes.decryptedData = ctx[25];
+      if (dirty & 8388608)
+        contacts_changes.decryptFromTagNode = ctx[23];
       contacts2.$set(contacts_changes);
     },
     i(local) {
@@ -6974,6 +6716,136 @@ function create_default_slot(ctx) {
     },
     d(detaching) {
       destroy_component(contacts2, detaching);
+    }
+  };
+}
+function create_default_slot(ctx) {
+  let common0;
+  let updating_refreshedRootCID;
+  let t;
+  let common1;
+  let updating_refreshedRootCID_1;
+  let current;
+  function common0_refreshedRootCID_binding(value) {
+    ctx[13](value);
+  }
+  let common0_props = {
+    getTagNode: ctx[19],
+    decrypt: ctx[24],
+    tag: ctx[2].tag,
+    rootCID: ctx[1],
+    setAccess: ctx[21],
+    $$slots: {
+      default: [
+        create_default_slot_2,
+        ({ decryptedData }) => ({ 25: decryptedData }),
+        ({ decryptedData }) => decryptedData ? 33554432 : 0
+      ]
+    },
+    $$scope: { ctx }
+  };
+  if (ctx[8] !== void 0) {
+    common0_props.refreshedRootCID = ctx[8];
+  }
+  common0 = new Common({ props: common0_props });
+  binding_callbacks.push(() => bind(common0, "refreshedRootCID", common0_refreshedRootCID_binding));
+  function common1_refreshedRootCID_binding(value) {
+    ctx[14](value);
+  }
+  let common1_props = {
+    getTagNode: ctx[19],
+    decrypt: ctx[24],
+    tag: "Contacts",
+    rootCID: ctx[1],
+    setAccess: ctx[21],
+    $$slots: {
+      default: [
+        create_default_slot_1,
+        ({ decryptedData }) => ({ 25: decryptedData }),
+        ({ decryptedData }) => decryptedData ? 33554432 : 0
+      ]
+    },
+    $$scope: { ctx }
+  };
+  if (ctx[8] !== void 0) {
+    common1_props.refreshedRootCID = ctx[8];
+  }
+  common1 = new Common({ props: common1_props });
+  binding_callbacks.push(() => bind(common1, "refreshedRootCID", common1_refreshedRootCID_binding));
+  return {
+    c() {
+      create_component(common0.$$.fragment);
+      t = space();
+      create_component(common1.$$.fragment);
+    },
+    l(nodes) {
+      claim_component(common0.$$.fragment, nodes);
+      t = claim_space(nodes);
+      claim_component(common1.$$.fragment, nodes);
+    },
+    m(target, anchor) {
+      mount_component(common0, target, anchor);
+      insert_hydration(target, t, anchor);
+      mount_component(common1, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const common0_changes = {};
+      if (dirty & 524288)
+        common0_changes.getTagNode = ctx2[19];
+      if (dirty & 16777216)
+        common0_changes.decrypt = ctx2[24];
+      if (dirty & 4)
+        common0_changes.tag = ctx2[2].tag;
+      if (dirty & 2)
+        common0_changes.rootCID = ctx2[1];
+      if (dirty & 2097152)
+        common0_changes.setAccess = ctx2[21];
+      if (dirty & 1123287204) {
+        common0_changes.$$scope = { dirty, ctx: ctx2 };
+      }
+      if (!updating_refreshedRootCID && dirty & 256) {
+        updating_refreshedRootCID = true;
+        common0_changes.refreshedRootCID = ctx2[8];
+        add_flush_callback(() => updating_refreshedRootCID = false);
+      }
+      common0.$set(common0_changes);
+      const common1_changes = {};
+      if (dirty & 524288)
+        common1_changes.getTagNode = ctx2[19];
+      if (dirty & 16777216)
+        common1_changes.decrypt = ctx2[24];
+      if (dirty & 2)
+        common1_changes.rootCID = ctx2[1];
+      if (dirty & 2097152)
+        common1_changes.setAccess = ctx2[21];
+      if (dirty & 1121189920) {
+        common1_changes.$$scope = { dirty, ctx: ctx2 };
+      }
+      if (!updating_refreshedRootCID_1 && dirty & 256) {
+        updating_refreshedRootCID_1 = true;
+        common1_changes.refreshedRootCID = ctx2[8];
+        add_flush_callback(() => updating_refreshedRootCID_1 = false);
+      }
+      common1.$set(common1_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(common0.$$.fragment, local);
+      transition_in(common1.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(common0.$$.fragment, local);
+      transition_out(common1.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(common0, detaching);
+      if (detaching)
+        detach(t);
+      destroy_component(common1, detaching);
     }
   };
 }
@@ -7005,7 +6877,7 @@ function create_fragment$1(ctx) {
   current_block_type_index = select_block_type(ctx);
   if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
   function hypnsmanager_openHypns_binding(value) {
-    ctx[9](value);
+    ctx[10](value);
   }
   let hypnsmanager_props = {
     wallet: ctx[0],
@@ -7075,7 +6947,7 @@ function create_fragment$1(ctx) {
     h() {
       attr(select, "class", "form-control");
       if (ctx[2] === void 0)
-        add_render_callback(() => ctx[10].call(select));
+        add_render_callback(() => ctx[11].call(select));
       attr(div1, "class", "");
     },
     m(target, anchor) {
@@ -7096,7 +6968,7 @@ function create_fragment$1(ctx) {
       if_blocks_1[current_block_type_index_1].m(div1, null);
       current = true;
       if (!mounted) {
-        dispose = listen(select, "change", ctx[10]);
+        dispose = listen(select, "change", ctx[11]);
         mounted = true;
       }
     },
@@ -7218,13 +7090,14 @@ function instance$1($$self, $$props, $$invalidate) {
   let Web3WalletMenu;
   let start = Date.now();
   let onSubmitted;
+  let refreshedRootCID;
   onMount(async () => {
     if (!wallet)
       loadWallet();
     if (!ipfsNode)
       loadIPFS();
     async function loadWallet() {
-      $$invalidate(6, { Web3WalletMenu } = await __vitePreload(() => import("./index-9a777058.js"), true ? ["chunks/index-9a777058.js","assets/index-a39541f0.css","chunks/vendor-0410968b.js","assets/vendor-1494a6c6.css"] : void 0), Web3WalletMenu);
+      $$invalidate(6, { Web3WalletMenu } = await __vitePreload(() => import("./index-e86147d6.js"), true ? ["chunks/index-e86147d6.js","assets/index-a39541f0.css","chunks/vendor-bb143dea.js","assets/vendor-1494a6c6.css"] : void 0), Web3WalletMenu);
     }
     async function loadIPFS() {
       const IPFSmodule = await __vitePreload(() => import("./ipfs-core-7ce8034c.js"), true ? [] : void 0);
@@ -7254,11 +7127,15 @@ function instance$1($$self, $$props, $$invalidate) {
     onSubmitted = value;
     $$invalidate(7, onSubmitted);
   }
-  function dagjose0_rootCID_binding(value) {
-    rootCID = value;
-    $$invalidate(1, rootCID);
+  function common0_refreshedRootCID_binding(value) {
+    refreshedRootCID = value;
+    $$invalidate(8, refreshedRootCID);
   }
-  function dagjose1_rootCID_binding(value) {
+  function common1_refreshedRootCID_binding(value) {
+    refreshedRootCID = value;
+    $$invalidate(8, refreshedRootCID);
+  }
+  function dagjose_rootCID_binding(value) {
     rootCID = value;
     $$invalidate(1, rootCID);
   }
@@ -7277,12 +7154,14 @@ function instance$1($$self, $$props, $$invalidate) {
     openHypns,
     Web3WalletMenu,
     onSubmitted,
+    refreshedRootCID,
     switch_instance_wallet_binding,
     hypnsmanager_openHypns_binding,
     select_change_handler,
     switch_instance_onSubmitted_binding,
-    dagjose0_rootCID_binding,
-    dagjose1_rootCID_binding
+    common0_refreshedRootCID_binding,
+    common1_refreshedRootCID_binding,
+    dagjose_rootCID_binding
   ];
 }
 class App extends SvelteComponent {
@@ -7353,4 +7232,4 @@ class Routes extends SvelteComponent {
   }
 }
 export { Routes, hexDigestMessage };
-//# sourceMappingURL=index-18c330cc.js.map
+//# sourceMappingURL=index-65d5a0ec.js.map

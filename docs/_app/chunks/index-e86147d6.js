@@ -1,4 +1,4 @@
-import { SvelteComponent, init, safe_not_equal, element, svg_element, claim_element, children, claim_svg_element, detach, attr, xlink_attr, insert_hydration, append_hydration, noop, create_slot, create_component, space, claim_component, claim_space, toggle_class, mount_component, listen, action_destroyer, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, transition_out, destroy_component, run_all, add_render_callback, create_bidirectional_transition, fade, group_outros, check_outros, createEventDispatcher, null_to_empty, set_style, src_url_equal, set_input_value, add_resize_listener, is_function, onMount, globals, text, claim_text, set_data, binding_callbacks, empty, bind, add_flush_callback } from "./vendor-0410968b.js";
+import { SvelteComponent, init, safe_not_equal, element, svg_element, claim_element, children, claim_svg_element, detach, attr, xlink_attr, insert_hydration, append_hydration, noop, create_slot, create_component, space, claim_component, claim_space, toggle_class, mount_component, listen, action_destroyer, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, transition_out, destroy_component, run_all, add_render_callback, create_bidirectional_transition, fade, group_outros, check_outros, createEventDispatcher, null_to_empty, set_style, src_url_equal, set_input_value, add_resize_listener, is_function, onMount, globals, text, claim_text, set_data, binding_callbacks, empty, bind, add_flush_callback } from "./vendor-bb143dea.js";
 var app = "";
 function memoize(fn, options) {
   var cache = options && options.cache ? options.cache : cacheDefault;
@@ -2742,4 +2742,4 @@ class Connector extends SvelteComponent {
 }
 var Web3WalletConnector = Connector;
 export { Web3WalletConnector, Web3WalletMenu$1 as Web3WalletMenu, Web3WalletConnector as default };
-//# sourceMappingURL=index-9a777058.js.map
+//# sourceMappingURL=index-e86147d6.js.map
