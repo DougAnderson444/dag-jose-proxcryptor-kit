@@ -20,7 +20,7 @@ export function bufftoHex(buffer) {
 }
 
 export function validatePubKey(pubKey) {
-	console.log('Validating', { pubKey });
+	// console.log('Validating', { pubKey });
 
 	if (!pubKey) return;
 
@@ -32,17 +32,19 @@ export function validatePubKey(pubKey) {
 			return pubKeyBytes;
 		}
 	} catch (error) {
-		console.log('Not base 64');
+		// console.log('Not base 64');
 	}
 
 	// base58 / base58BTC
 	try {
 		let b58Bytes = bs58.decode(pubKey);
+		// console.log({ b58Bytes });
+
 		if (b58Bytes.length === PUBLIC_KEY_BYTES) {
 			return b58Bytes;
 		}
 	} catch (error) {
-		console.log('Not base 58');
+		// console.log('Not base 58');
 	}
 
 	// hex

@@ -53,11 +53,11 @@
 
 <style>
 	.share {
-		padding: 1em;
+		padding: 1em 0;
 		width: 100%;
 		display: flex;
 		flex-direction: row;
-		align-items: stretch;
+		align-items: center;
 	}
 	.share-item {
 		margin: 0.5em;
