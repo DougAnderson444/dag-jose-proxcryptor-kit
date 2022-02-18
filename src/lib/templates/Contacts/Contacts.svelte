@@ -21,6 +21,7 @@
 	import ScanIcon from '$lib/graphics/scanIcon.svelte';
 	import Modal from '$lib/graphics/Modal.svelte';
 	import Search from '$lib/components/nav/Search.svelte';
+	import ShowContacts from './ShowContacts.svelte';
 
 	// Component props passed in from Parent Component
 	// will also reactively update if updated in parent
@@ -92,7 +93,7 @@
 		pubKey = key;
 	}
 	function handleMessenger(event) {
-		console.log("Setting pubKey to rx'd msg value");
+		console.log("Setting pubKey to rx'd msg value", { event });
 		pubKey = event.detail.pubKeyHex;
 	}
 	function handleModalClose() {
@@ -105,34 +106,14 @@
 </script>
 
 {#if decryptedData}
-	<!-- defined by schema -->
-	{#each decryptedData as { handle, pubKey }}
-		<div class="card-container">
-			<ContactCard>
-				<span slot="handle">
-					{handle}
-				</span>
-
-				<span slot="publicKey">
-					PubKey: <small>{pubKey}</small>
-				</span>
-
-				<span slot="latest">
-					<PiperNet {pubKey} {openHypns} let:latestHypns on:onMessage={handleMessenger}>
-						<!-- once root CID appears, get tag details then show tag access -->
-						<GetTags rootCID={latestHypns} {getTagNodes} let:tagNode>
-							{#if tag}
-								<TagAccess tag={tagNode.tag} {pubKey} {checkAccess} />
-							{/if}
-							{#if tagNode.tag === 'Profile'}
-								<TagValue {tagNode} {decryptFromTagNode} />
-							{/if}
-						</GetTags>
-					</PiperNet>
-				</span>
-			</ContactCard>
-		</div>
-	{/each}
+	<ShowContacts
+		{decryptedData}
+		{getTagNodes}
+		{openHypns}
+		{checkAccess}
+		{decryptFromTagNode}
+		on:incomingPubKey={handleMessenger}
+	/>
 {/if}
 <div class="searchBar">
 	<div class="scan-icon" style="width: 100%">
