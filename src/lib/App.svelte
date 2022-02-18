@@ -7,6 +7,7 @@
 
 	import { Components } from '$lib/components/index';
 	import ShowRoot from './components/ShowRoot.svelte';
+	import Common from './Common.svelte';
 
 	export let wallet = null;
 	export let rootCID = null;
@@ -25,6 +26,7 @@
 	let start = Date.now();
 
 	let onSubmitted; // only here to pass from svelte:component to DAGJose component
+	let refreshedRootCID;
 
 	onMount(async () => {
 		// load asyncs in parallel
@@ -92,51 +94,58 @@
 			{ipfsNode}
 			{CID}
 			bind:rootCID
+			{refreshedRootCID}
 			tag={active.tag}
 			{onSubmitted}
-			let:decryptedData
 			let:getTagNodes
+			let:getTagNode
 			let:checkAccess
 			let:setAccess
 			let:handleSubmit
 			let:decryptFromTagNode
+			let:decrypt
 		>
-			<svelte:component
-				this={active.component}
-				on:handleSubmit={handleSubmit}
-				bind:onSubmitted
-				{decryptedData}
-				{getTagNodes}
-				{checkAccess}
+			<Common
+				{getTagNode}
+				{decrypt}
+				tag={active.tag}
+				{rootCID}
 				{setAccess}
-				{openHypns}
-				{decryptFromTagNode}
-			/>
-		</DagJose>
+				let:decryptedData
+				bind:refreshedRootCID
+			>
+				<svelte:component
+					this={active.component}
+					on:handleSubmit={handleSubmit}
+					bind:onSubmitted
+					{decryptedData}
+					{getTagNodes}
+					{checkAccess}
+					{setAccess}
+					{openHypns}
+					{decryptFromTagNode}
+				/>
+			</Common>
 
-		<DagJose
-			proxcryptor={wallet.proxcryptor}
-			{ipfsNode}
-			{CID}
-			bind:rootCID
-			tag={'Contacts'}
-			{onSubmitted}
-			let:decryptedData
-			let:getTagNodes
-			let:checkAccess
-			let:setAccess
-			let:handleSubmit
-			let:decryptFromTagNode
-		>
-			<!-- Every page needs contacts, that's kinda the point of this app  -->
-			<Contacts
-				{getTagNodes}
-				{openHypns}
-				{checkAccess}
-				{decryptedData}
-				{decryptFromTagNode}
-				on:handleSubmit={handleSubmit}
-			/>
+			<Common
+				{getTagNode}
+				{decrypt}
+				tag={'Contacts'}
+				{rootCID}
+				{setAccess}
+				let:decryptedData
+				bind:refreshedRootCID
+			>
+				<!-- Every page needs contacts, that's kinda the point of this app  -->
+				<Contacts
+					{getTagNodes}
+					{openHypns}
+					{checkAccess}
+					{decryptedData}
+					{decryptFromTagNode}
+					on:handleSubmit={handleSubmit}
+				/>
+			</Common>
 		</DagJose>
 	{:else}
 		Loading IPFS...<br />

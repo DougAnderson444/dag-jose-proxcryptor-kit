@@ -30,7 +30,7 @@
 
 	let getTagNodes;
 
-	let refreshedRootCID;
+	export let refreshedRootCID;
 
 	//  onSubmitted gets bound to, and overwritten by active component
 	export let onSubmitted = () => {}; // optional callback by child component to run after tx submitted
@@ -42,7 +42,6 @@
 
 		// parse and use cached root CIDs, if saved
 		loadRootCID = async () => {
-			await ipfsNode;
 			if (rootCID) return true;
 			let res = await ImmortalDB.get(ROOT_CID);
 
@@ -60,7 +59,6 @@
 
 		// use the portal proxcryptor to encrypt the DAG JOSEs
 		setJoseCryptor = async () => {
-			await ipfsNode;
 			joseCryptor = new DagJoseCryptor(ipfsNode, proxcryptor, rootCID); //refesh when updated
 			if (!rootCID) loaded = true;
 		};
@@ -151,36 +149,15 @@
 <div class="main">
 	{#if proxcryptor && loaded}
 		<div class="">
-			<!-- <Basic on:handleSubmit={handleSubmit} {getTagNode} {decrypt} /> -->
-			<!-- <Contacts
-				on:handleSubmit={handleSubmit}
-				{getTagNode}
+			<slot
+				{handleSubmit}
 				{decrypt}
-				{rootCID}
+				{getTagNodes}
+				{getTagNode}
 				{checkAccess}
 				{setAccess}
-				bind:onSubmitted
-				{getTagNodes}
-			/> -->
-
-			<Common
-				{getTagNode}
-				{decrypt}
-				{tag}
-				{rootCID}
-				{setAccess}
-				let:decryptedData
-				bind:refreshedRootCID
-			>
-				<slot
-					{handleSubmit}
-					{decryptedData}
-					{getTagNodes}
-					{checkAccess}
-					{setAccess}
-					{decryptFromTagNode}
-				/>
-			</Common>
+				{decryptFromTagNode}
+			/>
 		</div>
 	{:else}
 		Connect with the Wallet to save encrypted messages.
