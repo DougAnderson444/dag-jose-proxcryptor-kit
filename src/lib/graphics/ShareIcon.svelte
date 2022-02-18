@@ -6,7 +6,7 @@
 
 <style>
 	svg {
-		width: 3em;
+		width: 1em;
 		height: auto;
 	}
 </style>
