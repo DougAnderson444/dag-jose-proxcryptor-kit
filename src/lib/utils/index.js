@@ -68,3 +68,29 @@ export async function hexDigestMessage(message) {
 	const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join(''); // convert bytes to hex string
 	return hashHex;
 }
+
+export const getTagNodes = async ({ ipfsNode, rootCID }) => {
+	const root = await ipfsNode.dag.get(rootCID);
+	const promises = Object.entries(root.value).map(async ([key, val]) => {
+		if (key === 'prev' || !val) return null;
+		let fields = await ipfsNode.dag.get(val);
+		return fields.value; // https://github.com/ipfs/js-ipfs/blob/master/docs/core-api/DAG.md#ipfsdaggetcid-options
+	});
+
+	const result = await Promise.all(promises);
+	return result.filter((r) => r); // filter out null values
+};
+
+export async function getTagNode({ tag, rootCID, ipfsNode }) {
+	if (!rootCID || !ipfsNode || !tag) return;
+
+	try {
+		const cid = (await ipfsNode.dag.get(rootCID, { path: `/${tag}`, localResolve: true })).value;
+		let tagNode = (await ipfsNode.dag.get(cid, { localResolve: true })).value;
+		return tagNode;
+	} catch (error) {
+		// tag may not exist yet, or maybe the user is typing
+		console.warn(`${tag} no DAG data`);
+		return false;
+	}
+}

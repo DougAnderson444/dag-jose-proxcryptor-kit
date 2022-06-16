@@ -136,6 +136,11 @@ export class DagJoseCryptor {
 	}
 
 	async put(secretz: object, tag: string, schema = {}) {
+		// cleanse input object of undefined values, IPLD doesnt like undefined properies
+		secretz = Object.fromEntries(
+			Object.entries(secretz).map(([k, v]) => (v === undefined ? [k, null] : [k, v]))
+		);
+
 		// Create a key, encrypt and store a block, then load and decrypt it:
 		const symmetricKey = randomBytes(32); // our random secret key
 		const selfEncryptedSymmetricKey = await this.proxcryptor.selfEncrypt(symmetricKey, tag);

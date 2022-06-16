@@ -2,17 +2,14 @@
 	import { onMount } from 'svelte';
 
 	import App from '$lib/App.svelte';
+	import Demo from '$lib/Demo.svelte';
 
 	onMount(async () => {});
 </script>
 
-<svelte:head>
-	<script>
-		global = globalThis; // for solana web3 repo
-	</script>
-</svelte:head>
+<!-- <App /> -->
 
-<App />
+<Demo />
 
 <style>
 </style>

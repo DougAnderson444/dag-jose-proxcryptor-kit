@@ -1,13 +1,14 @@
 <script>
+	import { getTagNodes } from '$lib/utils';
+
 	export let rootCID;
-	export let getTagNodes;
 
 	let tagNodes;
 
-	$: rootCID && processRootCID();
+	$: if (rootCID) processRootCID();
 
 	async function processRootCID() {
-		tagNodes = await getTagNodes(rootCID);
+		tagNodes = await getTagNodes({ rootCID, ipfsNode: globalThis.ipfsNode });
 	}
 </script>
 
