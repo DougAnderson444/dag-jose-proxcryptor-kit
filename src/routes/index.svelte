@@ -10,6 +10,3 @@
 <!-- <App /> -->
 
 <Demo />
-
-<style>
-</style>
