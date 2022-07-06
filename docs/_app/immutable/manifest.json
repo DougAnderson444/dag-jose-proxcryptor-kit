@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-5cb8c366.js",
+    "file": "start-7a2f9b25.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -18,7 +18,7 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-e9a33b50.js",
+    "file": "pages/__layout.svelte-f62d1b2d.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -26,7 +26,7 @@
       "_index-64ae2edc.js"
     ],
     "css": [
-      "assets/pages/__layout.svelte-8f057ff0.css"
+      "assets/pages/__layout.svelte-dff423cb.css"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
@@ -49,16 +49,17 @@
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-a5e399e5.js",
+    "file": "pages/index.svelte-217df75d.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-64ae2edc.js",
-      "_cid-da67497d.js",
-      "_Contacts.svelte_svelte_type_style_lang-b442e525.js",
+      "_cid-d85b89cf.js",
+      "_Contacts.svelte_svelte_type_style_lang-6b2bb9e7.js",
       "_preload-helper-ef2a18a4.js",
-      "_IPFSManager-c92cb8db.js",
+      "_IPFSManager-fbe22ba3.js",
+      "_index-1b64b11a.js",
       "_singletons-cdabada9.js",
       "__commonjsHelpers-9b98600b.js"
     ],
@@ -66,29 +67,28 @@
       "../web3-wallet-connector/index.js"
     ],
     "css": [
-      "assets/pages/index.svelte-2bb46218.css"
+      "assets/pages/index.svelte-29ecec87.css"
     ]
   },
   "src/routes/legacy.svelte": {
-    "file": "pages/legacy.svelte-c0cbcc40.js",
+    "file": "pages/legacy.svelte-153afd08.js",
     "src": "src/routes/legacy.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-64ae2edc.js",
       "_preload-helper-ef2a18a4.js",
-      "_cid-da67497d.js",
-      "_Contacts.svelte_svelte_type_style_lang-b442e525.js",
-      "_index-5cd534b3.js",
+      "_cid-d85b89cf.js",
+      "_Contacts.svelte_svelte_type_style_lang-6b2bb9e7.js",
       "_stores-bdc5e892.js",
+      "_index-1b64b11a.js",
       "_singletons-cdabada9.js",
       "__commonjsHelpers-9b98600b.js"
     ],
     "dynamicImports": [
       "node_modules/immortal-db/src/index.js",
       "src/lib/dagjosecryptor.ts",
-      "node_modules/hypns-svelte-component/dist/index.mjs",
-      "_cid-da67497d.js",
+      "_cid-d85b89cf.js",
       "_browser-62a45c90.js",
       "node_modules/@douganderson444/svelte-solana-name-service/src/lib/index.js",
       "src/modules/ipfs-core-0.14.0/ipfs-core.js",
@@ -99,15 +99,15 @@
     ]
   },
   "src/routes/multitag.svelte": {
-    "file": "pages/multitag.svelte-04032b5c.js",
+    "file": "pages/multitag.svelte-b9040bc1.js",
     "src": "src/routes/multitag.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_preload-helper-ef2a18a4.js",
       "_index-64ae2edc.js",
-      "_IPFSManager-c92cb8db.js",
-      "_cid-da67497d.js"
+      "_IPFSManager-fbe22ba3.js",
+      "_cid-d85b89cf.js"
     ],
     "dynamicImports": [
       "../web3-wallet-connector/index.js"
@@ -131,32 +131,39 @@
       "_index-64ae2edc.js"
     ]
   },
-  "_cid-da67497d.js": {
-    "file": "chunks/cid-da67497d.js",
+  "_cid-d85b89cf.js": {
+    "file": "chunks/cid-d85b89cf.js",
     "isDynamicEntry": true,
     "imports": [
       "_index-64ae2edc.js"
     ]
   },
-  "_Contacts.svelte_svelte_type_style_lang-b442e525.js": {
-    "file": "chunks/Contacts.svelte_svelte_type_style_lang-b442e525.js",
+  "_Contacts.svelte_svelte_type_style_lang-6b2bb9e7.js": {
+    "file": "chunks/Contacts.svelte_svelte_type_style_lang-6b2bb9e7.js",
     "imports": [
+      "_index-64ae2edc.js",
+      "_cid-d85b89cf.js",
+      "_preload-helper-ef2a18a4.js",
+      "_index-1b64b11a.js",
       "_singletons-cdabada9.js",
       "__commonjsHelpers-9b98600b.js"
     ],
+    "dynamicImports": [
+      "node_modules/hypns-svelte-component/dist/index.mjs"
+    ],
     "css": [
-      "assets/Contacts.svelte_svelte_type_style_lang-417c2ef9.css"
+      "assets/Contacts.svelte_svelte_type_style_lang-4205c1a9.css"
     ]
   },
   "__commonjsHelpers-9b98600b.js": {
     "file": "chunks/_commonjsHelpers-9b98600b.js"
   },
-  "_IPFSManager-c92cb8db.js": {
-    "file": "chunks/IPFSManager-c92cb8db.js",
+  "_IPFSManager-fbe22ba3.js": {
+    "file": "chunks/IPFSManager-fbe22ba3.js",
     "imports": [
       "_index-64ae2edc.js",
       "_preload-helper-ef2a18a4.js",
-      "_cid-da67497d.js"
+      "_cid-d85b89cf.js"
     ],
     "dynamicImports": [
       "src/lib/dagjosecryptor.ts",
@@ -164,40 +171,40 @@
       "node_modules/immortal-db/src/index.js"
     ],
     "css": [
-      "assets/IPFSManager-cc086c46.css"
+      "assets/IPFSManager-215a2935.css"
     ]
   },
-  "_index-5cd534b3.js": {
-    "file": "chunks/index-5cd534b3.js",
+  "_index-1b64b11a.js": {
+    "file": "chunks/index-1b64b11a.js",
     "imports": [
-      "_cid-da67497d.js",
+      "_cid-d85b89cf.js",
       "_index-64ae2edc.js"
     ]
   },
   "../web3-wallet-connector/index.js": {
-    "file": "chunks/index-f08a2899.js",
+    "file": "chunks/index-ca95c035.js",
     "src": "../web3-wallet-connector/index.js",
     "isDynamicEntry": true,
     "imports": [
       "_index-64ae2edc.js",
       "_preload-helper-ef2a18a4.js",
-      "_index-5cd534b3.js",
-      "_cid-da67497d.js"
+      "_index-1b64b11a.js",
+      "_cid-d85b89cf.js"
     ],
     "dynamicImports": [
       "../web3-wallet-connector/node_modules/immortal-db/src/index.js"
     ],
     "css": [
-      "assets/index-f37f8aff.css"
+      "assets/index-c30dcd19.css"
     ]
   },
   "src/lib/dagjosecryptor.ts": {
-    "file": "chunks/dagjosecryptor-59e8557a.js",
+    "file": "chunks/dagjosecryptor-ca67e286.js",
     "src": "src/lib/dagjosecryptor.ts",
     "isDynamicEntry": true,
     "imports": [
       "__commonjsHelpers-9b98600b.js",
-      "_cid-da67497d.js",
+      "_cid-d85b89cf.js",
       "_hash-2a1eb12b.js",
       "_index-64ae2edc.js"
     ]
@@ -225,18 +232,18 @@
     "isDynamicEntry": true
   },
   "node_modules/@douganderson444/svelte-solana-name-service/src/lib/index.js": {
-    "file": "chunks/index-314c3146.js",
+    "file": "chunks/index-39b12389.js",
     "src": "node_modules/@douganderson444/svelte-solana-name-service/src/lib/index.js",
     "isDynamicEntry": true,
     "imports": [
       "_hash-2a1eb12b.js",
       "__commonjsHelpers-9b98600b.js",
-      "_cid-da67497d.js",
+      "_cid-d85b89cf.js",
       "_preload-helper-ef2a18a4.js",
       "_index-64ae2edc.js"
     ],
     "dynamicImports": [
-      "_cid-da67497d.js",
+      "_cid-d85b89cf.js",
       "_browser-62a45c90.js"
     ]
   },

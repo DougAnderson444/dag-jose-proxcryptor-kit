@@ -18,7 +18,7 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 import { getAugmentedNamespace, commonjsRequire, commonjsGlobal } from "./_commonjsHelpers-9b98600b.js";
-import { from as from$4, toString as toString$2, fromString as fromString$2, rfc4648, baseX, create as create$3, coerce as coerce$2, base32 as base32$2, base58, hexDigestMessage } from "./cid-da67497d.js";
+import { from as from$4, toString as toString$2, fromString as fromString$2, rfc4648, baseX, create as create$3, coerce as coerce$2, base32 as base32$2, base58, hexDigestMessage } from "./cid-d85b89cf.js";
 import { minimalisticAssert, inherits_browser, hash as hash$2 } from "./hash-2a1eb12b.js";
 import "./index-64ae2edc.js";
 var random = {};
@@ -14152,6 +14152,10 @@ decodeCleartext_1 = lib.decodeCleartext = decodeCleartext;
 const textEncoder = new TextEncoder();
 new TextDecoder();
 const REKEYS = "reKeys";
+let lock = false;
+const sleep = (milliseconds) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 class DagJoseCryptor {
   constructor(ipfs, proxcryptor, cid2) {
     this.storeDAGEncrypted = async (payload, key2) => {
@@ -14256,6 +14260,10 @@ class DagJoseCryptor {
     const selfEncryptedSymmetricKey = await this.proxcryptor.selfEncrypt(symmetricKey, tag);
     const cid2 = await this.storeDAGEncrypted(secretz, symmetricKey);
     await this.ipfs.pin.add(cid2, { recursive: true });
+    while (lock) {
+      await sleep(1e3);
+    }
+    lock = true;
     let prev = false;
     try {
       let res = await this.ipfs.dag.resolve(`${this.rootCID}/${tag}`);
@@ -14273,6 +14281,7 @@ class DagJoseCryptor {
       prev
     };
     this.rootCID = await this.updateDag(this.rootCID, tag, newEntry);
+    lock = false;
   }
   async get(cid2, re_encrypted_message) {
     const symmetricKey = await this.proxcryptor.reDecrypt(re_encrypted_message);
@@ -14291,4 +14300,4 @@ class DagJoseCryptor {
   }
 }
 export { DagJoseCryptor };
-//# sourceMappingURL=dagjosecryptor-59e8557a.js.map
+//# sourceMappingURL=dagjosecryptor-ca67e286.js.map

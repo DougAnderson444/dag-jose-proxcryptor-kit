@@ -1,6 +1,420 @@
+import { SvelteComponent, init, safe_not_equal, empty, insert_hydration, group_outros, transition_out, check_outros, transition_in, detach, createEventDispatcher, handle_promise, update_await_block_branch, text, claim_text, noop, create_slot, space, claim_space, set_data, update_slot_base, get_all_dirty_from_scope, get_slot_changes, element, claim_element, children, attr, append_hydration, add_render_callback, create_bidirectional_transition, onMount, binding_callbacks, toggle_class, listen, svg_element, claim_svg_element, create_component, claim_component, mount_component, add_flush_callback, destroy_component, bind, set_style } from "./index-64ae2edc.js";
+import { bufftoHex } from "./cid-d85b89cf.js";
+import { __vitePreload } from "./preload-helper-ef2a18a4.js";
+import { fade } from "./index-1b64b11a.js";
 import { client } from "./singletons-cdabada9.js";
 import { commonjsGlobal, getDefaultExportFromCjs } from "./_commonjsHelpers-9b98600b.js";
-var ContactCard_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".contact-card.svelte-rrgue8{min-width:300px;border:1px solid #aaa;box-shadow:2px 2px 8px rgba(0, 0, 0, 0.1);padding:1em;background:lemonchiffon;border-radius:3px}h2.svelte-rrgue8{font-weight:600;padding:0 0 0.2em 0;margin:0 0 1em 0;border-bottom:1px solid #008000}.address.svelte-rrgue8,.email.svelte-rrgue8{padding:0 0 0 1.5em;background:0 0 no-repeat;background-size:20px 20px;margin:0 0 0.5em 0;line-height:1.2}.missing.svelte-rrgue8{color:#999}")();
+var ContactCard_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".contact-card.svelte-ip382u{min-width:300px;border:1px solid #aaa;box-shadow:2px 2px 8px rgba(0, 0, 0, 0.1);padding:1em;background:lemonchiffon;border-radius:3px}h2.svelte-ip382u{font-weight:600;padding:0 0 0.2em 0;margin:0 0 1em 0;border-bottom:1px solid #008000}.address.svelte-ip382u,.email.svelte-ip382u{padding:0 0 0 1.5em;background:0 0 no-repeat;background-size:20px 20px;margin:0 0 0.5em 0;line-height:1.2}.missing.svelte-ip382u{color:#999}")();
+const get_default_slot_changes = (dirty) => ({ latestHypns: dirty & 2 });
+const get_default_slot_context = (ctx) => ({ latestHypns: ctx[1] });
+function create_else_block(ctx) {
+  let await_block_anchor;
+  let promise;
+  let current;
+  let info = {
+    ctx,
+    current: null,
+    token: null,
+    hasCatch: true,
+    pending: create_pending_block$1,
+    then: create_then_block$1,
+    catch: create_catch_block$1,
+    error: 10,
+    blocks: [, , ,]
+  };
+  handle_promise(promise = ctx[2], info);
+  return {
+    c() {
+      await_block_anchor = empty();
+      info.block.c();
+    },
+    l(nodes) {
+      await_block_anchor = empty();
+      info.block.l(nodes);
+    },
+    m(target, anchor) {
+      insert_hydration(target, await_block_anchor, anchor);
+      info.block.m(target, info.anchor = anchor);
+      info.mount = () => await_block_anchor.parentNode;
+      info.anchor = await_block_anchor;
+      current = true;
+    },
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
+      info.ctx = ctx;
+      if (dirty & 4 && promise !== (promise = ctx[2]) && handle_promise(promise, info))
+        ;
+      else {
+        update_await_block_branch(info, ctx, dirty);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(info.block);
+      current = true;
+    },
+    o(local) {
+      for (let i = 0; i < 3; i += 1) {
+        const block = info.blocks[i];
+        transition_out(block);
+      }
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(await_block_anchor);
+      info.block.d(detaching);
+      info.token = null;
+      info = null;
+    }
+  };
+}
+function create_if_block$2(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("Loading hypnsInstance...");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "Loading hypnsInstance...");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_catch_block$1(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("Problem connecting to Pipernet");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "Problem connecting to Pipernet");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_then_block$1(ctx) {
+  let current_block_type_index;
+  let if_block;
+  let if_block_anchor;
+  let current;
+  const if_block_creators = [create_if_block_1$1, create_else_block_1];
+  const if_blocks = [];
+  function select_block_type_1(ctx2, dirty) {
+    if (ctx2[1])
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type_1(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  return {
+    c() {
+      if_block.c();
+      if_block_anchor = empty();
+    },
+    l(nodes) {
+      if_block.l(nodes);
+      if_block_anchor = empty();
+    },
+    m(target, anchor) {
+      if_blocks[current_block_type_index].m(target, anchor);
+      insert_hydration(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type_1(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if_blocks[current_block_type_index].d(detaching);
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
+function create_else_block_1(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("\u26A0\uFE0F No latest value available.");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "\u26A0\uFE0F No latest value available.");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_if_block_1$1(ctx) {
+  let t0;
+  let t1;
+  let t2;
+  let t3;
+  let t4;
+  let current;
+  const default_slot_template = ctx[6].default;
+  const default_slot = create_slot(default_slot_template, ctx, ctx[5], get_default_slot_context);
+  return {
+    c() {
+      t0 = text("\u2714\uFE0F ");
+      t1 = text(ctx[0]);
+      t2 = text(": \u2714\uFE0F ");
+      t3 = text(ctx[1]);
+      t4 = space();
+      if (default_slot)
+        default_slot.c();
+    },
+    l(nodes) {
+      t0 = claim_text(nodes, "\u2714\uFE0F ");
+      t1 = claim_text(nodes, ctx[0]);
+      t2 = claim_text(nodes, ": \u2714\uFE0F ");
+      t3 = claim_text(nodes, ctx[1]);
+      t4 = claim_space(nodes);
+      if (default_slot)
+        default_slot.l(nodes);
+    },
+    m(target, anchor) {
+      insert_hydration(target, t0, anchor);
+      insert_hydration(target, t1, anchor);
+      insert_hydration(target, t2, anchor);
+      insert_hydration(target, t3, anchor);
+      insert_hydration(target, t4, anchor);
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx2, dirty) {
+      if (!current || dirty & 1)
+        set_data(t1, ctx2[0]);
+      if (!current || dirty & 2)
+        set_data(t3, ctx2[1]);
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & 34)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[5], !current ? get_all_dirty_from_scope(ctx2[5]) : get_slot_changes(default_slot_template, ctx2[5], dirty, get_default_slot_changes), get_default_slot_context);
+        }
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(t0);
+      if (detaching)
+        detach(t1);
+      if (detaching)
+        detach(t2);
+      if (detaching)
+        detach(t3);
+      if (detaching)
+        detach(t4);
+      if (default_slot)
+        default_slot.d(detaching);
+    }
+  };
+}
+function create_pending_block$1(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("Getting instance ready...");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "Getting instance ready...");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_fragment$4(ctx) {
+  let current_block_type_index;
+  let if_block;
+  let if_block_anchor;
+  let current;
+  const if_block_creators = [create_if_block$2, create_else_block];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (!ctx2[2])
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  return {
+    c() {
+      if_block.c();
+      if_block_anchor = empty();
+    },
+    l(nodes) {
+      if_block.l(nodes);
+      if_block_anchor = empty();
+    },
+    m(target, anchor) {
+      if_blocks[current_block_type_index].m(target, anchor);
+      insert_hydration(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if_blocks[current_block_type_index].d(detaching);
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
+function instance$4($$self, $$props, $$invalidate) {
+  let { $$slots: slots = {}, $$scope } = $$props;
+  let { pubkey } = $$props;
+  let { openHypns } = $$props;
+  let { handle } = $$props;
+  console.log({ pubkey }, { openHypns });
+  const dispatch = createEventDispatcher();
+  let latestHypns;
+  let hypnsInstance;
+  async function handleOpen(pubkey2) {
+    console.log({ pubkey: pubkey2 }, " to hex");
+    let publicKeyHex = bufftoHex(pubkey2);
+    console.log({ publicKeyHex });
+    const onUpdate = (val) => {
+      console.log("Update from ", { hypnsInstance });
+      $$invalidate(1, latestHypns = val.ipld);
+    };
+    const onMessage = (msg) => {
+      dispatch("newContact", msg);
+    };
+    $$invalidate(2, hypnsInstance = await openHypns({
+      pubKeyHex: publicKeyHex,
+      onUpdate,
+      onMessage
+    }));
+    $$invalidate(1, latestHypns = hypnsInstance.latest);
+  }
+  $$self.$$set = ($$props2) => {
+    if ("pubkey" in $$props2)
+      $$invalidate(3, pubkey = $$props2.pubkey);
+    if ("openHypns" in $$props2)
+      $$invalidate(4, openHypns = $$props2.openHypns);
+    if ("handle" in $$props2)
+      $$invalidate(0, handle = $$props2.handle);
+    if ("$$scope" in $$props2)
+      $$invalidate(5, $$scope = $$props2.$$scope);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & 24) {
+      if (!!pubkey && openHypns)
+        handleOpen(pubkey);
+    }
+  };
+  return [handle, latestHypns, hypnsInstance, pubkey, openHypns, $$scope, slots];
+}
+class PiperNet extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$4, create_fragment$4, safe_not_equal, { pubkey: 3, openHypns: 4, handle: 0 });
+  }
+}
 var search = /* @__PURE__ */ (() => "input {\r\n		padding: 0.3em;\r\n		border-radius: 3px;\r\n	}\r\n\r\n.sb-example-1 {\r\n    width: 100%;\r\n}\r\n.sb-example-1 .search {\r\n    width: 100%;\r\n    position: relative;\r\n    display: flex;\r\n}\r\n.sb-example-1 .searchTerm {\r\n    width: 100%;\r\n    border: 3px solid #2ec73d;\r\n    border-right: none;\r\n    padding: 5px;\r\n    border-radius: 5px 0 0 5px;\r\n    outline: none;\r\n    color: #9dbfaf;\r\n}\r\n.sb-example-1 .searchTerm:focus {\r\n    color: #2ec73d;\r\n}\r\n.sb-example-1 .searchButton {\r\n    width: 40px;\r\n    height: 50px;\r\n    border: 1px solid #2ec73d;\r\n    background: #2ec73d;\r\n    text-align: center;\r\n    color: #fff;\r\n    border-radius: 0 5px 5px 0;\r\n    cursor: pointer;\r\n    font-size: 20px;\r\n}")();
 var ShareIcon_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "svg.svelte-q8m63s{width:1em;height:auto}")();
 var ShareTagWith_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".share.svelte-oto3uq{padding:1em 0;width:100%;display:flex;flex-direction:row;align-items:center}.share-item.svelte-oto3uq{margin:0.5em}input.svelte-oto3uq{width:100%}")();
@@ -1937,7 +2351,7 @@ const canPromise = canPromise$1;
 const QRCode = qrcode;
 const CanvasRenderer = canvas;
 const SvgRenderer = svgTag;
-function renderCanvas(renderFunc, canvas2, text, opts, cb) {
+function renderCanvas(renderFunc, canvas2, text2, opts, cb) {
   const args = [].slice.call(arguments, 1);
   const argsNum = args.length;
   const isLastArgCb = typeof args[argsNum - 1] === "function";
@@ -1949,8 +2363,8 @@ function renderCanvas(renderFunc, canvas2, text, opts, cb) {
       throw new Error("Too few arguments provided");
     }
     if (argsNum === 2) {
-      cb = text;
-      text = canvas2;
+      cb = text2;
+      text2 = canvas2;
       canvas2 = opts = void 0;
     } else if (argsNum === 3) {
       if (canvas2.getContext && typeof cb === "undefined") {
@@ -1958,8 +2372,8 @@ function renderCanvas(renderFunc, canvas2, text, opts, cb) {
         opts = void 0;
       } else {
         cb = opts;
-        opts = text;
-        text = canvas2;
+        opts = text2;
+        text2 = canvas2;
         canvas2 = void 0;
       }
     }
@@ -1968,16 +2382,16 @@ function renderCanvas(renderFunc, canvas2, text, opts, cb) {
       throw new Error("Too few arguments provided");
     }
     if (argsNum === 1) {
-      text = canvas2;
+      text2 = canvas2;
       canvas2 = opts = void 0;
     } else if (argsNum === 2 && !canvas2.getContext) {
-      opts = text;
-      text = canvas2;
+      opts = text2;
+      text2 = canvas2;
       canvas2 = void 0;
     }
     return new Promise(function(resolve, reject) {
       try {
-        const data = QRCode.create(text, opts);
+        const data = QRCode.create(text2, opts);
         resolve(renderFunc(data, canvas2, opts));
       } catch (e) {
         reject(e);
@@ -1985,7 +2399,7 @@ function renderCanvas(renderFunc, canvas2, text, opts, cb) {
     });
   }
   try {
-    const data = QRCode.create(text, opts);
+    const data = QRCode.create(text2, opts);
     cb(null, renderFunc(data, canvas2, opts));
   } catch (e) {
     cb(e);
@@ -1998,6 +2412,145 @@ browser.toString = renderCanvas.bind(null, function(data, _, opts) {
   return SvgRenderer.render(data, opts);
 });
 var QRCode_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".wrapper.svelte-1b3brvp{display:flex;align-items:center;flex-direction:column}canvas.svelte-1b3brvp{border:1px solid black;z-index:1;margin:10% auto}div.qr-slot.svelte-1b3brvp{display:inline-block;color:black}")();
+function fallback_block(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("[QR Code]");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "[QR Code]");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_fragment$3(ctx) {
+  let div1;
+  let div0;
+  let t;
+  let canvas_1;
+  let canvas_1_hidden_value;
+  let canvas_1_transition;
+  let current;
+  const default_slot_template = ctx[4].default;
+  const default_slot = create_slot(default_slot_template, ctx, ctx[3], null);
+  const default_slot_or_fallback = default_slot || fallback_block();
+  return {
+    c() {
+      div1 = element("div");
+      div0 = element("div");
+      if (default_slot_or_fallback)
+        default_slot_or_fallback.c();
+      t = space();
+      canvas_1 = element("canvas");
+      this.h();
+    },
+    l(nodes) {
+      div1 = claim_element(nodes, "DIV", { class: true });
+      var div1_nodes = children(div1);
+      div0 = claim_element(div1_nodes, "DIV", { class: true });
+      var div0_nodes = children(div0);
+      if (default_slot_or_fallback)
+        default_slot_or_fallback.l(div0_nodes);
+      div0_nodes.forEach(detach);
+      t = claim_space(div1_nodes);
+      canvas_1 = claim_element(div1_nodes, "CANVAS", { class: true });
+      children(canvas_1).forEach(detach);
+      div1_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div0, "class", "qr-slot svelte-1b3brvp");
+      canvas_1.hidden = canvas_1_hidden_value = !ctx[1];
+      attr(canvas_1, "class", "svelte-1b3brvp");
+      attr(div1, "class", "wrapper svelte-1b3brvp");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div1, anchor);
+      append_hydration(div1, div0);
+      if (default_slot_or_fallback) {
+        default_slot_or_fallback.m(div0, null);
+      }
+      append_hydration(div1, t);
+      append_hydration(div1, canvas_1);
+      ctx[5](canvas_1);
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & 8)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[3], !current ? get_all_dirty_from_scope(ctx2[3]) : get_slot_changes(default_slot_template, ctx2[3], dirty, null), null);
+        }
+      }
+      if (!current || dirty & 2 && canvas_1_hidden_value !== (canvas_1_hidden_value = !ctx2[1])) {
+        canvas_1.hidden = canvas_1_hidden_value;
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(default_slot_or_fallback, local);
+      add_render_callback(() => {
+        if (!canvas_1_transition)
+          canvas_1_transition = create_bidirectional_transition(canvas_1, fade, {}, true);
+        canvas_1_transition.run(1);
+      });
+      current = true;
+    },
+    o(local) {
+      transition_out(default_slot_or_fallback, local);
+      if (!canvas_1_transition)
+        canvas_1_transition = create_bidirectional_transition(canvas_1, fade, {}, false);
+      canvas_1_transition.run(0);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div1);
+      if (default_slot_or_fallback)
+        default_slot_or_fallback.d(detaching);
+      ctx[5](null);
+      if (detaching && canvas_1_transition)
+        canvas_1_transition.end();
+    }
+  };
+}
+function instance$3($$self, $$props, $$invalidate) {
+  let { $$slots: slots = {}, $$scope } = $$props;
+  let { value } = $$props;
+  let canvas2;
+  let visible = false;
+  async function showQR() {
+    browser.toCanvas(canvas2, value);
+    $$invalidate(1, visible = true);
+  }
+  onMount(() => showQR());
+  function canvas_1_binding($$value) {
+    binding_callbacks[$$value ? "unshift" : "push"](() => {
+      canvas2 = $$value;
+      $$invalidate(0, canvas2);
+    });
+  }
+  $$self.$$set = ($$props2) => {
+    if ("value" in $$props2)
+      $$invalidate(2, value = $$props2.value);
+    if ("$$scope" in $$props2)
+      $$invalidate(3, $$scope = $$props2.$$scope);
+  };
+  return [canvas2, visible, value, $$scope, slots, canvas_1_binding];
+}
+class QRCode_1 extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$3, create_fragment$3, safe_not_equal, { value: 2 });
+  }
+}
 client.disable_scroll_handling;
 const goto = client.goto;
 client.invalidate;
@@ -2006,8 +2559,1194 @@ client.prefetch_routes;
 client.before_navigate;
 client.after_navigate;
 var Modal_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".hide.svelte-5vlr37{display:none}.modal.svelte-5vlr37{display:block;position:fixed;z-index:99999;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0.4)}.modal-content.svelte-5vlr37{background-color:#fefefe;margin:15% auto;padding:20px;border:1px solid #888;width:80%}.close.svelte-5vlr37{color:#aaa;float:right;font-size:3.5em;font-weight:bold;line-height:0.5;padding:0.25em}.close.svelte-5vlr37:hover,.close.svelte-5vlr37:focus{color:black;text-decoration:none;cursor:pointer}")();
+function create_fragment$2(ctx) {
+  let div2;
+  let div1;
+  let span;
+  let t0;
+  let t1;
+  let div0;
+  let current;
+  let mounted;
+  let dispose;
+  const default_slot_template = ctx[3].default;
+  const default_slot = create_slot(default_slot_template, ctx, ctx[2], null);
+  return {
+    c() {
+      div2 = element("div");
+      div1 = element("div");
+      span = element("span");
+      t0 = text("\xD7");
+      t1 = space();
+      div0 = element("div");
+      if (default_slot)
+        default_slot.c();
+      this.h();
+    },
+    l(nodes) {
+      div2 = claim_element(nodes, "DIV", { class: true });
+      var div2_nodes = children(div2);
+      div1 = claim_element(div2_nodes, "DIV", { class: true });
+      var div1_nodes = children(div1);
+      span = claim_element(div1_nodes, "SPAN", { class: true });
+      var span_nodes = children(span);
+      t0 = claim_text(span_nodes, "\xD7");
+      span_nodes.forEach(detach);
+      t1 = claim_space(div1_nodes);
+      div0 = claim_element(div1_nodes, "DIV", {});
+      var div0_nodes = children(div0);
+      if (default_slot)
+        default_slot.l(div0_nodes);
+      div0_nodes.forEach(detach);
+      div1_nodes.forEach(detach);
+      div2_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(span, "class", "close svelte-5vlr37");
+      attr(div1, "class", "modal-content svelte-5vlr37");
+      attr(div2, "class", "svelte-5vlr37");
+      toggle_class(div2, "modal", ctx[0]);
+      toggle_class(div2, "hide", !ctx[0]);
+    },
+    m(target, anchor) {
+      insert_hydration(target, div2, anchor);
+      append_hydration(div2, div1);
+      append_hydration(div1, span);
+      append_hydration(span, t0);
+      append_hydration(div1, t1);
+      append_hydration(div1, div0);
+      if (default_slot) {
+        default_slot.m(div0, null);
+      }
+      current = true;
+      if (!mounted) {
+        dispose = listen(span, "click", ctx[1]);
+        mounted = true;
+      }
+    },
+    p(ctx2, [dirty]) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & 4)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[2], !current ? get_all_dirty_from_scope(ctx2[2]) : get_slot_changes(default_slot_template, ctx2[2], dirty, null), null);
+        }
+      }
+      if (dirty & 1) {
+        toggle_class(div2, "modal", ctx2[0]);
+      }
+      if (dirty & 1) {
+        toggle_class(div2, "hide", !ctx2[0]);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div2);
+      if (default_slot)
+        default_slot.d(detaching);
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function instance$2($$self, $$props, $$invalidate) {
+  let { $$slots: slots = {}, $$scope } = $$props;
+  let { modal } = $$props;
+  const dispatch = createEventDispatcher();
+  const handleClose = () => {
+    $$invalidate(0, modal = false);
+    console.log("Closing", { modal });
+    dispatch("closeModal", null);
+  };
+  $$self.$$set = ($$props2) => {
+    if ("modal" in $$props2)
+      $$invalidate(0, modal = $$props2.modal);
+    if ("$$scope" in $$props2)
+      $$invalidate(2, $$scope = $$props2.$$scope);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & 1) {
+      modal && console.log({ modal });
+    }
+  };
+  return [modal, handleClose, $$scope, slots];
+}
+class Modal extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$2, create_fragment$2, safe_not_equal, { modal: 0 });
+  }
+}
 var QRCodeIcon_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "svg.svelte-1ey9nt7{width:auto;height:4em;display:block}")();
-var HypnsManager_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "div.main.svelte-1oivtvx{display:block;border:1px solid rgb(196, 196, 196);background-color:rgb(15, 15, 15);overflow-wrap:break-word;word-break:break-word;width:100%;padding:var(--column-margin-top);color:aliceblue}button.svelte-1oivtvx{margin:1.62em;padding:1.62em;background-color:green}.scan-icon.svelte-1oivtvx{margin:0.1em 0.5em}")();
+function create_if_block$1(ctx) {
+  let current;
+  const default_slot_template = ctx[2].default;
+  const default_slot = create_slot(default_slot_template, ctx, ctx[1], null);
+  return {
+    c() {
+      if (default_slot)
+        default_slot.c();
+    },
+    l(nodes) {
+      if (default_slot)
+        default_slot.l(nodes);
+    },
+    m(target, anchor) {
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx2, dirty) {
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & 2)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[1], !current ? get_all_dirty_from_scope(ctx2[1]) : get_slot_changes(default_slot_template, ctx2[1], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (default_slot)
+        default_slot.d(detaching);
+    }
+  };
+}
+function create_fragment$1(ctx) {
+  let div;
+  let svg;
+  let path0;
+  let path1;
+  let path2;
+  let path3;
+  let path4;
+  let path5;
+  let t;
+  let if_block_anchor;
+  let current;
+  let mounted;
+  let dispose;
+  let if_block = ctx[0] && create_if_block$1(ctx);
+  return {
+    c() {
+      div = element("div");
+      svg = svg_element("svg");
+      path0 = svg_element("path");
+      path1 = svg_element("path");
+      path2 = svg_element("path");
+      path3 = svg_element("path");
+      path4 = svg_element("path");
+      path5 = svg_element("path");
+      t = space();
+      if (if_block)
+        if_block.c();
+      if_block_anchor = empty();
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", {});
+      var div_nodes = children(div);
+      svg = claim_svg_element(div_nodes, "svg", {
+        xmlns: true,
+        width: true,
+        height: true,
+        viewBox: true,
+        class: true
+      });
+      var svg_nodes = children(svg);
+      path0 = claim_svg_element(svg_nodes, "path", { d: true });
+      children(path0).forEach(detach);
+      path1 = claim_svg_element(svg_nodes, "path", {
+        fill: true,
+        stroke: true,
+        "stroke-linecap": true,
+        "stroke-linejoin": true,
+        "stroke-width": true,
+        d: true
+      });
+      children(path1).forEach(detach);
+      path2 = claim_svg_element(svg_nodes, "path", { d: true });
+      children(path2).forEach(detach);
+      path3 = claim_svg_element(svg_nodes, "path", { fill: true, d: true });
+      children(path3).forEach(detach);
+      path4 = claim_svg_element(svg_nodes, "path", { d: true });
+      children(path4).forEach(detach);
+      path5 = claim_svg_element(svg_nodes, "path", {
+        stroke: true,
+        "stroke-linecap": true,
+        "stroke-linejoin": true,
+        "stroke-width": true,
+        d: true
+      });
+      children(path5).forEach(detach);
+      svg_nodes.forEach(detach);
+      div_nodes.forEach(detach);
+      t = claim_space(nodes);
+      if (if_block)
+        if_block.l(nodes);
+      if_block_anchor = empty();
+      this.h();
+    },
+    h() {
+      attr(path0, "d", "M19.05 38.56a18.94 18.94 0 0 1-17.03-13.1 18.95 18.95 0 0 1 6.7-20.94A18.92 18.92 0 0 1 34.3 32.07a18.84 18.84 0 0 1-15.25 6.5zm3-.8a18.28 18.28 0 0 0 16.11-16.68A18.23 18.23 0 0 0 18.64 1.53a18.21 18.21 0 0 0-7.02 34.28 18.23 18.23 0 0 0 6.93 2c.6.06 2.91.02 3.5-.05zM9.69 30.6a.97.97 0 0 1-.44-.43c-.07-.14-.08-.3-.08-4.57 0-4.83-.01-4.54.23-4.81.26-.3-.02-.28 4.4-.29h4.23c.7-.02.97.16 1.12.75.05.2.06.74.06 4.35 0 2.81-.02 4.18-.05 4.32-.07.36-.26.62-.5.72-.08.02-1.48.04-4.46.04-4.14 0-4.36 0-4.5-.08zm7.63-5v-3.18h-6.29v6.36h6.29zm4.03 5.01c-.26-.13-.4-.35-.48-.7-.03-.12-.05-1.52-.05-4.44 0-4.23 0-4.27.08-4.45a.83.83 0 0 1 .47-.42c.11-.04.66-.06 2.89-.07H27V24.37h1.96v-1.63c0-.9.01-1.77.03-1.93l.02-.3h.51c.76 0 1.1.13 1.26.48.09.19.1.84.05 3.75l-.03 1.68h-3.09l-3.09-.02v-.72l-.02-.73h-1.93v5.72h-.6c-.48 0-.64-.02-.73-.07zm3.3-.58c-.02-.36-.02-.87 0-1.14l.01-.5h2.08v2.29h-2.08l-.02-.65zm4.04 0v-1.14l.02-.5h2.16v.79c0 .74-.01.8-.1.98-.1.2-.27.38-.47.46-.1.04-.33.06-.86.06h-.73ZM10.07 18.82a1.38 1.38 0 0 1-.7-.27c-.2-.2-.2 0-.2-4.78 0-4.34 0-4.44.08-4.59.1-.19.27-.36.44-.44.12-.06.53-.06 4.53-.06 4.93 0 4.55-.03 4.77.29.22.31.22.3.22 4.82 0 3.62 0 4.16-.06 4.36-.08.32-.2.5-.43.6l-.18.1h-4.11c-2.27 0-4.23-.02-4.36-.03zm7.25-5.07v-3.18h-6.29v6.37h6.29zm4.17 5.07c-.31-.06-.53-.34-.62-.77-.06-.3-.06-8.4 0-8.65.05-.23.16-.45.26-.54.2-.2.04-.18 4.72-.18 4.26 0 4.37 0 4.51.07.2.1.4.35.46.54.03.1.04 1.3.04 4.49v4.33l-.09.2a.88.88 0 0 1-.46.46c-.15.06-.52.07-4.43.07-2.35 0-4.33 0-4.39-.02zm7.48-5.07v-3.18h-3.13l-3.14.02V16.89c.01.04.68.05 3.15.05h3.12z");
+      attr(path1, "fill", "#fff");
+      attr(path1, "stroke", "#000");
+      attr(path1, "stroke-linecap", "round");
+      attr(path1, "stroke-linejoin", "round");
+      attr(path1, "stroke-width", "1.03");
+      attr(path1, "d", "M17.43 37.63a18.6 18.6 0 0 1-8.87-3.9 24.2 24.2 0 0 1-3.08-3.23 18.44 18.44 0 0 1-3.43-8.33c-.21-1.43-.14-4.53.13-5.83.84-3.98 2.5-7 5.3-9.72a17.9 17.9 0 0 1 9.04-4.74c1.11-.24 1.32-.25 3.5-.25 2.5 0 3.3.1 5.05.62 3.14.94 5.65 2.47 7.96 4.84a18.16 18.16 0 0 1 4.82 9.18c.28 1.4.35 4.37.13 5.87a17.82 17.82 0 0 1-4.91 10.08 17.96 17.96 0 0 1-10.48 5.41 25.5 25.5 0 0 1-5.16 0zm1.36-7c.08-.04.21-.2.3-.35.12-.25.14-.82.15-4.65 0-3.22-.02-4.43-.1-4.6-.25-.55-.14-.54-4.98-.54-2.8 0-4.5.04-4.6.1-.4.2-.4.31-.44 4.59-.01 2.25 0 4.31.03 4.58.04.34.13.56.28.7l.21.22h4.5c2.48 0 4.57-.03 4.65-.06zm3.96-2.77v-2.82h1.82v1.46h6.24l.06-1.44c.09-2.08.07-3.56-.04-3.96-.12-.45-.5-.62-1.3-.59l-.55.03-.03 1.89-.02 1.88h-1.91V20.5h-2.71c-2.85 0-3.2.05-3.4.4-.14.23-.22 5.88-.12 7.95.06 1.2.08 1.32.3 1.57.2.26.25.27.94.27h.72zm4 1.64v-1.18H25.7c-1.2 0-1.14-.07-1.14 1.18s-.07 1.18 1.14 1.18h1.04zm3.74 1.08c.3-.16.44-.64.44-1.49v-.77H28.66v2.36h.82c.46 0 .9-.04 1.01-.1zM18.95 18.6c.22-.26.23-.31.3-2.34.04-1.14.04-3.18 0-4.53-.05-2.11-.08-2.48-.22-2.72l-.16-.28-4.6-.03c-5.17-.02-4.9-.06-5.08.66-.1.42-.1 8.15 0 8.78.04.35.1.43.37.57.29.14.71.16 4.74.16h4.43l.22-.27zm11.67-.04.31-.31v-4.22c0-2.31-.04-4.4-.08-4.62-.15-.77.12-.73-5.01-.73-4.26 0-4.54.01-4.74.17-.18.15-.21.29-.27 1.11-.1 1.19-.1 5.15-.02 7 .05 1.29.07 1.4.28 1.65l.22.26h9z");
+      attr(path2, "d", "M15.29 25.68V24.5h-1.04c-1.2 0-1.14-.07-1.14 1.18s-.07 1.18 1.14 1.18h1.04z");
+      attr(path3, "fill", "#fff");
+      attr(path3, "d", "M22.75 13.78V10.7l.28-.06c.16-.03 1.55-.06 3.1-.06h2.8v6.28h-6.18zM11.1 13.72v-3.14H17.3v6.28h-6.18ZM11.1 25.63V22.5H17.3v6.27h-6.18Z");
+      attr(path4, "d", "M12.83 24.13h2.73v2.73h-2.73zM12.93 12.4h2.73v2.73h-2.73zM24.29 12.31h2.73v2.73h-2.73z");
+      attr(path5, "stroke", "#000");
+      attr(path5, "stroke-linecap", "round");
+      attr(path5, "stroke-linejoin", "round");
+      attr(path5, "stroke-width", "1.54");
+      attr(path5, "d", "M17.42 38.36A18.94 18.94 0 0 1 1.33 22.15c-.16-1.2-.18-3.55-.04-4.66.44-3.54 1.89-7 4.04-9.64.59-.71 2.26-2.37 2.98-2.95A19.1 19.1 0 0 1 17.54.99c1.3-.17 3.68-.17 4.95 0 3.7.49 7.33 2.14 9.94 4.52a18.65 18.65 0 0 1 6.41 14.15A18.87 18.87 0 0 1 22.2 38.4c-1.04.13-3.77.1-4.78-.04zm4.35-1.13a17.6 17.6 0 0 0 11.37-5.77 17.3 17.3 0 0 0 4.44-13.34 17.58 17.58 0 0 0-12.02-15.2c-2.03-.68-2.27-.72-5.18-.77-2.5-.04-2.63-.03-3.73.2A17.76 17.76 0 0 0 2.6 16.76c-.11.64-.15 1.4-.16 3 0 1.97.02 2.22.25 3.3.34 1.61.78 2.9 1.51 4.38a15.62 15.62 0 0 0 2.6 3.88 17.22 17.22 0 0 0 7.77 5.11c.68.22 1.58.48 2 .56 1.45.3 3.4.38 5.2.23z");
+      attr(svg, "xmlns", "http://www.w3.org/2000/svg");
+      attr(svg, "width", "150");
+      attr(svg, "height", "150");
+      attr(svg, "viewBox", "0 0 39.69 39.69");
+      attr(svg, "class", "svelte-1ey9nt7");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      append_hydration(div, svg);
+      append_hydration(svg, path0);
+      append_hydration(svg, path1);
+      append_hydration(svg, path2);
+      append_hydration(svg, path3);
+      append_hydration(svg, path4);
+      append_hydration(svg, path5);
+      insert_hydration(target, t, anchor);
+      if (if_block)
+        if_block.m(target, anchor);
+      insert_hydration(target, if_block_anchor, anchor);
+      current = true;
+      if (!mounted) {
+        dispose = listen(div, "click", ctx[3]);
+        mounted = true;
+      }
+    },
+    p(ctx2, [dirty]) {
+      if (ctx2[0]) {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+          if (dirty & 1) {
+            transition_in(if_block, 1);
+          }
+        } else {
+          if_block = create_if_block$1(ctx2);
+          if_block.c();
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        group_outros();
+        transition_out(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        check_outros();
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div);
+      if (detaching)
+        detach(t);
+      if (if_block)
+        if_block.d(detaching);
+      if (detaching)
+        detach(if_block_anchor);
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function instance$1($$self, $$props, $$invalidate) {
+  let { $$slots: slots = {}, $$scope } = $$props;
+  let { showQR = false } = $$props;
+  const click_handler = () => $$invalidate(0, showQR = true);
+  $$self.$$set = ($$props2) => {
+    if ("showQR" in $$props2)
+      $$invalidate(0, showQR = $$props2.showQR);
+    if ("$$scope" in $$props2)
+      $$invalidate(1, $$scope = $$props2.$$scope);
+  };
+  return [showQR, $$scope, slots, click_handler];
+}
+class QRCodeIcon extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$1, create_fragment$1, safe_not_equal, { showQR: 0 });
+  }
+}
+var HypnsManager_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "div.main.svelte-1s9j5fj{display:block;border:1px solid rgb(196, 196, 196);background-color:rgb(15, 15, 15);overflow-wrap:break-word;word-break:break-word;padding:var(--column-margin-top);color:aliceblue}.scan-icon.svelte-1s9j5fj{margin:0.1em 0.5em}")();
+function create_if_block(ctx) {
+  let switch_instance;
+  let updating_hypnsNode;
+  let t;
+  let div;
+  let current_block_type_index;
+  let if_block;
+  let current;
+  function switch_instance_hypnsNode_binding(value) {
+    ctx[13](value);
+  }
+  var switch_value = ctx[2];
+  function switch_props(ctx2) {
+    let switch_instance_props = { opts: ctx2[8] };
+    if (ctx2[1] !== void 0) {
+      switch_instance_props.hypnsNode = ctx2[1];
+    }
+    return { props: switch_instance_props };
+  }
+  if (switch_value) {
+    switch_instance = new switch_value(switch_props(ctx));
+    binding_callbacks.push(() => bind(switch_instance, "hypnsNode", switch_instance_hypnsNode_binding));
+  }
+  const if_block_creators = [create_if_block_1, create_if_block_2];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (!ctx2[1])
+      return 0;
+    if (ctx2[7])
+      return 1;
+    return -1;
+  }
+  if (~(current_block_type_index = select_block_type(ctx))) {
+    if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+  }
+  return {
+    c() {
+      if (switch_instance)
+        create_component(switch_instance.$$.fragment);
+      t = space();
+      div = element("div");
+      if (if_block)
+        if_block.c();
+      this.h();
+    },
+    l(nodes) {
+      if (switch_instance)
+        claim_component(switch_instance.$$.fragment, nodes);
+      t = claim_space(nodes);
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      if (if_block)
+        if_block.l(div_nodes);
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", "main svelte-1s9j5fj");
+    },
+    m(target, anchor) {
+      if (switch_instance) {
+        mount_component(switch_instance, target, anchor);
+      }
+      insert_hydration(target, t, anchor);
+      insert_hydration(target, div, anchor);
+      if (~current_block_type_index) {
+        if_blocks[current_block_type_index].m(div, null);
+      }
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const switch_instance_changes = {};
+      if (!updating_hypnsNode && dirty & 2) {
+        updating_hypnsNode = true;
+        switch_instance_changes.hypnsNode = ctx2[1];
+        add_flush_callback(() => updating_hypnsNode = false);
+      }
+      if (switch_value !== (switch_value = ctx2[2])) {
+        if (switch_instance) {
+          group_outros();
+          const old_component = switch_instance;
+          transition_out(old_component.$$.fragment, 1, 0, () => {
+            destroy_component(old_component, 1);
+          });
+          check_outros();
+        }
+        if (switch_value) {
+          switch_instance = new switch_value(switch_props(ctx2));
+          binding_callbacks.push(() => bind(switch_instance, "hypnsNode", switch_instance_hypnsNode_binding));
+          create_component(switch_instance.$$.fragment);
+          transition_in(switch_instance.$$.fragment, 1);
+          mount_component(switch_instance, t.parentNode, t);
+        } else {
+          switch_instance = null;
+        }
+      } else if (switch_value) {
+        switch_instance.$set(switch_instance_changes);
+      }
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if (~current_block_type_index) {
+          if_blocks[current_block_type_index].p(ctx2, dirty);
+        }
+      } else {
+        if (if_block) {
+          group_outros();
+          transition_out(if_blocks[previous_block_index], 1, 1, () => {
+            if_blocks[previous_block_index] = null;
+          });
+          check_outros();
+        }
+        if (~current_block_type_index) {
+          if_block = if_blocks[current_block_type_index];
+          if (!if_block) {
+            if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+            if_block.c();
+          } else {
+            if_block.p(ctx2, dirty);
+          }
+          transition_in(if_block, 1);
+          if_block.m(div, null);
+        } else {
+          if_block = null;
+        }
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      if (switch_instance)
+        transition_in(switch_instance.$$.fragment, local);
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      if (switch_instance)
+        transition_out(switch_instance.$$.fragment, local);
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (switch_instance)
+        destroy_component(switch_instance, detaching);
+      if (detaching)
+        detach(t);
+      if (detaching)
+        detach(div);
+      if (~current_block_type_index) {
+        if_blocks[current_block_type_index].d();
+      }
+    }
+  };
+}
+function create_if_block_2(ctx) {
+  let await_block_anchor;
+  let promise;
+  let current;
+  let info = {
+    ctx,
+    current: null,
+    token: null,
+    hasCatch: false,
+    pending: create_pending_block,
+    then: create_then_block,
+    catch: create_catch_block,
+    value: 7,
+    blocks: [, , ,]
+  };
+  handle_promise(promise = ctx[7], info);
+  return {
+    c() {
+      await_block_anchor = empty();
+      info.block.c();
+    },
+    l(nodes) {
+      await_block_anchor = empty();
+      info.block.l(nodes);
+    },
+    m(target, anchor) {
+      insert_hydration(target, await_block_anchor, anchor);
+      info.block.m(target, info.anchor = anchor);
+      info.mount = () => await_block_anchor.parentNode;
+      info.anchor = await_block_anchor;
+      current = true;
+    },
+    p(new_ctx, dirty) {
+      ctx = new_ctx;
+      info.ctx = ctx;
+      if (dirty & 128 && promise !== (promise = ctx[7]) && handle_promise(promise, info))
+        ;
+      else {
+        update_await_block_branch(info, ctx, dirty);
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(info.block);
+      current = true;
+    },
+    o(local) {
+      for (let i = 0; i < 3; i += 1) {
+        const block = info.blocks[i];
+        transition_out(block);
+      }
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(await_block_anchor);
+      info.block.d(detaching);
+      info.token = null;
+      info = null;
+    }
+  };
+}
+function create_if_block_1(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("Loading Hypns...");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "Loading Hypns...");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_catch_block(ctx) {
+  return {
+    c: noop,
+    l: noop,
+    m: noop,
+    p: noop,
+    i: noop,
+    o: noop,
+    d: noop
+  };
+}
+function create_then_block(ctx) {
+  let div1;
+  let h3;
+  let t0;
+  let t1;
+  let div0;
+  let qrcodeicon;
+  let updating_showQR;
+  let t2;
+  let div2;
+  let t3_value = ctx[3] ? "Last Pinned: " + ctx[3] : "";
+  let t3;
+  let t4;
+  let show_if;
+  let if_block_anchor;
+  let current;
+  function qrcodeicon_showQR_binding(value) {
+    ctx[15](value);
+  }
+  let qrcodeicon_props = {
+    $$slots: { default: [create_default_slot] },
+    $$scope: { ctx }
+  };
+  if (ctx[6] !== void 0) {
+    qrcodeicon_props.showQR = ctx[6];
+  }
+  qrcodeicon = new QRCodeIcon({ props: qrcodeicon_props });
+  binding_callbacks.push(() => bind(qrcodeicon, "showQR", qrcodeicon_showQR_binding));
+  function select_block_type_1(ctx2, dirty) {
+    var _a;
+    if (dirty & 9)
+      show_if = null;
+    if (show_if == null)
+      show_if = !!(ctx2[0] && ((_a = ctx2[0]) == null ? void 0 : _a.toV1().toString()) === ctx2[3]);
+    if (show_if)
+      return create_if_block_3;
+    if (ctx2[0])
+      return create_if_block_4;
+  }
+  let current_block_type = select_block_type_1(ctx, -1);
+  let if_block = current_block_type && current_block_type(ctx);
+  return {
+    c() {
+      div1 = element("div");
+      h3 = element("h3");
+      t0 = text("\u2714\uFE0F Connected to PiperNet");
+      t1 = space();
+      div0 = element("div");
+      create_component(qrcodeicon.$$.fragment);
+      t2 = space();
+      div2 = element("div");
+      t3 = text(t3_value);
+      t4 = space();
+      if (if_block)
+        if_block.c();
+      if_block_anchor = empty();
+      this.h();
+    },
+    l(nodes) {
+      div1 = claim_element(nodes, "DIV", { style: true });
+      var div1_nodes = children(div1);
+      h3 = claim_element(div1_nodes, "H3", {});
+      var h3_nodes = children(h3);
+      t0 = claim_text(h3_nodes, "\u2714\uFE0F Connected to PiperNet");
+      h3_nodes.forEach(detach);
+      t1 = claim_space(div1_nodes);
+      div0 = claim_element(div1_nodes, "DIV", { class: true });
+      var div0_nodes = children(div0);
+      claim_component(qrcodeicon.$$.fragment, div0_nodes);
+      div0_nodes.forEach(detach);
+      div1_nodes.forEach(detach);
+      t2 = claim_space(nodes);
+      div2 = claim_element(nodes, "DIV", {});
+      var div2_nodes = children(div2);
+      t3 = claim_text(div2_nodes, t3_value);
+      div2_nodes.forEach(detach);
+      t4 = claim_space(nodes);
+      if (if_block)
+        if_block.l(nodes);
+      if_block_anchor = empty();
+      this.h();
+    },
+    h() {
+      attr(div0, "class", "scan-icon svelte-1s9j5fj");
+      set_style(div1, "display", "flex");
+      set_style(div1, "flex-direction", "row");
+      set_style(div1, "align-items", "center");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div1, anchor);
+      append_hydration(div1, h3);
+      append_hydration(h3, t0);
+      append_hydration(div1, t1);
+      append_hydration(div1, div0);
+      mount_component(qrcodeicon, div0, null);
+      insert_hydration(target, t2, anchor);
+      insert_hydration(target, div2, anchor);
+      append_hydration(div2, t3);
+      insert_hydration(target, t4, anchor);
+      if (if_block)
+        if_block.m(target, anchor);
+      insert_hydration(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const qrcodeicon_changes = {};
+      if (dirty & 65632) {
+        qrcodeicon_changes.$$scope = { dirty, ctx: ctx2 };
+      }
+      if (!updating_showQR && dirty & 64) {
+        updating_showQR = true;
+        qrcodeicon_changes.showQR = ctx2[6];
+        add_flush_callback(() => updating_showQR = false);
+      }
+      qrcodeicon.$set(qrcodeicon_changes);
+      if ((!current || dirty & 8) && t3_value !== (t3_value = ctx2[3] ? "Last Pinned: " + ctx2[3] : ""))
+        set_data(t3, t3_value);
+      if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
+        if_block.p(ctx2, dirty);
+      } else {
+        if (if_block)
+          if_block.d(1);
+        if_block = current_block_type && current_block_type(ctx2);
+        if (if_block) {
+          if_block.c();
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(qrcodeicon.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(qrcodeicon.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div1);
+      destroy_component(qrcodeicon);
+      if (detaching)
+        detach(t2);
+      if (detaching)
+        detach(div2);
+      if (detaching)
+        detach(t4);
+      if (if_block) {
+        if_block.d(detaching);
+      }
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
+function create_default_slot_2(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("Others Scan this from their PeerPiper to Connect to You");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "Others Scan this from their PeerPiper to Connect to You");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_default_slot_1(ctx) {
+  let qrcode2;
+  let current;
+  qrcode2 = new QRCode_1({
+    props: {
+      value: JSON.stringify({ pubKeyHex: ctx[5] }),
+      $$slots: { default: [create_default_slot_2] },
+      $$scope: { ctx }
+    }
+  });
+  return {
+    c() {
+      create_component(qrcode2.$$.fragment);
+    },
+    l(nodes) {
+      claim_component(qrcode2.$$.fragment, nodes);
+    },
+    m(target, anchor) {
+      mount_component(qrcode2, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const qrcode_changes = {};
+      if (dirty & 32)
+        qrcode_changes.value = JSON.stringify({ pubKeyHex: ctx2[5] });
+      if (dirty & 65536) {
+        qrcode_changes.$$scope = { dirty, ctx: ctx2 };
+      }
+      qrcode2.$set(qrcode_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(qrcode2.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(qrcode2.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(qrcode2, detaching);
+    }
+  };
+}
+function create_default_slot(ctx) {
+  let modal;
+  let updating_modal;
+  let current;
+  function modal_modal_binding(value) {
+    ctx[14](value);
+  }
+  let modal_props = {
+    $$slots: { default: [create_default_slot_1] },
+    $$scope: { ctx }
+  };
+  if (ctx[6] !== void 0) {
+    modal_props.modal = ctx[6];
+  }
+  modal = new Modal({ props: modal_props });
+  binding_callbacks.push(() => bind(modal, "modal", modal_modal_binding));
+  return {
+    c() {
+      create_component(modal.$$.fragment);
+    },
+    l(nodes) {
+      claim_component(modal.$$.fragment, nodes);
+    },
+    m(target, anchor) {
+      mount_component(modal, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const modal_changes = {};
+      if (dirty & 65568) {
+        modal_changes.$$scope = { dirty, ctx: ctx2 };
+      }
+      if (!updating_modal && dirty & 64) {
+        updating_modal = true;
+        modal_changes.modal = ctx2[6];
+        add_flush_callback(() => updating_modal = false);
+      }
+      modal.$set(modal_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(modal.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(modal.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(modal, detaching);
+    }
+  };
+}
+function create_if_block_4(ctx) {
+  let h3;
+  let t0;
+  let button;
+  let t1;
+  let button_disabled_value;
+  let mounted;
+  let dispose;
+  return {
+    c() {
+      h3 = element("h3");
+      t0 = text("\u26A0\uFE0F PiperNet needs updating ");
+      button = element("button");
+      t1 = text("Update");
+      this.h();
+    },
+    l(nodes) {
+      h3 = claim_element(nodes, "H3", {});
+      var h3_nodes = children(h3);
+      t0 = claim_text(h3_nodes, "\u26A0\uFE0F PiperNet needs updating ");
+      button = claim_element(h3_nodes, "BUTTON", { class: true });
+      var button_nodes = children(button);
+      t1 = claim_text(button_nodes, "Update");
+      button_nodes.forEach(detach);
+      h3_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(button, "class", "m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded");
+      button.disabled = button_disabled_value = !ctx[0] || !ctx[4];
+    },
+    m(target, anchor) {
+      insert_hydration(target, h3, anchor);
+      append_hydration(h3, t0);
+      append_hydration(h3, button);
+      append_hydration(button, t1);
+      if (!mounted) {
+        dispose = listen(button, "click", ctx[9]);
+        mounted = true;
+      }
+    },
+    p(ctx2, dirty) {
+      if (dirty & 17 && button_disabled_value !== (button_disabled_value = !ctx2[0] || !ctx2[4])) {
+        button.disabled = button_disabled_value;
+      }
+    },
+    d(detaching) {
+      if (detaching)
+        detach(h3);
+      mounted = false;
+      dispose();
+    }
+  };
+}
+function create_if_block_3(ctx) {
+  let h3;
+  let t;
+  return {
+    c() {
+      h3 = element("h3");
+      t = text("\u2714\uFE0F PiperNet up to date");
+    },
+    l(nodes) {
+      h3 = claim_element(nodes, "H3", {});
+      var h3_nodes = children(h3);
+      t = claim_text(h3_nodes, "\u2714\uFE0F PiperNet up to date");
+      h3_nodes.forEach(detach);
+    },
+    m(target, anchor) {
+      insert_hydration(target, h3, anchor);
+      append_hydration(h3, t);
+    },
+    p: noop,
+    d(detaching) {
+      if (detaching)
+        detach(h3);
+    }
+  };
+}
+function create_pending_block(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("Loading instance...");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "Loading instance...");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    p: noop,
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let t;
+  let current;
+  let if_block = ctx[2] && create_if_block(ctx);
+  const default_slot_template = ctx[12].default;
+  const default_slot = create_slot(default_slot_template, ctx, ctx[16], null);
+  return {
+    c() {
+      if (if_block)
+        if_block.c();
+      t = space();
+      if (default_slot)
+        default_slot.c();
+    },
+    l(nodes) {
+      if (if_block)
+        if_block.l(nodes);
+      t = claim_space(nodes);
+      if (default_slot)
+        default_slot.l(nodes);
+    },
+    m(target, anchor) {
+      if (if_block)
+        if_block.m(target, anchor);
+      insert_hydration(target, t, anchor);
+      if (default_slot) {
+        default_slot.m(target, anchor);
+      }
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      if (ctx2[2]) {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+          if (dirty & 4) {
+            transition_in(if_block, 1);
+          }
+        } else {
+          if_block = create_if_block(ctx2);
+          if_block.c();
+          transition_in(if_block, 1);
+          if_block.m(t.parentNode, t);
+        }
+      } else if (if_block) {
+        group_outros();
+        transition_out(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        check_outros();
+      }
+      if (default_slot) {
+        if (default_slot.p && (!current || dirty & 65536)) {
+          update_slot_base(default_slot, default_slot_template, ctx2, ctx2[16], !current ? get_all_dirty_from_scope(ctx2[16]) : get_slot_changes(default_slot_template, ctx2[16], dirty, null), null);
+        }
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      transition_in(default_slot, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      transition_out(default_slot, local);
+      current = false;
+    },
+    d(detaching) {
+      if (if_block)
+        if_block.d(detaching);
+      if (detaching)
+        detach(t);
+      if (default_slot)
+        default_slot.d(detaching);
+    }
+  };
+}
+let connectKeyPhrase = "letsConnect";
+function instance($$self, $$props, $$invalidate) {
+  let { $$slots: slots = {}, $$scope } = $$props;
+  let { rootCID } = $$props;
+  let { wallet } = $$props;
+  let hypnsNode;
+  let HyPNSComponent, latestHypns;
+  let hypnsInstance, publish;
+  let myPublicKeyHex;
+  let showQR;
+  let opts = {
+    persist: true,
+    swarmOpts: {
+      announceLocalAddress: true,
+      wsProxy: [
+        "wss://hyperswarm.mauve.moe",
+        "wss://geut-webrtc-signal-v3.glitch.me",
+        "wss://geut-webrtc-signal-v3.herokuapp.com"
+      ]
+    }
+  };
+  onMount(async () => {
+    __vitePreload(() => import("./index-7163f4bc.js"), true ? [] : void 0).then((module) => {
+      $$invalidate(2, HyPNSComponent = module.default);
+    });
+  });
+  async function initHypns() {
+    const pk = await wallet.proxcryptor.getPublicKey();
+    $$invalidate(5, myPublicKeyHex = bufftoHex(pk));
+    console.log("Opening ", { myPublicKeyHex });
+    const onUpdate = (val) => {
+      console.log("Update from ", { hypnsInstance });
+      $$invalidate(3, latestHypns = val.ipld);
+    };
+    const onMessage = async (msg) => {
+      console.log(`redirect to ${location.origin + location.pathname}?add=${msg.pubKeyHex}`);
+      await goto(`${location.origin + location.pathname}?add=${msg.pubKeyHex}`);
+    };
+    $$invalidate(7, hypnsInstance = await openHypns({
+      pubKeyHex: myPublicKeyHex,
+      wallet,
+      onUpdate,
+      onMessage
+    }));
+    $$invalidate(3, latestHypns = hypnsInstance.latest);
+    $$invalidate(4, publish = () => {
+      hypnsInstance.publish({ ipld: rootCID.toV1().toString() });
+    });
+    console.log("Opened ", { hypnsInstance });
+  }
+  const openHypns = async function({ pubKeyHex, wallet: wallet2 = null, onUpdate = (val) => {
+  }, onMessage = (val) => {
+    console.log("Default onMessage");
+  } }) {
+    const hypnsInstance2 = await hypnsNode.open({
+      keypair: { publicKey: pubKeyHex },
+      wallet: wallet2
+    });
+    hypnsInstance2.on("update", onUpdate);
+    await hypnsInstance2.ready();
+    const extension = hypnsInstance2.network.networker.registerExtension(connectKeyPhrase, {
+      encoding: "json",
+      onmessage: (message, peer) => {
+        console.log("Got msg from peer!", { message }, { peer });
+        console.log({ onMessage });
+        onMessage(message);
+        if (message.pubKeyHex && !hypnsNode.instances.has(message.pubKeyHex)) {
+          openHypns({ pubKeyHex: message.pubKeyHex, onUpdate });
+        } else {
+          console.log("Already connected to ", message.pubKeyHex);
+        }
+      }
+    });
+    hypnsInstance2.network.networker.once("peer-add", (peer) => {
+      console.log("Added a peer! Sending", myPublicKeyHex, { peer });
+      extension.send({ pubKeyHex: myPublicKeyHex }, peer);
+    });
+    return hypnsInstance2;
+  };
+  async function handlePublish() {
+    publish();
+  }
+  function switch_instance_hypnsNode_binding(value) {
+    hypnsNode = value;
+    $$invalidate(1, hypnsNode);
+  }
+  function modal_modal_binding(value) {
+    showQR = value;
+    $$invalidate(6, showQR);
+  }
+  function qrcodeicon_showQR_binding(value) {
+    showQR = value;
+    $$invalidate(6, showQR);
+  }
+  $$self.$$set = ($$props2) => {
+    if ("rootCID" in $$props2)
+      $$invalidate(0, rootCID = $$props2.rootCID);
+    if ("wallet" in $$props2)
+      $$invalidate(10, wallet = $$props2.wallet);
+    if ("$$scope" in $$props2)
+      $$invalidate(16, $$scope = $$props2.$$scope);
+  };
+  $$self.$$.update = () => {
+    if ($$self.$$.dirty & 1026) {
+      wallet && hypnsNode && initHypns();
+    }
+  };
+  return [
+    rootCID,
+    hypnsNode,
+    HyPNSComponent,
+    latestHypns,
+    publish,
+    myPublicKeyHex,
+    showQR,
+    hypnsInstance,
+    opts,
+    handlePublish,
+    wallet,
+    openHypns,
+    slots,
+    switch_instance_hypnsNode_binding,
+    modal_modal_binding,
+    qrcodeicon_showQR_binding,
+    $$scope
+  ];
+}
+class HypnsManager extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance, create_fragment, safe_not_equal, { rootCID: 0, wallet: 10, openHypns: 11 });
+  }
+  get openHypns() {
+    return this.$$.ctx[11];
+  }
+}
 var jsQR$1 = { exports: {} };
 (function(module, exports) {
   (function webpackUniversalModuleDefinition(root, factory) {
@@ -2768,7 +4507,7 @@ var jsQR$1 = { exports: {} };
         })(ModeByte || (ModeByte = {}));
         function decodeNumeric(stream, size) {
           var bytes = [];
-          var text = "";
+          var text2 = "";
           var characterCountSize = [10, 12, 14][size];
           var length = stream.readBits(characterCountSize);
           while (length >= 3) {
@@ -2780,7 +4519,7 @@ var jsQR$1 = { exports: {} };
             var b = Math.floor(num / 10) % 10;
             var c = num % 10;
             bytes.push(48 + a, 48 + b, 48 + c);
-            text += a.toString() + b.toString() + c.toString();
+            text2 += a.toString() + b.toString() + c.toString();
             length -= 3;
           }
           if (length === 2) {
@@ -2791,16 +4530,16 @@ var jsQR$1 = { exports: {} };
             var a = Math.floor(num / 10);
             var b = num % 10;
             bytes.push(48 + a, 48 + b);
-            text += a.toString() + b.toString();
+            text2 += a.toString() + b.toString();
           } else if (length === 1) {
             var num = stream.readBits(4);
             if (num >= 10) {
               throw new Error("Invalid numeric value above 9");
             }
             bytes.push(48 + num);
-            text += num.toString();
+            text2 += num.toString();
           }
-          return { bytes, text };
+          return { bytes, text: text2 };
         }
         var AlphanumericCharacterCodes = [
           "0",
@@ -2851,7 +4590,7 @@ var jsQR$1 = { exports: {} };
         ];
         function decodeAlphanumeric(stream, size) {
           var bytes = [];
-          var text = "";
+          var text2 = "";
           var characterCountSize = [9, 11, 13][size];
           var length = stream.readBits(characterCountSize);
           while (length >= 2) {
@@ -2859,19 +4598,19 @@ var jsQR$1 = { exports: {} };
             var a = Math.floor(v / 45);
             var b = v % 45;
             bytes.push(AlphanumericCharacterCodes[a].charCodeAt(0), AlphanumericCharacterCodes[b].charCodeAt(0));
-            text += AlphanumericCharacterCodes[a] + AlphanumericCharacterCodes[b];
+            text2 += AlphanumericCharacterCodes[a] + AlphanumericCharacterCodes[b];
             length -= 2;
           }
           if (length === 1) {
             var a = stream.readBits(6);
             bytes.push(AlphanumericCharacterCodes[a].charCodeAt(0));
-            text += AlphanumericCharacterCodes[a];
+            text2 += AlphanumericCharacterCodes[a];
           }
-          return { bytes, text };
+          return { bytes, text: text2 };
         }
         function decodeByte(stream, size) {
           var bytes = [];
-          var text = "";
+          var text2 = "";
           var characterCountSize = [8, 16, 16][size];
           var length = stream.readBits(characterCountSize);
           for (var i = 0; i < length; i++) {
@@ -2879,16 +4618,16 @@ var jsQR$1 = { exports: {} };
             bytes.push(b);
           }
           try {
-            text += decodeURIComponent(bytes.map(function(b2) {
+            text2 += decodeURIComponent(bytes.map(function(b2) {
               return "%" + ("0" + b2.toString(16)).substr(-2);
             }).join(""));
           } catch (_a) {
           }
-          return { bytes, text };
+          return { bytes, text: text2 };
         }
         function decodeKanji(stream, size) {
           var bytes = [];
-          var text = "";
+          var text2 = "";
           var characterCountSize = [8, 10, 12][size];
           var length = stream.readBits(characterCountSize);
           for (var i = 0; i < length; i++) {
@@ -2900,9 +4639,9 @@ var jsQR$1 = { exports: {} };
               c += 49472;
             }
             bytes.push(c >> 8, c & 255);
-            text += String.fromCharCode(shiftJISTable_1.shiftJISTable[c]);
+            text2 += String.fromCharCode(shiftJISTable_1.shiftJISTable[c]);
           }
-          return { bytes, text };
+          return { bytes, text: text2 };
         }
         function decode(data, version2) {
           var _a, _b, _c, _d;
@@ -11564,11 +13303,11 @@ var jsQR$1 = { exports: {} };
             a33: a.a13 * b.a31 + a.a23 * b.a32 + a.a33 * b.a33
           };
         }
-        function extract(image, location) {
-          var qToS = quadrilateralToSquare({ x: 3.5, y: 3.5 }, { x: location.dimension - 3.5, y: 3.5 }, { x: location.dimension - 6.5, y: location.dimension - 6.5 }, { x: 3.5, y: location.dimension - 3.5 });
-          var sToQ = squareToQuadrilateral(location.topLeft, location.topRight, location.alignmentPattern, location.bottomLeft);
+        function extract(image, location2) {
+          var qToS = quadrilateralToSquare({ x: 3.5, y: 3.5 }, { x: location2.dimension - 3.5, y: 3.5 }, { x: location2.dimension - 6.5, y: location2.dimension - 6.5 }, { x: 3.5, y: location2.dimension - 3.5 });
+          var sToQ = squareToQuadrilateral(location2.topLeft, location2.topRight, location2.alignmentPattern, location2.bottomLeft);
           var transform = times(sToQ, qToS);
-          var matrix = BitMatrix_1.BitMatrix.createEmpty(location.dimension, location.dimension);
+          var matrix = BitMatrix_1.BitMatrix.createEmpty(location2.dimension, location2.dimension);
           var mappingFunction = function(x2, y2) {
             var denominator = transform.a13 * x2 + transform.a23 * y2 + transform.a33;
             return {
@@ -11576,8 +13315,8 @@ var jsQR$1 = { exports: {} };
               y: (transform.a12 * x2 + transform.a22 * y2 + transform.a32) / denominator
             };
           };
-          for (var y = 0; y < location.dimension; y++) {
-            for (var x = 0; x < location.dimension; x++) {
+          for (var y = 0; y < location2.dimension; y++) {
+            for (var x = 0; x < location2.dimension; x++) {
               var xValue = x + 0.5;
               var yValue = y + 0.5;
               var sourcePixel = mappingFunction(xValue, yValue);
@@ -11947,10 +13686,10 @@ var jsQR$1 = { exports: {} };
 var jsQR = /* @__PURE__ */ getDefaultExportFromCjs(jsQR$1.exports);
 var ScannerBorders_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ":root{--border-thickness:3px;--border-radius:40%;--border-offset:5%;--border-color:#cbf3f0}.scanner-border.svelte-5ppqz9{position:absolute;width:20%;height:20%}.scanner-border--top-left.svelte-5ppqz9{top:var(--border-offset);left:var(--border-offset);border-top:var(--border-thickness) solid var(--border-color);border-left:var(--border-thickness) solid var(--border-color);border-top-left-radius:var(--border-radius)}.scanner-border--top-right.svelte-5ppqz9{top:var(--border-offset);right:var(--border-offset);border-top:var(--border-thickness) solid var(--border-color);border-right:var(--border-thickness) solid var(--border-color);border-top-right-radius:var(--border-radius)}.scanner-border--bottom-left.svelte-5ppqz9{bottom:var(--border-offset);left:var(--border-offset);border-bottom:var(--border-thickness) solid var(--border-color);border-left:var(--border-thickness) solid var(--border-color);border-bottom-left-radius:var(--border-radius)}.scanner-border--bottom-right.svelte-5ppqz9{right:var(--border-offset);bottom:var(--border-offset);border-right:var(--border-thickness) solid var(--border-color);border-bottom:var(--border-thickness) solid var(--border-color);border-bottom-right-radius:var(--border-radius)}")();
 var Results_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".results.svelte-2uoird{width:100%;max-width:500px}.results__data.svelte-2uoird{margin:50px 0 80px 0;padding:20px 20px 27px 20px;word-break:break-all;border:2px dashed #3d3d3d;border-radius:20px;font-size:1.3rem}.results__empty.svelte-2uoird{color:#959595;font-style:italic}.results__button-container.svelte-2uoird{display:flex;justify-content:center}.results__button.svelte-2uoird{display:flex;align-items:center;padding:14px 16px;cursor:pointer;transition-duration:300ms;transition-property:background-color, transform;color:white;border:0;border-radius:8px;background-color:#23cd00;font-size:1.5rem;font-weight:500}.results__button.svelte-2uoird:hover{background-color:#39b300}.results__scan-icon.svelte-2uoird{width:1.5rem;margin-right:10px}.results__link.svelte-2uoird,.results__link.svelte-2uoird:visited{transition:color 200ms;color:#7094ff}.results__link.svelte-2uoird:hover,.results__link.svelte-2uoird:active{color:#486cd9}")();
-var Scanner_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".scanner.svelte-1jvnekp{width:100%;max-width:500px}.scanner--hidden.svelte-1jvnekp{display:none}.scanner__aspect-ratio-container.svelte-1jvnekp{position:relative;overflow:hidden;padding-bottom:100%;border-radius:10%}.scanner__video.svelte-1jvnekp{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:inherit;outline:none;-o-object-fit:cover;object-fit:cover}.scanner__canvas.svelte-1jvnekp{display:none}.scanner-tip.svelte-1jvnekp{display:flex;justify-content:center;margin-top:15px;font-size:0.8rem}")();
+var Scanner_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".scanner.svelte-hxohih{width:100%;max-width:500px}.scanner--hidden.svelte-hxohih{display:none}.scanner__aspect-ratio-container.svelte-hxohih{position:relative;overflow:hidden;padding-bottom:100%;border-radius:10%}.scanner__video.svelte-hxohih{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:inherit;outline:none;-o-object-fit:cover;object-fit:cover}.scanner__canvas.svelte-hxohih{display:none}.scanner-tip.svelte-hxohih{display:flex;justify-content:center;margin-top:15px;font-size:0.8rem}")();
 var scanIcon_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "svg.svelte-1ey9nt7{width:auto;height:4em;display:block}")();
 var SearchResults_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "h1.svelte-14s5ast{border:1px dashed grey;padding:0.5em;background-color:antiquewhite}.pubkey.svelte-14s5ast{padding:0px}div.SearchResults.svelte-14s5ast{display:flex;flex-direction:column;justify-content:space-evenly;margin:1.62em;align-items:stretch}button.svelte-14s5ast{padding:1.62em;margin:1.62em;background-color:rgb(46, 199, 61);width:auto}")();
 var Search_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".validity.svelte-1ln7uo.svelte-1ln7uo{margin:0.25em 0}input.svelte-1ln7uo.svelte-1ln7uo{padding:0.3em;border-radius:3px}.sb-example-1.svelte-1ln7uo.svelte-1ln7uo{width:100%}.sb-example-1.svelte-1ln7uo .search.svelte-1ln7uo{width:100%;position:relative;display:flex}.sb-example-1.svelte-1ln7uo .searchTerm.svelte-1ln7uo{width:100%;border:3px solid #2ec73d;border-right:none;padding:5px;border-radius:5px 0 0 5px;outline:none;color:#9dbfaf}.sb-example-1.svelte-1ln7uo .searchTerm.svelte-1ln7uo:focus{color:#2ec73d}.sb-example-1.svelte-1ln7uo .searchButton.svelte-1ln7uo{width:40px;height:50px;border:1px solid #2ec73d;background:#2ec73d;text-align:center;color:#fff;border-radius:0 5px 5px 0;cursor:pointer;font-size:20px}")();
 var Contacts_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".searchBar.svelte-rpa35j{display:flex;flex-direction:row;align-items:center;justify-content:center;flex-wrap:nowrap}.scan-icon.svelte-rpa35j{margin:1em 0 1em 1em}")();
-export { browser, goto, jsQR };
-//# sourceMappingURL=Contacts.svelte_svelte_type_style_lang-b442e525.js.map
+export { HypnsManager, Modal, PiperNet, jsQR };
+//# sourceMappingURL=Contacts.svelte_svelte_type_style_lang-6b2bb9e7.js.map

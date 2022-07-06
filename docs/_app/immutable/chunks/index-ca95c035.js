@@ -1,7 +1,7 @@
 import { SvelteComponent, init, safe_not_equal, element, svg_element, claim_element, children, claim_svg_element, detach, attr, xlink_attr, insert_hydration, append_hydration, noop, create_slot, create_component, space, claim_component, claim_space, toggle_class, mount_component, listen, action_destroyer, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, transition_out, destroy_component, run_all, add_render_callback, create_bidirectional_transition, group_outros, check_outros, createEventDispatcher, null_to_empty, set_style, src_url_equal, set_input_value, add_resize_listener, is_function, onMount, globals, text, claim_text, set_data, binding_callbacks, empty, bind, add_flush_callback } from "./index-64ae2edc.js";
 import { __vitePreload } from "./preload-helper-ef2a18a4.js";
-import { fade } from "./index-5cd534b3.js";
-import "./cid-da67497d.js";
+import { fade } from "./index-1b64b11a.js";
+import "./cid-d85b89cf.js";
 var app = /* @__PURE__ */ (() => "html {\r\n	background: rgb(241, 241, 241);\r\n	/* box-sizing: border-box; */\r\n	line-height: 2;\r\n	-ms-scroll-snap-type: y mandatory;\r\n	    scroll-snap-type: y mandatory;\r\n}\r\n\r\nbody {\r\n	margin: 0;\r\n	padding: 0;\r\n}\r\n\r\n#app {\r\n	font-family: Avenir, Helvetica, Arial, sans-serif;\r\n	-webkit-font-smoothing: antialiased;\r\n	-moz-osx-font-smoothing: grayscale;\r\n	text-align: center;\r\n	color: rgb(109, 109, 109);\r\n}\r\n/* */\r\n\r\n*,\r\n*:before,\r\n*:after {\r\n	box-sizing: inherit;\r\n}\r\n\r\n\r\n.no-scrollbar {\r\n	scrollbar-width: none;\r\n}\r\n\r\n.no-scrollbar::-webkit-scrollbar {\r\n	display: none;\r\n}\r\n\r\n.ellipsis {\r\n	text-overflow: ellipsis;\r\n	overflow: hidden;\r\n}\r\n")();
 function memoize(fn, options) {
   var cache = options && options.cache ? options.cache : cacheDefault;
@@ -451,7 +451,7 @@ class Logo extends SvelteComponent {
     init(this, options, null, create_fragment$5, safe_not_equal, {});
   }
 }
-var MenuWrapper_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".container.svelte-1mm9l7o.svelte-1mm9l7o{display:flex;align-items:center;position:absolute;top:0px;right:0px;z-index:100;cursor:pointer;margin:1.618em;opacity:0.95;width:auto}.menu-icon.svelte-1mm9l7o.svelte-1mm9l7o{display:inline-block}.bar1.svelte-1mm9l7o.svelte-1mm9l7o,.bar2.svelte-1mm9l7o.svelte-1mm9l7o,.bar3.svelte-1mm9l7o.svelte-1mm9l7o{width:35px;height:5px;background-color:#0bb113;margin:6px 0;transition:0.4s}.change.svelte-1mm9l7o .bar1.svelte-1mm9l7o{transform:rotate(-45deg) translate(-9px, 6px)}.change.svelte-1mm9l7o .bar2.svelte-1mm9l7o{opacity:0}.change.svelte-1mm9l7o .bar3.svelte-1mm9l7o{transform:rotate(45deg) translate(-8px, -8px)}.sidenav.svelte-1mm9l7o.svelte-1mm9l7o{position:fixed;top:0;right:0;height:15%;width:0;z-index:10;background-color:#111;overflow-x:inherit;padding-top:30px;transition:0.25s}.open.svelte-1mm9l7o.svelte-1mm9l7o{width:80%;height:100%;overflow-x:scroll}.mask.svelte-1mm9l7o.svelte-1mm9l7o{width:100%;height:100%;position:fixed;top:0;left:0;opacity:0.5;background-color:#444;transition:0.4s}@media screen and (max-height: 450px){.sidenav.svelte-1mm9l7o.svelte-1mm9l7o{padding-top:15px}}")();
+var MenuWrapper_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".container.svelte-5epptf.svelte-5epptf{display:flex;align-items:center;position:absolute;top:0px;right:0px;z-index:100;cursor:pointer;margin:1.618em;opacity:0.95;width:auto}.menu-icon.svelte-5epptf.svelte-5epptf{display:inline-block}.bar1.svelte-5epptf.svelte-5epptf,.bar2.svelte-5epptf.svelte-5epptf,.bar3.svelte-5epptf.svelte-5epptf{width:35px;height:5px;background-color:#0bb113;margin:6px 0;transition:0.4s}.change.svelte-5epptf .bar1.svelte-5epptf{transform:rotate(-45deg) translate(-9px, 6px)}.change.svelte-5epptf .bar2.svelte-5epptf{opacity:0}.change.svelte-5epptf .bar3.svelte-5epptf{transform:rotate(45deg) translate(-8px, -8px)}.sidenav.svelte-5epptf.svelte-5epptf{position:fixed;top:0;right:0;height:15%;width:0;z-index:10;background-color:#111;overflow-x:inherit;padding-top:30px;transition:0.25s}.open.svelte-5epptf.svelte-5epptf{width:80%;height:100%;overflow-x:scroll}.mask.svelte-5epptf.svelte-5epptf{width:100%;height:100%;position:fixed;top:0;left:0;opacity:0.5;background-color:#444;transition:0.4s}@media screen and (max-height: 450px){.sidenav.svelte-5epptf.svelte-5epptf{padding-top:15px}}")();
 const get_default_slot_changes = (dirty) => ({
   openNav: dirty & 1,
   hideNav: dirty & 1
@@ -528,15 +528,15 @@ function create_fragment$4(ctx) {
       this.h();
     },
     h() {
-      attr(div0, "class", "bar1 svelte-1mm9l7o");
-      attr(div1, "class", "bar2 svelte-1mm9l7o");
-      attr(div2, "class", "bar3 svelte-1mm9l7o");
-      attr(div3, "class", "menu-icon svelte-1mm9l7o");
-      attr(div4, "class", "container svelte-1mm9l7o");
+      attr(div0, "class", "bar1 svelte-5epptf");
+      attr(div1, "class", "bar2 svelte-5epptf");
+      attr(div2, "class", "bar3 svelte-5epptf");
+      attr(div3, "class", "menu-icon svelte-5epptf");
+      attr(div4, "class", "container svelte-5epptf");
       toggle_class(div4, "change", ctx[0]);
-      attr(div5, "class", "svelte-1mm9l7o");
+      attr(div5, "class", "svelte-5epptf");
       toggle_class(div5, "mask", ctx[0]);
-      attr(div6, "class", "sidenav svelte-1mm9l7o");
+      attr(div6, "class", "sidenav svelte-5epptf");
       toggle_class(div6, "open", ctx[0]);
     },
     m(target, anchor) {
@@ -1017,7 +1017,7 @@ var connectToChild = (options) => {
     }
   };
 };
-var WalletSelectorIcons_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "button.svelte-boxns1{flex:0 0 auto;position:relative;opacity:0.8;height:100%;display:flex;align-items:center;justify-content:center;color:inherit;background:none;border:none;margin:0;padding:0;font-size:1em;cursor:pointer}.img-container.svelte-boxns1{margin:calc(var(--spacing) / 2);width:1.6em;height:1.6em;position:relative}svg.svelte-boxns1{width:100%;height:100%;top:0;bottom:0;left:0;right:0;position:absolute}")();
+var WalletSelectorIcons_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "button.svelte-c2h37n{flex:0 0 auto;position:relative;opacity:0.8;height:100%;display:flex;align-items:center;justify-content:center;color:inherit;background:none;border:none;margin:0;padding:0;font-size:1em;cursor:pointer}.img-container.svelte-c2h37n{margin:calc(var(--spacing) / 2);width:1.6em;height:1.6em;position:relative}svg.svelte-c2h37n{width:100%;height:100%;top:0;bottom:0;left:0;right:0;position:absolute}")();
 function create_if_block_3(ctx) {
   let div;
   let svg;
@@ -1063,7 +1063,7 @@ function create_if_block_3(ctx) {
       attr(svg, "enable-background", "new 0 0 24 24");
       attr(svg, "viewBox", "0 0 24 24");
       attr(svg, "fill", "currentColor");
-      attr(svg, "class", "svelte-boxns1");
+      attr(svg, "class", "svelte-c2h37n");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -1138,7 +1138,7 @@ function create_if_block_2(ctx) {
       attr(svg, "xmlns", "http://www.w3.org/2000/svg");
       attr(svg, "viewBox", "0 0 24 24");
       attr(svg, "fill", "currentColor");
-      attr(svg, "class", "svelte-boxns1");
+      attr(svg, "class", "svelte-c2h37n");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -1213,7 +1213,7 @@ function create_if_block_1(ctx) {
       attr(svg, "xmlns", "http://www.w3.org/2000/svg");
       attr(svg, "viewBox", "0 0 24 24");
       attr(svg, "fill", "currentColor");
-      attr(svg, "class", "svelte-boxns1");
+      attr(svg, "class", "svelte-c2h37n");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -1288,7 +1288,7 @@ function create_if_block$3(ctx) {
       attr(svg, "xmlns", "http://www.w3.org/2000/svg");
       attr(svg, "viewBox", "0 0 24 24");
       attr(svg, "fill", "currentColor");
-      attr(svg, "class", "svelte-boxns1");
+      attr(svg, "class", "svelte-c2h37n");
     },
     m(target, anchor) {
       insert_hydration(target, div, anchor);
@@ -1381,8 +1381,8 @@ function create_fragment$3(ctx) {
       this.h();
     },
     h() {
-      attr(div, "class", "img-container svelte-boxns1");
-      attr(button, "class", "svelte-boxns1");
+      attr(div, "class", "img-container svelte-c2h37n");
+      attr(button, "class", "svelte-c2h37n");
     },
     m(target, anchor) {
       insert_hydration(target, button, anchor);
@@ -2754,4 +2754,4 @@ class Connector extends SvelteComponent {
 }
 var Web3WalletConnector = Connector;
 export { Web3WalletConnector, Web3WalletMenu$1 as Web3WalletMenu };
-//# sourceMappingURL=index-f08a2899.js.map
+//# sourceMappingURL=index-ca95c035.js.map

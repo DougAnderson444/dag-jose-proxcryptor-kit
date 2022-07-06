@@ -2047,6 +2047,7 @@ function bufftoHex(buffer2) {
   return out;
 }
 function validatePubKey(pubKey) {
+  console.log("Validating", { pubKey });
   if (!pubKey)
     return;
   try {
@@ -2055,6 +2056,7 @@ function validatePubKey(pubKey) {
       return pubKeyBytes;
     }
   } catch (error) {
+    console.log("Not base 64", { pubKey });
   }
   try {
     let b58Bytes = bs58.decode(pubKey);
@@ -2062,11 +2064,16 @@ function validatePubKey(pubKey) {
       return b58Bytes;
     }
   } catch (error) {
+    console.log("Not base 58", { pubKey });
   }
-  const fromHexString = (hexString) => new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
-  let hexb58Bytes = fromHexString(pubKey);
-  if (hexb58Bytes.length === PUBLIC_KEY_BYTES) {
-    return hexb58Bytes;
+  try {
+    const fromHexString = (hexString) => new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+    let hexb58Bytes = fromHexString(pubKey);
+    if (hexb58Bytes.length === PUBLIC_KEY_BYTES) {
+      return hexb58Bytes;
+    }
+  } catch (error) {
+    console.warn("Not hex either ", { pubKey });
   }
   console.warn("Not any supported encodings :( ");
   return false;
@@ -2089,18 +2096,6 @@ const getTagNodes = async ({ ipfsNode, rootCID }) => {
   const result = await Promise.all(promises);
   return result.filter((r) => r);
 };
-async function getTagNode({ tag, rootCID, ipfsNode }) {
-  if (!rootCID || !ipfsNode || !tag)
-    return;
-  try {
-    const cid = (await ipfsNode.dag.get(rootCID, { path: `/${tag}`, localResolve: true })).value;
-    let tagNode = (await ipfsNode.dag.get(cid, { localResolve: true })).value;
-    return tagNode;
-  } catch (error) {
-    console.warn(`${tag} no DAG data`);
-    return false;
-  }
-}
 var encode_1 = encode$1;
 var MSB = 128, REST = 127, MSBALL = ~REST, INT = Math.pow(2, 31);
 function encode$1(num, out, offset) {
@@ -2892,5 +2887,5 @@ if (cid) {
   doSomethingWithCID(cid)
 }
 `;
-export { CID, base32$1 as base32, base58, baseX, bs58, bufftoHex, coerce, create, cubicOut, from, fromString, getTagNode, getTagNodes, hexDigestMessage, index, quintOut, rfc4648, toString, validatePubKey };
-//# sourceMappingURL=cid-da67497d.js.map
+export { CID, base32$1 as base32, base58, baseX, bs58, bufftoHex, coerce, create, cubicOut, from, fromString, getTagNodes, hexDigestMessage, index, quintOut, rfc4648, toString, validatePubKey };
+//# sourceMappingURL=cid-d85b89cf.js.map

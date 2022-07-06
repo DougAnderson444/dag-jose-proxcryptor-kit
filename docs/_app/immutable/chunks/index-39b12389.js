@@ -31,7 +31,7 @@ var __objRest = (source, exclude) => {
 };
 import { hash as hash$2 } from "./hash-2a1eb12b.js";
 import { commonjsGlobal as commonjsGlobal$1, getAugmentedNamespace } from "./_commonjsHelpers-9b98600b.js";
-import { bs58 } from "./cid-da67497d.js";
+import { bs58 } from "./cid-d85b89cf.js";
 import { __vitePreload } from "./preload-helper-ef2a18a4.js";
 import { SvelteComponent, init, safe_not_equal, element, text, space, query_selector_all, claim_element, children, claim_text, detach, claim_space, append_hydration, insert_hydration, noop, onMount } from "./index-64ae2edc.js";
 var __create = Object.create;
@@ -31476,9 +31476,9 @@ function instance($$self, $$props, $$invalidate) {
   let snsResolve2;
   let showhandleAccounts;
   onMount(async () => {
-    const Buffer2 = await __vitePreload(() => import("./cid-da67497d.js").then(function(n) {
+    const Buffer2 = await __vitePreload(() => import("./cid-d85b89cf.js").then(function(n) {
       return n.index;
-    }), true ? ["chunks/cid-da67497d.js","chunks/index-64ae2edc.js"] : void 0);
+    }), true ? ["chunks/cid-d85b89cf.js","chunks/index-64ae2edc.js"] : void 0);
     global.Buffer = Buffer2.Buffer;
     const process2 = await __vitePreload(() => import("./browser-62a45c90.js").then(function(n) {
       return n.browser;
@@ -31529,4 +31529,4 @@ class SNSWrapper extends SvelteComponent {
 }
 var SNSWrapper$1 = SNSWrapper;
 export { SNSWrapper$1 as SNSWrapper, snsResolve };
-//# sourceMappingURL=index-314c3146.js.map
+//# sourceMappingURL=index-39b12389.js.map

@@ -1,7 +1,7 @@
 import { __vitePreload } from "../chunks/preload-helper-ef2a18a4.js";
 import { SvelteComponent, init, safe_not_equal, create_slot, space, element, claim_space, query_selector_all, claim_element, children, detach, src_url_equal, attr, insert_hydration, append_hydration, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, transition_out, onMount, create_component, empty, claim_component, mount_component, add_flush_callback, check_outros, binding_callbacks, bind, destroy_component, text, claim_text, group_outros, set_data, is_function } from "../chunks/index-64ae2edc.js";
-import { IPFSManager, Proxcryptor, Gateway } from "../chunks/IPFSManager-c92cb8db.js";
-import "../chunks/cid-da67497d.js";
+import { IPFSManager, Proxcryptor, Gateway } from "../chunks/IPFSManager-fbe22ba3.js";
+import "../chunks/cid-d85b89cf.js";
 const get_default_slot_changes = (dirty) => ({ component: dirty & 1 });
 const get_default_slot_context = (ctx) => ({ component: ctx[0] });
 function create_fragment$1(ctx) {
@@ -623,7 +623,7 @@ function instance($$self, $$props, $$invalidate) {
   let rootCID;
   onMount(async () => {
     if (!wallet) {
-      $$invalidate(1, { Web3WalletMenu } = await __vitePreload(() => import("../chunks/index-f08a2899.js"), true ? ["chunks/index-f08a2899.js","assets/index-f37f8aff.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js","chunks/index-5cd534b3.js","chunks/cid-da67497d.js"] : void 0), Web3WalletMenu);
+      $$invalidate(1, { Web3WalletMenu } = await __vitePreload(() => import("../chunks/index-ca95c035.js"), true ? ["chunks/index-ca95c035.js","assets/index-c30dcd19.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js","chunks/index-1b64b11a.js","chunks/cid-d85b89cf.js"] : void 0), Web3WalletMenu);
     }
   });
   function switch_instance_wallet_binding(value) {
@@ -655,4 +655,4 @@ class Multitag extends SvelteComponent {
   }
 }
 export { Multitag as default };
-//# sourceMappingURL=multitag.svelte-04032b5c.js.map
+//# sourceMappingURL=multitag.svelte-b9040bc1.js.map
