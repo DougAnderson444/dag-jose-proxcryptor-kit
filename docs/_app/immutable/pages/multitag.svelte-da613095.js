@@ -1,7 +1,7 @@
 import { __vitePreload } from "../chunks/preload-helper-ef2a18a4.js";
 import { SvelteComponent, init, safe_not_equal, create_slot, space, element, claim_space, query_selector_all, claim_element, children, detach, src_url_equal, attr, insert_hydration, append_hydration, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, transition_out, onMount, create_component, empty, claim_component, mount_component, add_flush_callback, check_outros, binding_callbacks, bind, destroy_component, text, claim_text, group_outros, set_data, is_function } from "../chunks/index-64ae2edc.js";
-import { IPFSManager, Proxcryptor, Gateway } from "../chunks/IPFSManager-fbe22ba3.js";
-import "../chunks/cid-d85b89cf.js";
+import { IPFSManager, Proxcryptor, Gateway } from "../chunks/IPFSManager-527b796e.js";
+import "../chunks/cid-ddbe2f79.js";
 const get_default_slot_changes = (dirty) => ({ component: dirty & 1 });
 const get_default_slot_context = (ctx) => ({ component: ctx[0] });
 function create_fragment$1(ctx) {
@@ -483,12 +483,10 @@ function create_default_slot(ctx) {
   };
 }
 function create_fragment(ctx) {
-  let link;
-  let t0;
   let div;
+  let t0;
   let t1;
   let t2;
-  let t3;
   let ipfsmanager;
   let updating_rootCID;
   let current;
@@ -513,47 +511,37 @@ function create_fragment(ctx) {
   binding_callbacks.push(() => bind(ipfsmanager, "rootCID", ipfsmanager_rootCID_binding));
   return {
     c() {
-      link = element("link");
-      t0 = space();
       div = element("div");
-      t1 = text("Data: All the data in a Component needs to be saved encrypted under a Tag name. So the user must\r\n	choose which Tag this component's data will be saved under. If Multiple Components save data to\r\n	the same tag, it's up to them to update the object sent to the proxcryptor, as the proxcryptor\r\n	will only write Tag:Value that it is given.");
-      t2 = space();
+      t0 = text("Data: All the data in a Component needs to be saved encrypted under a Tag name. So the user must\r\n	choose which Tag this component's data will be saved under. If Multiple Components save data to\r\n	the same tag, it's up to them to update the object sent to the proxcryptor, as the proxcryptor\r\n	will only write Tag:Value that it is given.");
+      t1 = space();
       if (if_block)
         if_block.c();
-      t3 = space();
+      t2 = space();
       create_component(ipfsmanager.$$.fragment);
       this.h();
     },
     l(nodes) {
-      const head_nodes = query_selector_all('[data-svelte="svelte-elf7d0"]', document.head);
-      link = claim_element(head_nodes, "LINK", { href: true, rel: true });
-      head_nodes.forEach(detach);
-      t0 = claim_space(nodes);
       div = claim_element(nodes, "DIV", { class: true });
       var div_nodes = children(div);
-      t1 = claim_text(div_nodes, "Data: All the data in a Component needs to be saved encrypted under a Tag name. So the user must\r\n	choose which Tag this component's data will be saved under. If Multiple Components save data to\r\n	the same tag, it's up to them to update the object sent to the proxcryptor, as the proxcryptor\r\n	will only write Tag:Value that it is given.");
+      t0 = claim_text(div_nodes, "Data: All the data in a Component needs to be saved encrypted under a Tag name. So the user must\r\n	choose which Tag this component's data will be saved under. If Multiple Components save data to\r\n	the same tag, it's up to them to update the object sent to the proxcryptor, as the proxcryptor\r\n	will only write Tag:Value that it is given.");
       div_nodes.forEach(detach);
-      t2 = claim_space(nodes);
+      t1 = claim_space(nodes);
       if (if_block)
         if_block.l(nodes);
-      t3 = claim_space(nodes);
+      t2 = claim_space(nodes);
       claim_component(ipfsmanager.$$.fragment, nodes);
       this.h();
     },
     h() {
-      attr(link, "href", "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css");
-      attr(link, "rel", "stylesheet");
       attr(div, "class", "m-2 p-2 border bg-slate-400 rounded text-slate-300");
     },
     m(target, anchor) {
-      append_hydration(document.head, link);
-      insert_hydration(target, t0, anchor);
       insert_hydration(target, div, anchor);
-      append_hydration(div, t1);
-      insert_hydration(target, t2, anchor);
+      append_hydration(div, t0);
+      insert_hydration(target, t1, anchor);
       if (if_block)
         if_block.m(target, anchor);
-      insert_hydration(target, t3, anchor);
+      insert_hydration(target, t2, anchor);
       mount_component(ipfsmanager, target, anchor);
       current = true;
     },
@@ -568,7 +556,7 @@ function create_fragment(ctx) {
           if_block = create_if_block_1(ctx2);
           if_block.c();
           transition_in(if_block, 1);
-          if_block.m(t3.parentNode, t3);
+          if_block.m(t2.parentNode, t2);
         }
       } else if (if_block) {
         group_outros();
@@ -601,17 +589,14 @@ function create_fragment(ctx) {
       current = false;
     },
     d(detaching) {
-      detach(link);
-      if (detaching)
-        detach(t0);
       if (detaching)
         detach(div);
       if (detaching)
-        detach(t2);
+        detach(t1);
       if (if_block)
         if_block.d(detaching);
       if (detaching)
-        detach(t3);
+        detach(t2);
       destroy_component(ipfsmanager, detaching);
     }
   };
@@ -623,7 +608,7 @@ function instance($$self, $$props, $$invalidate) {
   let rootCID;
   onMount(async () => {
     if (!wallet) {
-      $$invalidate(1, { Web3WalletMenu } = await __vitePreload(() => import("../chunks/index-ca95c035.js"), true ? ["chunks/index-ca95c035.js","assets/index-c30dcd19.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js","chunks/index-1b64b11a.js","chunks/cid-d85b89cf.js"] : void 0), Web3WalletMenu);
+      $$invalidate(1, { Web3WalletMenu } = await __vitePreload(() => import("../chunks/index-73f8326a.js"), true ? ["chunks/index-73f8326a.js","assets/index-c30dcd19.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js","chunks/index-9f669967.js","chunks/cid-ddbe2f79.js","assets/cid-5802fef1.css"] : void 0), Web3WalletMenu);
     }
   });
   function switch_instance_wallet_binding(value) {
@@ -655,4 +640,4 @@ class Multitag extends SvelteComponent {
   }
 }
 export { Multitag as default };
-//# sourceMappingURL=multitag.svelte-b9040bc1.js.map
+//# sourceMappingURL=multitag.svelte-da613095.js.map

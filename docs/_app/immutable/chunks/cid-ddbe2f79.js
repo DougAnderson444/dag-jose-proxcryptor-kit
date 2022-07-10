@@ -14,7 +14,8 @@ var __spreadValues = (a, b) => {
     }
   return a;
 };
-import "./index-64ae2edc.js";
+import { SvelteComponent, init, safe_not_equal, element, text, space, claim_element, children, claim_text, detach, claim_space, attr, insert_hydration, append_hydration, set_data, noop, set_style, assign, now, loop, identity } from "./index-64ae2edc.js";
+import { writable } from "./preload-helper-ef2a18a4.js";
 function _mergeNamespaces(n, m) {
   m.forEach(function(e) {
     e && typeof e !== "string" && !Array.isArray(e) && Object.keys(e).forEach(function(k) {
@@ -2096,6 +2097,419 @@ const getTagNodes = async ({ ipfsNode, rootCID }) => {
   const result = await Promise.all(promises);
   return result.filter((r) => r);
 };
+var Thumbnail_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".active.svelte-p2e6ba{opacity:1}")();
+var Indicator_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".active.svelte-p2e6ba{opacity:1}")();
+var DropdownNavbar_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "#mobile-menu.svelte-1qvc76k .active.svelte-1qvc76k{color:#fab534}")();
+function create_if_block_1(ctx) {
+  let div;
+  let span0;
+  let t0;
+  let t1;
+  let span1;
+  let t2;
+  let t3;
+  return {
+    c() {
+      div = element("div");
+      span0 = element("span");
+      t0 = text(ctx[3]);
+      t1 = space();
+      span1 = element("span");
+      t2 = text(ctx[0]);
+      t3 = text("%");
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      span0 = claim_element(div_nodes, "SPAN", { class: true });
+      var span0_nodes = children(span0);
+      t0 = claim_text(span0_nodes, ctx[3]);
+      span0_nodes.forEach(detach);
+      t1 = claim_space(div_nodes);
+      span1 = claim_element(div_nodes, "SPAN", { class: true });
+      var span1_nodes = children(span1);
+      t2 = claim_text(span1_nodes, ctx[0]);
+      t3 = claim_text(span1_nodes, "%");
+      span1_nodes.forEach(detach);
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(span0, "class", "text-base font-medium text-blue-700 dark:text-white");
+      attr(span1, "class", "text-sm font-medium text-blue-700 dark:text-white");
+      attr(div, "class", "flex justify-between mb-1");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      append_hydration(div, span0);
+      append_hydration(span0, t0);
+      append_hydration(div, t1);
+      append_hydration(div, span1);
+      append_hydration(span1, t2);
+      append_hydration(span1, t3);
+    },
+    p(ctx2, dirty) {
+      if (dirty & 8)
+        set_data(t0, ctx2[3]);
+      if (dirty & 1)
+        set_data(t2, ctx2[0]);
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div);
+    }
+  };
+}
+function create_else_block(ctx) {
+  let div;
+  let div_class_value;
+  return {
+    c() {
+      div = element("div");
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", { class: true, style: true });
+      children(div).forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", div_class_value = ctx[4] + " " + ctx[1] + " rounded-full");
+      set_style(div, "width", ctx[0] + "%");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+    },
+    p(ctx2, dirty) {
+      if (dirty & 18 && div_class_value !== (div_class_value = ctx2[4] + " " + ctx2[1] + " rounded-full")) {
+        attr(div, "class", div_class_value);
+      }
+      if (dirty & 1) {
+        set_style(div, "width", ctx2[0] + "%");
+      }
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div);
+    }
+  };
+}
+function create_if_block(ctx) {
+  let div;
+  let t0;
+  let t1;
+  return {
+    c() {
+      div = element("div");
+      t0 = text(ctx[0]);
+      t1 = text("%");
+      this.h();
+    },
+    l(nodes) {
+      div = claim_element(nodes, "DIV", { class: true, style: true });
+      var div_nodes = children(div);
+      t0 = claim_text(div_nodes, ctx[0]);
+      t1 = claim_text(div_nodes, "%");
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", "bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full");
+      set_style(div, "width", ctx[0] + "%");
+    },
+    m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      append_hydration(div, t0);
+      append_hydration(div, t1);
+    },
+    p(ctx2, dirty) {
+      if (dirty & 1)
+        set_data(t0, ctx2[0]);
+      if (dirty & 1) {
+        set_style(div, "width", ctx2[0] + "%");
+      }
+    },
+    d(detaching) {
+      if (detaching)
+        detach(div);
+    }
+  };
+}
+function create_fragment(ctx) {
+  let t;
+  let div;
+  let div_class_value;
+  let if_block0 = ctx[3] && create_if_block_1(ctx);
+  function select_block_type(ctx2, dirty) {
+    if (ctx2[2])
+      return create_if_block;
+    return create_else_block;
+  }
+  let current_block_type = select_block_type(ctx);
+  let if_block1 = current_block_type(ctx);
+  return {
+    c() {
+      if (if_block0)
+        if_block0.c();
+      t = space();
+      div = element("div");
+      if_block1.c();
+      this.h();
+    },
+    l(nodes) {
+      if (if_block0)
+        if_block0.l(nodes);
+      t = claim_space(nodes);
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      if_block1.l(div_nodes);
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", div_class_value = "w-full bg-gray-200 rounded-full " + ctx[1] + " dark:bg-gray-700");
+    },
+    m(target, anchor) {
+      if (if_block0)
+        if_block0.m(target, anchor);
+      insert_hydration(target, t, anchor);
+      insert_hydration(target, div, anchor);
+      if_block1.m(div, null);
+    },
+    p(ctx2, [dirty]) {
+      if (ctx2[3]) {
+        if (if_block0) {
+          if_block0.p(ctx2, dirty);
+        } else {
+          if_block0 = create_if_block_1(ctx2);
+          if_block0.c();
+          if_block0.m(t.parentNode, t);
+        }
+      } else if (if_block0) {
+        if_block0.d(1);
+        if_block0 = null;
+      }
+      if (current_block_type === (current_block_type = select_block_type(ctx2)) && if_block1) {
+        if_block1.p(ctx2, dirty);
+      } else {
+        if_block1.d(1);
+        if_block1 = current_block_type(ctx2);
+        if (if_block1) {
+          if_block1.c();
+          if_block1.m(div, null);
+        }
+      }
+      if (dirty & 2 && div_class_value !== (div_class_value = "w-full bg-gray-200 rounded-full " + ctx2[1] + " dark:bg-gray-700")) {
+        attr(div, "class", div_class_value);
+      }
+    },
+    i: noop,
+    o: noop,
+    d(detaching) {
+      if (if_block0)
+        if_block0.d(detaching);
+      if (detaching)
+        detach(t);
+      if (detaching)
+        detach(div);
+      if_block1.d();
+    }
+  };
+}
+function instance($$self, $$props, $$invalidate) {
+  let { progress = "45" } = $$props;
+  let { size = "h-2.5" } = $$props;
+  let { labelInside = false } = $$props;
+  let { labelOutside = "" } = $$props;
+  let { color = "blue" } = $$props;
+  let barColor;
+  if (color === "blue") {
+    barColor = "bg-blue-600";
+  } else if (color === "gray") {
+    barColor = "bg-gray-600 dark:bg-gray-300";
+  } else if (color === "red") {
+    barColor = "bg-red-600 dark:bg-red-500";
+  } else if (color === "green") {
+    barColor = "bg-green-600 dark:bg-green-500";
+  } else if (color === "yellow") {
+    barColor = "bg-yellow-400 ";
+  } else if (color === "purple") {
+    barColor = "bg-purple-600 dark:bg-purple-500";
+  } else if (color === "indigo") {
+    barColor = "bg-indigo-600 dark:bg-indigo-500";
+  } else {
+    barColor = "bg-blue-600 dark:bg-blue-500";
+  }
+  $$self.$$set = ($$props2) => {
+    if ("progress" in $$props2)
+      $$invalidate(0, progress = $$props2.progress);
+    if ("size" in $$props2)
+      $$invalidate(1, size = $$props2.size);
+    if ("labelInside" in $$props2)
+      $$invalidate(2, labelInside = $$props2.labelInside);
+    if ("labelOutside" in $$props2)
+      $$invalidate(3, labelOutside = $$props2.labelOutside);
+    if ("color" in $$props2)
+      $$invalidate(5, color = $$props2.color);
+  };
+  return [progress, size, labelInside, labelOutside, barColor, color];
+}
+class Progressbar extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance, create_fragment, safe_not_equal, {
+      progress: 0,
+      size: 1,
+      labelInside: 2,
+      labelOutside: 3,
+      color: 5
+    });
+  }
+}
+var classnames = { exports: {} };
+/*!
+  Copyright (c) 2018 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+(function(module) {
+  (function() {
+    var hasOwn = {}.hasOwnProperty;
+    function classNames() {
+      var classes = [];
+      for (var i = 0; i < arguments.length; i++) {
+        var arg = arguments[i];
+        if (!arg)
+          continue;
+        var argType = typeof arg;
+        if (argType === "string" || argType === "number") {
+          classes.push(arg);
+        } else if (Array.isArray(arg)) {
+          if (arg.length) {
+            var inner = classNames.apply(null, arg);
+            if (inner) {
+              classes.push(inner);
+            }
+          }
+        } else if (argType === "object") {
+          if (arg.toString === Object.prototype.toString) {
+            for (var key in arg) {
+              if (hasOwn.call(arg, key) && arg[key]) {
+                classes.push(key);
+              }
+            }
+          } else {
+            classes.push(arg.toString());
+          }
+        }
+      }
+      return classes.join(" ");
+    }
+    if (module.exports) {
+      classNames.default = classNames;
+      module.exports = classNames;
+    } else {
+      window.classNames = classNames;
+    }
+  })();
+})(classnames);
+function is_date(obj) {
+  return Object.prototype.toString.call(obj) === "[object Date]";
+}
+function get_interpolator(a, b) {
+  if (a === b || a !== a)
+    return () => a;
+  const type = typeof a;
+  if (type !== typeof b || Array.isArray(a) !== Array.isArray(b)) {
+    throw new Error("Cannot interpolate values of different type");
+  }
+  if (Array.isArray(a)) {
+    const arr = b.map((bi, i) => {
+      return get_interpolator(a[i], bi);
+    });
+    return (t) => arr.map((fn) => fn(t));
+  }
+  if (type === "object") {
+    if (!a || !b)
+      throw new Error("Object cannot be null");
+    if (is_date(a) && is_date(b)) {
+      a = a.getTime();
+      b = b.getTime();
+      const delta = b - a;
+      return (t) => new Date(a + t * delta);
+    }
+    const keys = Object.keys(b);
+    const interpolators = {};
+    keys.forEach((key) => {
+      interpolators[key] = get_interpolator(a[key], b[key]);
+    });
+    return (t) => {
+      const result = {};
+      keys.forEach((key) => {
+        result[key] = interpolators[key](t);
+      });
+      return result;
+    };
+  }
+  if (type === "number") {
+    const delta = b - a;
+    return (t) => a + t * delta;
+  }
+  throw new Error(`Cannot interpolate ${type} values`);
+}
+function tweened(value, defaults = {}) {
+  const store = writable(value);
+  let task;
+  let target_value = value;
+  function set(new_value, opts) {
+    if (value == null) {
+      store.set(value = new_value);
+      return Promise.resolve();
+    }
+    target_value = new_value;
+    let previous_task = task;
+    let started = false;
+    let { delay = 0, duration = 400, easing = identity, interpolate = get_interpolator } = assign(assign({}, defaults), opts);
+    if (duration === 0) {
+      if (previous_task) {
+        previous_task.abort();
+        previous_task = null;
+      }
+      store.set(value = target_value);
+      return Promise.resolve();
+    }
+    const start = now() + delay;
+    let fn;
+    task = loop((now2) => {
+      if (now2 < start)
+        return true;
+      if (!started) {
+        fn = interpolate(value, new_value);
+        if (typeof duration === "function")
+          duration = duration(value, new_value);
+        started = true;
+      }
+      if (previous_task) {
+        previous_task.abort();
+        previous_task = null;
+      }
+      const elapsed = now2 - start;
+      if (elapsed > duration) {
+        store.set(value = new_value);
+        return false;
+      }
+      store.set(value = fn(easing(elapsed / duration)));
+      return true;
+    });
+    return task.promise;
+  }
+  return {
+    set,
+    update: (fn, opts) => set(fn(target_value, value), opts),
+    subscribe: store.subscribe
+  };
+}
 var encode_1 = encode$1;
 var MSB = 128, REST = 127, MSBALL = ~REST, INT = Math.pow(2, 31);
 function encode$1(num, out, offset) {
@@ -2375,14 +2789,14 @@ class Decoder {
     this.prefix = prefix;
     this.baseDecode = baseDecode;
   }
-  decode(text) {
-    if (typeof text === "string") {
-      switch (text[0]) {
+  decode(text2) {
+    if (typeof text2 === "string") {
+      switch (text2[0]) {
         case this.prefix: {
-          return this.baseDecode(text.slice(1));
+          return this.baseDecode(text2.slice(1));
         }
         default: {
-          throw Error(`Unable to decode multibase string ${JSON.stringify(text)}, ${this.name} decoder only supports inputs prefixed with ${this.prefix}`);
+          throw Error(`Unable to decode multibase string ${JSON.stringify(text2)}, ${this.name} decoder only supports inputs prefixed with ${this.prefix}`);
         }
       }
     } else {
@@ -2434,7 +2848,7 @@ const baseX = ({ prefix, name, alphabet }) => {
     prefix,
     name,
     encode: encode2,
-    decode: (text) => coerce(decode2(text))
+    decode: (text2) => coerce(decode2(text2))
   });
 };
 const decode = (string, alphabet, bitsPerChar, name) => {
@@ -2887,5 +3301,5 @@ if (cid) {
   doSomethingWithCID(cid)
 }
 `;
-export { CID, base32$1 as base32, base58, baseX, bs58, bufftoHex, coerce, create, cubicOut, from, fromString, getTagNodes, hexDigestMessage, index, quintOut, rfc4648, toString, validatePubKey };
-//# sourceMappingURL=cid-d85b89cf.js.map
+export { CID, Progressbar, base32$1 as base32, base58, baseX, bs58, bufftoHex, coerce, create, cubicOut, from, fromString, getTagNodes, hexDigestMessage, index, quintOut, rfc4648, toString, tweened, validatePubKey };
+//# sourceMappingURL=cid-ddbe2f79.js.map

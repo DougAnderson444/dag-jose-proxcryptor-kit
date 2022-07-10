@@ -1,13 +1,13 @@
-import { SvelteComponent, init, safe_not_equal, empty, insert_hydration, group_outros, transition_out, check_outros, transition_in, detach, createEventDispatcher, handle_promise, update_await_block_branch, text, claim_text, noop, create_slot, space, claim_space, set_data, update_slot_base, get_all_dirty_from_scope, get_slot_changes, element, claim_element, children, attr, append_hydration, add_render_callback, create_bidirectional_transition, onMount, binding_callbacks, toggle_class, listen, svg_element, claim_svg_element, create_component, claim_component, mount_component, add_flush_callback, destroy_component, bind, set_style } from "./index-64ae2edc.js";
-import { bufftoHex } from "./cid-d85b89cf.js";
+import { SvelteComponent, init, safe_not_equal, element, claim_element, children, detach, insert_hydration, group_outros, transition_out, check_outros, transition_in, createEventDispatcher, handle_promise, empty, update_await_block_branch, text, claim_text, noop, create_slot, space, claim_space, set_data, update_slot_base, get_all_dirty_from_scope, get_slot_changes, attr, append_hydration, add_render_callback, create_bidirectional_transition, onMount, binding_callbacks, toggle_class, listen, svg_element, claim_svg_element, create_component, claim_component, mount_component, destroy_component, component_subscribe, set_store_value, bind, add_flush_callback, set_style } from "./index-64ae2edc.js";
+import { bufftoHex, tweened, cubicOut, Progressbar } from "./cid-ddbe2f79.js";
 import { __vitePreload } from "./preload-helper-ef2a18a4.js";
-import { fade } from "./index-1b64b11a.js";
+import { fade } from "./index-9f669967.js";
 import { client } from "./singletons-cdabada9.js";
 import { commonjsGlobal, getDefaultExportFromCjs } from "./_commonjsHelpers-9b98600b.js";
 var ContactCard_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".contact-card.svelte-ip382u{min-width:300px;border:1px solid #aaa;box-shadow:2px 2px 8px rgba(0, 0, 0, 0.1);padding:1em;background:lemonchiffon;border-radius:3px}h2.svelte-ip382u{font-weight:600;padding:0 0 0.2em 0;margin:0 0 1em 0;border-bottom:1px solid #008000}.address.svelte-ip382u,.email.svelte-ip382u{padding:0 0 0 1.5em;background:0 0 no-repeat;background-size:20px 20px;margin:0 0 0.5em 0;line-height:1.2}.missing.svelte-ip382u{color:#999}")();
 const get_default_slot_changes = (dirty) => ({ latestHypns: dirty & 2 });
 const get_default_slot_context = (ctx) => ({ latestHypns: ctx[1] });
-function create_else_block(ctx) {
+function create_else_block$1(ctx) {
   let await_block_anchor;
   let promise;
   let current;
@@ -70,7 +70,7 @@ function create_else_block(ctx) {
     }
   };
 }
-function create_if_block$2(ctx) {
+function create_if_block$3(ctx) {
   let t;
   return {
     c() {
@@ -117,7 +117,7 @@ function create_then_block$1(ctx) {
   let if_block;
   let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block_1$1, create_else_block_1];
+  const if_block_creators = [create_if_block_1$1, create_else_block_1$1];
   const if_blocks = [];
   function select_block_type_1(ctx2, dirty) {
     if (ctx2[1])
@@ -179,7 +179,7 @@ function create_then_block$1(ctx) {
     }
   };
 }
-function create_else_block_1(ctx) {
+function create_else_block_1$1(ctx) {
   let t;
   return {
     c() {
@@ -297,12 +297,12 @@ function create_pending_block$1(ctx) {
     }
   };
 }
-function create_fragment$4(ctx) {
+function create_fragment$5(ctx) {
+  let div;
   let current_block_type_index;
   let if_block;
-  let if_block_anchor;
   let current;
-  const if_block_creators = [create_if_block$2, create_else_block];
+  const if_block_creators = [create_if_block$3, create_else_block$1];
   const if_blocks = [];
   function select_block_type(ctx2, dirty) {
     if (!ctx2[2])
@@ -313,16 +313,18 @@ function create_fragment$4(ctx) {
   if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
   return {
     c() {
+      div = element("div");
       if_block.c();
-      if_block_anchor = empty();
     },
     l(nodes) {
-      if_block.l(nodes);
-      if_block_anchor = empty();
+      div = claim_element(nodes, "DIV", {});
+      var div_nodes = children(div);
+      if_block.l(div_nodes);
+      div_nodes.forEach(detach);
     },
     m(target, anchor) {
-      if_blocks[current_block_type_index].m(target, anchor);
-      insert_hydration(target, if_block_anchor, anchor);
+      insert_hydration(target, div, anchor);
+      if_blocks[current_block_type_index].m(div, null);
       current = true;
     },
     p(ctx2, [dirty]) {
@@ -344,7 +346,7 @@ function create_fragment$4(ctx) {
           if_block.p(ctx2, dirty);
         }
         transition_in(if_block, 1);
-        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        if_block.m(div, null);
       }
     },
     i(local) {
@@ -358,13 +360,13 @@ function create_fragment$4(ctx) {
       current = false;
     },
     d(detaching) {
-      if_blocks[current_block_type_index].d(detaching);
       if (detaching)
-        detach(if_block_anchor);
+        detach(div);
+      if_blocks[current_block_type_index].d();
     }
   };
 }
-function instance$4($$self, $$props, $$invalidate) {
+function instance$5($$self, $$props, $$invalidate) {
   let { $$slots: slots = {}, $$scope } = $$props;
   let { pubkey } = $$props;
   let { openHypns } = $$props;
@@ -412,7 +414,7 @@ function instance$4($$self, $$props, $$invalidate) {
 class PiperNet extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$4, create_fragment$4, safe_not_equal, { pubkey: 3, openHypns: 4, handle: 0 });
+    init(this, options, instance$5, create_fragment$5, safe_not_equal, { pubkey: 3, openHypns: 4, handle: 0 });
   }
 }
 var search = /* @__PURE__ */ (() => "input {\r\n		padding: 0.3em;\r\n		border-radius: 3px;\r\n	}\r\n\r\n.sb-example-1 {\r\n    width: 100%;\r\n}\r\n.sb-example-1 .search {\r\n    width: 100%;\r\n    position: relative;\r\n    display: flex;\r\n}\r\n.sb-example-1 .searchTerm {\r\n    width: 100%;\r\n    border: 3px solid #2ec73d;\r\n    border-right: none;\r\n    padding: 5px;\r\n    border-radius: 5px 0 0 5px;\r\n    outline: none;\r\n    color: #9dbfaf;\r\n}\r\n.sb-example-1 .searchTerm:focus {\r\n    color: #2ec73d;\r\n}\r\n.sb-example-1 .searchButton {\r\n    width: 40px;\r\n    height: 50px;\r\n    border: 1px solid #2ec73d;\r\n    background: #2ec73d;\r\n    text-align: center;\r\n    color: #fff;\r\n    border-radius: 0 5px 5px 0;\r\n    cursor: pointer;\r\n    font-size: 20px;\r\n}")();
@@ -2430,7 +2432,7 @@ function fallback_block(ctx) {
     }
   };
 }
-function create_fragment$3(ctx) {
+function create_fragment$4(ctx) {
   let div1;
   let div0;
   let t;
@@ -2521,7 +2523,7 @@ function create_fragment$3(ctx) {
     }
   };
 }
-function instance$3($$self, $$props, $$invalidate) {
+function instance$4($$self, $$props, $$invalidate) {
   let { $$slots: slots = {}, $$scope } = $$props;
   let { value } = $$props;
   let canvas2;
@@ -2548,7 +2550,7 @@ function instance$3($$self, $$props, $$invalidate) {
 class QRCode_1 extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$3, create_fragment$3, safe_not_equal, { value: 2 });
+    init(this, options, instance$4, create_fragment$4, safe_not_equal, { value: 2 });
   }
 }
 client.disable_scroll_handling;
@@ -2559,7 +2561,7 @@ client.prefetch_routes;
 client.before_navigate;
 client.after_navigate;
 var Modal_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".hide.svelte-5vlr37{display:none}.modal.svelte-5vlr37{display:block;position:fixed;z-index:99999;left:0;top:0;width:100%;height:100%;overflow:auto;background-color:rgb(0, 0, 0);background-color:rgba(0, 0, 0, 0.4)}.modal-content.svelte-5vlr37{background-color:#fefefe;margin:15% auto;padding:20px;border:1px solid #888;width:80%}.close.svelte-5vlr37{color:#aaa;float:right;font-size:3.5em;font-weight:bold;line-height:0.5;padding:0.25em}.close.svelte-5vlr37:hover,.close.svelte-5vlr37:focus{color:black;text-decoration:none;cursor:pointer}")();
-function create_fragment$2(ctx) {
+function create_fragment$3(ctx) {
   let div2;
   let div1;
   let span;
@@ -2658,7 +2660,7 @@ function create_fragment$2(ctx) {
     }
   };
 }
-function instance$2($$self, $$props, $$invalidate) {
+function instance$3($$self, $$props, $$invalidate) {
   let { $$slots: slots = {}, $$scope } = $$props;
   let { modal } = $$props;
   const dispatch = createEventDispatcher();
@@ -2683,11 +2685,11 @@ function instance$2($$self, $$props, $$invalidate) {
 class Modal extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$2, create_fragment$2, safe_not_equal, { modal: 0 });
+    init(this, options, instance$3, create_fragment$3, safe_not_equal, { modal: 0 });
   }
 }
 var QRCodeIcon_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "svg.svelte-1ey9nt7{width:auto;height:4em;display:block}")();
-function create_if_block$1(ctx) {
+function create_if_block$2(ctx) {
   let current;
   const default_slot_template = ctx[2].default;
   const default_slot = create_slot(default_slot_template, ctx, ctx[1], null);
@@ -2729,7 +2731,7 @@ function create_if_block$1(ctx) {
     }
   };
 }
-function create_fragment$1(ctx) {
+function create_fragment$2(ctx) {
   let div;
   let svg;
   let path0;
@@ -2743,7 +2745,7 @@ function create_fragment$1(ctx) {
   let current;
   let mounted;
   let dispose;
-  let if_block = ctx[0] && create_if_block$1(ctx);
+  let if_block = ctx[0] && create_if_block$2(ctx);
   return {
     c() {
       div = element("div");
@@ -2854,7 +2856,7 @@ function create_fragment$1(ctx) {
             transition_in(if_block, 1);
           }
         } else {
-          if_block = create_if_block$1(ctx2);
+          if_block = create_if_block$2(ctx2);
           if_block.c();
           transition_in(if_block, 1);
           if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -2891,7 +2893,7 @@ function create_fragment$1(ctx) {
     }
   };
 }
-function instance$1($$self, $$props, $$invalidate) {
+function instance$2($$self, $$props, $$invalidate) {
   let { $$slots: slots = {}, $$scope } = $$props;
   let { showQR = false } = $$props;
   const click_handler = () => $$invalidate(0, showQR = true);
@@ -2906,10 +2908,168 @@ function instance$1($$self, $$props, $$invalidate) {
 class QRCodeIcon extends SvelteComponent {
   constructor(options) {
     super();
-    init(this, options, instance$1, create_fragment$1, safe_not_equal, { showQR: 0 });
+    init(this, options, instance$2, create_fragment$2, safe_not_equal, { showQR: 0 });
   }
 }
-var HypnsManager_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "div.main.svelte-1s9j5fj{display:block;border:1px solid rgb(196, 196, 196);background-color:rgb(15, 15, 15);overflow-wrap:break-word;word-break:break-word;padding:var(--column-margin-top);color:aliceblue}.scan-icon.svelte-1s9j5fj{margin:0.1em 0.5em}")();
+function create_if_block$1(ctx) {
+  let progressbar;
+  let current;
+  progressbar = new Progressbar({
+    props: {
+      size: "h-6",
+      progress: String(ctx[1].toFixed(0)),
+      labelOutside: "Loading" + (ctx[0] ? " " + ctx[0] : "") + "... " + ctx[1].toFixed(0) + "%"
+    }
+  });
+  return {
+    c() {
+      create_component(progressbar.$$.fragment);
+    },
+    l(nodes) {
+      claim_component(progressbar.$$.fragment, nodes);
+    },
+    m(target, anchor) {
+      mount_component(progressbar, target, anchor);
+      current = true;
+    },
+    p(ctx2, dirty) {
+      const progressbar_changes = {};
+      if (dirty & 2)
+        progressbar_changes.progress = String(ctx2[1].toFixed(0));
+      if (dirty & 3)
+        progressbar_changes.labelOutside = "Loading" + (ctx2[0] ? " " + ctx2[0] : "") + "... " + ctx2[1].toFixed(0) + "%";
+      progressbar.$set(progressbar_changes);
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(progressbar.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(progressbar.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(progressbar, detaching);
+    }
+  };
+}
+function create_fragment$1(ctx) {
+  let if_block_anchor;
+  let current;
+  let if_block = ctx[1] && create_if_block$1(ctx);
+  return {
+    c() {
+      if (if_block)
+        if_block.c();
+      if_block_anchor = empty();
+    },
+    l(nodes) {
+      if (if_block)
+        if_block.l(nodes);
+      if_block_anchor = empty();
+    },
+    m(target, anchor) {
+      if (if_block)
+        if_block.m(target, anchor);
+      insert_hydration(target, if_block_anchor, anchor);
+      current = true;
+    },
+    p(ctx2, [dirty]) {
+      if (ctx2[1]) {
+        if (if_block) {
+          if_block.p(ctx2, dirty);
+          if (dirty & 2) {
+            transition_in(if_block, 1);
+          }
+        } else {
+          if_block = create_if_block$1(ctx2);
+          if_block.c();
+          transition_in(if_block, 1);
+          if_block.m(if_block_anchor.parentNode, if_block_anchor);
+        }
+      } else if (if_block) {
+        group_outros();
+        transition_out(if_block, 1, 1, () => {
+          if_block = null;
+        });
+        check_outros();
+      }
+    },
+    i(local) {
+      if (current)
+        return;
+      transition_in(if_block);
+      current = true;
+    },
+    o(local) {
+      transition_out(if_block);
+      current = false;
+    },
+    d(detaching) {
+      if (if_block)
+        if_block.d(detaching);
+      if (detaching)
+        detach(if_block_anchor);
+    }
+  };
+}
+function instance$1($$self, $$props, $$invalidate) {
+  let $loader;
+  let { duration = 1e4 } = $$props;
+  let { label } = $$props;
+  const loader = tweened(1, { duration, easing: cubicOut });
+  component_subscribe($$self, loader, (value) => $$invalidate(1, $loader = value));
+  onMount(async () => {
+    set_store_value(loader, $loader = 99, $loader);
+  });
+  $$self.$$set = ($$props2) => {
+    if ("duration" in $$props2)
+      $$invalidate(3, duration = $$props2.duration);
+    if ("label" in $$props2)
+      $$invalidate(0, label = $$props2.label);
+  };
+  return [label, $loader, loader, duration];
+}
+class Progress extends SvelteComponent {
+  constructor(options) {
+    super();
+    init(this, options, instance$1, create_fragment$1, safe_not_equal, { duration: 3, label: 0 });
+  }
+}
+var HypnsManager_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".scan-icon.svelte-1xtqd71{margin:0.1em 0.5em}")();
+function create_else_block_1(ctx) {
+  let progress;
+  let current;
+  progress = new Progress({ props: { duration: 5e3 } });
+  return {
+    c() {
+      create_component(progress.$$.fragment);
+    },
+    l(nodes) {
+      claim_component(progress.$$.fragment, nodes);
+    },
+    m(target, anchor) {
+      mount_component(progress, target, anchor);
+      current = true;
+    },
+    p: noop,
+    i(local) {
+      if (current)
+        return;
+      transition_in(progress.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(progress.$$.fragment, local);
+      current = false;
+    },
+    d(detaching) {
+      destroy_component(progress, detaching);
+    }
+  };
+}
 function create_if_block(ctx) {
   let switch_instance;
   let updating_hypnsNode;
@@ -2935,14 +3095,14 @@ function create_if_block(ctx) {
   }
   const if_block_creators = [create_if_block_1, create_if_block_2];
   const if_blocks = [];
-  function select_block_type(ctx2, dirty) {
+  function select_block_type_1(ctx2, dirty) {
     if (!ctx2[1])
       return 0;
     if (ctx2[7])
       return 1;
     return -1;
   }
-  if (~(current_block_type_index = select_block_type(ctx))) {
+  if (~(current_block_type_index = select_block_type_1(ctx))) {
     if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
   }
   return {
@@ -2967,7 +3127,7 @@ function create_if_block(ctx) {
       this.h();
     },
     h() {
-      attr(div, "class", "main svelte-1s9j5fj");
+      attr(div, "class", "main m-2 p-4 rounded bg-[#232323] text-slate-50 break-words");
     },
     m(target, anchor) {
       if (switch_instance) {
@@ -3009,7 +3169,7 @@ function create_if_block(ctx) {
         switch_instance.$set(switch_instance_changes);
       }
       let previous_block_index = current_block_type_index;
-      current_block_type_index = select_block_type(ctx2);
+      current_block_type_index = select_block_type_1(ctx2);
       if (current_block_type_index === previous_block_index) {
         if (~current_block_type_index) {
           if_blocks[current_block_type_index].p(ctx2, dirty);
@@ -3129,22 +3289,38 @@ function create_if_block_2(ctx) {
 }
 function create_if_block_1(ctx) {
   let t;
+  let progress;
+  let current;
+  progress = new Progress({ props: { duration: 5e3 } });
   return {
     c() {
-      t = text("Loading Hypns...");
+      t = text("Loading Hypns...\r\n			");
+      create_component(progress.$$.fragment);
     },
     l(nodes) {
-      t = claim_text(nodes, "Loading Hypns...");
+      t = claim_text(nodes, "Loading Hypns...\r\n			");
+      claim_component(progress.$$.fragment, nodes);
     },
     m(target, anchor) {
       insert_hydration(target, t, anchor);
+      mount_component(progress, target, anchor);
+      current = true;
     },
     p: noop,
-    i: noop,
-    o: noop,
+    i(local) {
+      if (current)
+        return;
+      transition_in(progress.$$.fragment, local);
+      current = true;
+    },
+    o(local) {
+      transition_out(progress.$$.fragment, local);
+      current = false;
+    },
     d(detaching) {
       if (detaching)
         detach(t);
+      destroy_component(progress, detaching);
     }
   };
 }
@@ -3168,10 +3344,6 @@ function create_then_block(ctx) {
   let qrcodeicon;
   let updating_showQR;
   let t2;
-  let div2;
-  let t3_value = ctx[3] ? "Last Pinned: " + ctx[3] : "";
-  let t3;
-  let t4;
   let show_if;
   let if_block_anchor;
   let current;
@@ -3187,7 +3359,7 @@ function create_then_block(ctx) {
   }
   qrcodeicon = new QRCodeIcon({ props: qrcodeicon_props });
   binding_callbacks.push(() => bind(qrcodeicon, "showQR", qrcodeicon_showQR_binding));
-  function select_block_type_1(ctx2, dirty) {
+  function select_block_type_2(ctx2, dirty) {
     var _a;
     if (dirty & 9)
       show_if = null;
@@ -3197,9 +3369,10 @@ function create_then_block(ctx) {
       return create_if_block_3;
     if (ctx2[0])
       return create_if_block_4;
+    return create_else_block;
   }
-  let current_block_type = select_block_type_1(ctx, -1);
-  let if_block = current_block_type && current_block_type(ctx);
+  let current_block_type = select_block_type_2(ctx, -1);
+  let if_block = current_block_type(ctx);
   return {
     c() {
       div1 = element("div");
@@ -3209,11 +3382,7 @@ function create_then_block(ctx) {
       div0 = element("div");
       create_component(qrcodeicon.$$.fragment);
       t2 = space();
-      div2 = element("div");
-      t3 = text(t3_value);
-      t4 = space();
-      if (if_block)
-        if_block.c();
+      if_block.c();
       if_block_anchor = empty();
       this.h();
     },
@@ -3231,18 +3400,12 @@ function create_then_block(ctx) {
       div0_nodes.forEach(detach);
       div1_nodes.forEach(detach);
       t2 = claim_space(nodes);
-      div2 = claim_element(nodes, "DIV", {});
-      var div2_nodes = children(div2);
-      t3 = claim_text(div2_nodes, t3_value);
-      div2_nodes.forEach(detach);
-      t4 = claim_space(nodes);
-      if (if_block)
-        if_block.l(nodes);
+      if_block.l(nodes);
       if_block_anchor = empty();
       this.h();
     },
     h() {
-      attr(div0, "class", "scan-icon svelte-1s9j5fj");
+      attr(div0, "class", "scan-icon m-1 svelte-1xtqd71");
       set_style(div1, "display", "flex");
       set_style(div1, "flex-direction", "row");
       set_style(div1, "align-items", "center");
@@ -3255,11 +3418,7 @@ function create_then_block(ctx) {
       append_hydration(div1, div0);
       mount_component(qrcodeicon, div0, null);
       insert_hydration(target, t2, anchor);
-      insert_hydration(target, div2, anchor);
-      append_hydration(div2, t3);
-      insert_hydration(target, t4, anchor);
-      if (if_block)
-        if_block.m(target, anchor);
+      if_block.m(target, anchor);
       insert_hydration(target, if_block_anchor, anchor);
       current = true;
     },
@@ -3274,14 +3433,11 @@ function create_then_block(ctx) {
         add_flush_callback(() => updating_showQR = false);
       }
       qrcodeicon.$set(qrcodeicon_changes);
-      if ((!current || dirty & 8) && t3_value !== (t3_value = ctx2[3] ? "Last Pinned: " + ctx2[3] : ""))
-        set_data(t3, t3_value);
-      if (current_block_type === (current_block_type = select_block_type_1(ctx2, dirty)) && if_block) {
+      if (current_block_type === (current_block_type = select_block_type_2(ctx2, dirty)) && if_block) {
         if_block.p(ctx2, dirty);
       } else {
-        if (if_block)
-          if_block.d(1);
-        if_block = current_block_type && current_block_type(ctx2);
+        if_block.d(1);
+        if_block = current_block_type(ctx2);
         if (if_block) {
           if_block.c();
           if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -3304,13 +3460,7 @@ function create_then_block(ctx) {
       destroy_component(qrcodeicon);
       if (detaching)
         detach(t2);
-      if (detaching)
-        detach(div2);
-      if (detaching)
-        detach(t4);
-      if (if_block) {
-        if_block.d(detaching);
-      }
+      if_block.d(detaching);
       if (detaching)
         detach(if_block_anchor);
     }
@@ -3433,53 +3583,95 @@ function create_default_slot(ctx) {
     }
   };
 }
+function create_else_block(ctx) {
+  let t;
+  return {
+    c() {
+      t = text("Loading IPFS...");
+    },
+    l(nodes) {
+      t = claim_text(nodes, "Loading IPFS...");
+    },
+    m(target, anchor) {
+      insert_hydration(target, t, anchor);
+    },
+    p: noop,
+    d(detaching) {
+      if (detaching)
+        detach(t);
+    }
+  };
+}
 function create_if_block_4(ctx) {
-  let h3;
+  let div;
+  let t0_value = ctx[3] ? "Last Pinned: " + ctx[3] : "";
   let t0;
-  let button;
   let t1;
+  let h3;
+  let t2;
+  let button;
+  let t3;
   let button_disabled_value;
   let mounted;
   let dispose;
   return {
     c() {
+      div = element("div");
+      t0 = text(t0_value);
+      t1 = space();
       h3 = element("h3");
-      t0 = text("\u26A0\uFE0F PiperNet needs updating ");
+      t2 = text("\u26A0\uFE0F PiperNet needs updating ");
       button = element("button");
-      t1 = text("Update");
+      t3 = text("Publish Update");
       this.h();
     },
     l(nodes) {
-      h3 = claim_element(nodes, "H3", {});
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      t0 = claim_text(div_nodes, t0_value);
+      div_nodes.forEach(detach);
+      t1 = claim_space(nodes);
+      h3 = claim_element(nodes, "H3", { class: true });
       var h3_nodes = children(h3);
-      t0 = claim_text(h3_nodes, "\u26A0\uFE0F PiperNet needs updating ");
+      t2 = claim_text(h3_nodes, "\u26A0\uFE0F PiperNet needs updating ");
       button = claim_element(h3_nodes, "BUTTON", { class: true });
       var button_nodes = children(button);
-      t1 = claim_text(button_nodes, "Update");
+      t3 = claim_text(button_nodes, "Publish Update");
       button_nodes.forEach(detach);
       h3_nodes.forEach(detach);
       this.h();
     },
     h() {
+      attr(div, "class", "font-mono text-amber-300");
       attr(button, "class", "m-2 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded");
       button.disabled = button_disabled_value = !ctx[0] || !ctx[4];
+      attr(h3, "class", "text-amber-300");
     },
     m(target, anchor) {
+      insert_hydration(target, div, anchor);
+      append_hydration(div, t0);
+      insert_hydration(target, t1, anchor);
       insert_hydration(target, h3, anchor);
-      append_hydration(h3, t0);
+      append_hydration(h3, t2);
       append_hydration(h3, button);
-      append_hydration(button, t1);
+      append_hydration(button, t3);
       if (!mounted) {
         dispose = listen(button, "click", ctx[9]);
         mounted = true;
       }
     },
     p(ctx2, dirty) {
+      if (dirty & 8 && t0_value !== (t0_value = ctx2[3] ? "Last Pinned: " + ctx2[3] : ""))
+        set_data(t0, t0_value);
       if (dirty & 17 && button_disabled_value !== (button_disabled_value = !ctx2[0] || !ctx2[4])) {
         button.disabled = button_disabled_value;
       }
     },
     d(detaching) {
+      if (detaching)
+        detach(div);
+      if (detaching)
+        detach(t1);
       if (detaching)
         detach(h3);
       mounted = false;
@@ -3488,27 +3680,42 @@ function create_if_block_4(ctx) {
   };
 }
 function create_if_block_3(ctx) {
-  let h3;
-  let t;
+  let t0;
+  let div;
+  let t1_value = ctx[3] ? "Last Pinned: " + ctx[3] : "";
+  let t1;
   return {
     c() {
-      h3 = element("h3");
-      t = text("\u2714\uFE0F PiperNet up to date");
+      t0 = text("\u2714\uFE0F PiperNet up to date.\r\n					");
+      div = element("div");
+      t1 = text(t1_value);
+      this.h();
     },
     l(nodes) {
-      h3 = claim_element(nodes, "H3", {});
-      var h3_nodes = children(h3);
-      t = claim_text(h3_nodes, "\u2714\uFE0F PiperNet up to date");
-      h3_nodes.forEach(detach);
+      t0 = claim_text(nodes, "\u2714\uFE0F PiperNet up to date.\r\n					");
+      div = claim_element(nodes, "DIV", { class: true });
+      var div_nodes = children(div);
+      t1 = claim_text(div_nodes, t1_value);
+      div_nodes.forEach(detach);
+      this.h();
+    },
+    h() {
+      attr(div, "class", "font-mono text-[#0eff02]");
     },
     m(target, anchor) {
-      insert_hydration(target, h3, anchor);
-      append_hydration(h3, t);
+      insert_hydration(target, t0, anchor);
+      insert_hydration(target, div, anchor);
+      append_hydration(div, t1);
     },
-    p: noop,
+    p(ctx2, dirty) {
+      if (dirty & 8 && t1_value !== (t1_value = ctx2[3] ? "Last Pinned: " + ctx2[3] : ""))
+        set_data(t1, t1_value);
+    },
     d(detaching) {
       if (detaching)
-        detach(h3);
+        detach(t0);
+      if (detaching)
+        detach(div);
     }
   };
 }
@@ -3534,29 +3741,36 @@ function create_pending_block(ctx) {
   };
 }
 function create_fragment(ctx) {
+  let current_block_type_index;
+  let if_block;
   let t;
   let current;
-  let if_block = ctx[2] && create_if_block(ctx);
+  const if_block_creators = [create_if_block, create_else_block_1];
+  const if_blocks = [];
+  function select_block_type(ctx2, dirty) {
+    if (ctx2[2])
+      return 0;
+    return 1;
+  }
+  current_block_type_index = select_block_type(ctx);
+  if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
   const default_slot_template = ctx[12].default;
   const default_slot = create_slot(default_slot_template, ctx, ctx[16], null);
   return {
     c() {
-      if (if_block)
-        if_block.c();
+      if_block.c();
       t = space();
       if (default_slot)
         default_slot.c();
     },
     l(nodes) {
-      if (if_block)
-        if_block.l(nodes);
+      if_block.l(nodes);
       t = claim_space(nodes);
       if (default_slot)
         default_slot.l(nodes);
     },
     m(target, anchor) {
-      if (if_block)
-        if_block.m(target, anchor);
+      if_blocks[current_block_type_index].m(target, anchor);
       insert_hydration(target, t, anchor);
       if (default_slot) {
         default_slot.m(target, anchor);
@@ -3564,24 +3778,25 @@ function create_fragment(ctx) {
       current = true;
     },
     p(ctx2, [dirty]) {
-      if (ctx2[2]) {
-        if (if_block) {
-          if_block.p(ctx2, dirty);
-          if (dirty & 4) {
-            transition_in(if_block, 1);
-          }
-        } else {
-          if_block = create_if_block(ctx2);
-          if_block.c();
-          transition_in(if_block, 1);
-          if_block.m(t.parentNode, t);
-        }
-      } else if (if_block) {
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
         group_outros();
-        transition_out(if_block, 1, 1, () => {
-          if_block = null;
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
         });
         check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(t.parentNode, t);
       }
       if (default_slot) {
         if (default_slot.p && (!current || dirty & 65536)) {
@@ -3602,8 +3817,7 @@ function create_fragment(ctx) {
       current = false;
     },
     d(detaching) {
-      if (if_block)
-        if_block.d(detaching);
+      if_blocks[current_block_type_index].d(detaching);
       if (detaching)
         detach(t);
       if (default_slot)
@@ -13692,4 +13906,4 @@ var SearchResults_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => "h1.sve
 var Search_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".validity.svelte-1ln7uo.svelte-1ln7uo{margin:0.25em 0}input.svelte-1ln7uo.svelte-1ln7uo{padding:0.3em;border-radius:3px}.sb-example-1.svelte-1ln7uo.svelte-1ln7uo{width:100%}.sb-example-1.svelte-1ln7uo .search.svelte-1ln7uo{width:100%;position:relative;display:flex}.sb-example-1.svelte-1ln7uo .searchTerm.svelte-1ln7uo{width:100%;border:3px solid #2ec73d;border-right:none;padding:5px;border-radius:5px 0 0 5px;outline:none;color:#9dbfaf}.sb-example-1.svelte-1ln7uo .searchTerm.svelte-1ln7uo:focus{color:#2ec73d}.sb-example-1.svelte-1ln7uo .searchButton.svelte-1ln7uo{width:40px;height:50px;border:1px solid #2ec73d;background:#2ec73d;text-align:center;color:#fff;border-radius:0 5px 5px 0;cursor:pointer;font-size:20px}")();
 var Contacts_svelte_svelte_type_style_lang = /* @__PURE__ */ (() => ".searchBar.svelte-rpa35j{display:flex;flex-direction:row;align-items:center;justify-content:center;flex-wrap:nowrap}.scan-icon.svelte-rpa35j{margin:1em 0 1em 1em}")();
 export { HypnsManager, Modal, PiperNet, jsQR };
-//# sourceMappingURL=Contacts.svelte_svelte_type_style_lang-6b2bb9e7.js.map
+//# sourceMappingURL=Contacts.svelte_svelte_type_style_lang-bf697503.js.map

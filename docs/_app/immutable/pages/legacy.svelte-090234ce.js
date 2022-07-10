@@ -1,9 +1,9 @@
 import { SvelteComponent, init, safe_not_equal, create_slot, HtmlTagHydration, empty, claim_html_tag, insert_hydration, detach, element, text, space, claim_element, children, claim_text, claim_space, attr, append_hydration, listen, prevent_default, update_slot_base, get_all_dirty_from_scope, get_slot_changes, transition_in, add_render_callback, create_bidirectional_transition, transition_out, createEventDispatcher, set_input_value, noop, handle_promise, update_await_block_branch, group_outros, check_outros, destroy_each, onMount, set_data, svg_element, claim_svg_element, create_component, claim_component, mount_component, destroy_component, component_subscribe, query_selector_all, src_url_equal, is_function, set_store_value, binding_callbacks, bind, null_to_empty, add_flush_callback, set_style, run_all, tick, select_option, select_value } from "../chunks/index-64ae2edc.js";
 import { writable, __vitePreload } from "../chunks/preload-helper-ef2a18a4.js";
-import { quintOut, getTagNodes, validatePubKey, CID } from "../chunks/cid-d85b89cf.js";
-import { jsQR, Modal, PiperNet, HypnsManager } from "../chunks/Contacts.svelte_svelte_type_style_lang-6b2bb9e7.js";
+import { quintOut, getTagNodes, validatePubKey, CID } from "../chunks/cid-ddbe2f79.js";
+import { jsQR, Modal, PiperNet, HypnsManager } from "../chunks/Contacts.svelte_svelte_type_style_lang-bf697503.js";
 import { page } from "../chunks/stores-bdc5e892.js";
-import { slide } from "../chunks/index-1b64b11a.js";
+import { slide } from "../chunks/index-9f669967.js";
 import "../chunks/singletons-cdabada9.js";
 import "../chunks/_commonjsHelpers-9b98600b.js";
 function fallback_block$3(ctx) {
@@ -1935,7 +1935,7 @@ function instance$c($$self, $$props, $$invalidate) {
   } } = $$props;
   onMount(async () => {
     const { ImmortalDB } = await __vitePreload(() => import("../chunks/index-17ddc90e.js"), true ? [] : void 0);
-    const { DagJoseCryptor } = await __vitePreload(() => import("../chunks/dagjosecryptor-ca67e286.js"), true ? ["chunks/dagjosecryptor-ca67e286.js","chunks/_commonjsHelpers-9b98600b.js","chunks/cid-d85b89cf.js","chunks/index-64ae2edc.js","chunks/hash-2a1eb12b.js"] : void 0);
+    const { DagJoseCryptor } = await __vitePreload(() => import("../chunks/dagjosecryptor-501e70c9.js"), true ? ["chunks/dagjosecryptor-501e70c9.js","chunks/_commonjsHelpers-9b98600b.js","chunks/cid-ddbe2f79.js","assets/cid-5802fef1.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js","chunks/hash-2a1eb12b.js"] : void 0);
     loadRootCID = async () => {
       if (rootCID)
         return true;
@@ -3932,15 +3932,15 @@ function instance$5($$self, $$props, $$invalidate) {
   let valid;
   let inputElement;
   onMount(async () => {
-    const Buffer = await __vitePreload(() => import("../chunks/cid-d85b89cf.js").then(function(n) {
+    const Buffer = await __vitePreload(() => import("../chunks/cid-ddbe2f79.js").then(function(n) {
       return n.index;
-    }), true ? ["chunks/cid-d85b89cf.js","chunks/index-64ae2edc.js"] : void 0);
+    }), true ? ["chunks/cid-ddbe2f79.js","assets/cid-5802fef1.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js"] : void 0);
     global.Buffer = Buffer.Buffer;
     const process = await __vitePreload(() => import("../chunks/browser-62a45c90.js").then(function(n) {
       return n.browser;
     }), true ? [] : void 0);
     global.process = process;
-    $$invalidate(4, { SNSWrapper } = await __vitePreload(() => import("../chunks/index-39b12389.js"), true ? ["chunks/index-39b12389.js","chunks/hash-2a1eb12b.js","chunks/_commonjsHelpers-9b98600b.js","chunks/cid-d85b89cf.js","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js"] : void 0), SNSWrapper);
+    $$invalidate(4, { SNSWrapper } = await __vitePreload(() => import("../chunks/index-319b59f8.js"), true ? ["chunks/index-319b59f8.js","chunks/hash-2a1eb12b.js","chunks/_commonjsHelpers-9b98600b.js","chunks/cid-ddbe2f79.js","assets/cid-5802fef1.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js"] : void 0), SNSWrapper);
     let params = new URLSearchParams(location.search);
     if (params.has("add")) {
       $$invalidate(1, pubKey = params.get("add"));
@@ -5845,20 +5845,18 @@ function create_default_slot(ctx) {
   };
 }
 function create_fragment$1(ctx) {
-  let link;
-  let t0;
   let div1;
   let current_block_type_index;
   let if_block0;
-  let t1;
+  let t0;
   let hypnsmanager;
   let updating_openHypns;
-  let t2;
+  let t1;
   let div0;
   let select;
-  let t3;
+  let t2;
   let showroot;
-  let t4;
+  let t3;
   let current_block_type_index_1;
   let if_block1;
   let current;
@@ -5902,35 +5900,29 @@ function create_fragment$1(ctx) {
   if_block1 = if_blocks_1[current_block_type_index_1] = if_block_creators_1[current_block_type_index_1](ctx);
   return {
     c() {
-      link = element("link");
-      t0 = space();
       div1 = element("div");
       if_block0.c();
-      t1 = space();
+      t0 = space();
       create_component(hypnsmanager.$$.fragment);
-      t2 = space();
+      t1 = space();
       div0 = element("div");
       select = element("select");
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].c();
       }
-      t3 = space();
+      t2 = space();
       create_component(showroot.$$.fragment);
-      t4 = space();
+      t3 = space();
       if_block1.c();
       this.h();
     },
     l(nodes) {
-      const head_nodes = query_selector_all('[data-svelte="svelte-3hhnlk"]', document.head);
-      link = claim_element(head_nodes, "LINK", { href: true, rel: true });
-      head_nodes.forEach(detach);
-      t0 = claim_space(nodes);
       div1 = claim_element(nodes, "DIV", { class: true });
       var div1_nodes = children(div1);
       if_block0.l(div1_nodes);
-      t1 = claim_space(div1_nodes);
+      t0 = claim_space(div1_nodes);
       claim_component(hypnsmanager.$$.fragment, div1_nodes);
-      t2 = claim_space(div1_nodes);
+      t1 = claim_space(div1_nodes);
       div0 = claim_element(div1_nodes, "DIV", {});
       var div0_nodes = children(div0);
       select = claim_element(div0_nodes, "SELECT", { class: true });
@@ -5940,38 +5932,34 @@ function create_fragment$1(ctx) {
       }
       select_nodes.forEach(detach);
       div0_nodes.forEach(detach);
-      t3 = claim_space(div1_nodes);
+      t2 = claim_space(div1_nodes);
       claim_component(showroot.$$.fragment, div1_nodes);
-      t4 = claim_space(div1_nodes);
+      t3 = claim_space(div1_nodes);
       if_block1.l(div1_nodes);
       div1_nodes.forEach(detach);
       this.h();
     },
     h() {
-      attr(link, "href", "https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css");
-      attr(link, "rel", "stylesheet");
       attr(select, "class", "form-control");
       if (ctx[2] === void 0)
         add_render_callback(() => ctx[10].call(select));
       attr(div1, "class", "");
     },
     m(target, anchor) {
-      append_hydration(document.head, link);
-      insert_hydration(target, t0, anchor);
       insert_hydration(target, div1, anchor);
       if_blocks[current_block_type_index].m(div1, null);
-      append_hydration(div1, t1);
+      append_hydration(div1, t0);
       mount_component(hypnsmanager, div1, null);
-      append_hydration(div1, t2);
+      append_hydration(div1, t1);
       append_hydration(div1, div0);
       append_hydration(div0, select);
       for (let i = 0; i < each_blocks.length; i += 1) {
         each_blocks[i].m(select, null);
       }
       select_option(select, ctx[2]);
-      append_hydration(div1, t3);
+      append_hydration(div1, t2);
       mount_component(showroot, div1, null);
-      append_hydration(div1, t4);
+      append_hydration(div1, t3);
       if_blocks_1[current_block_type_index_1].m(div1, null);
       current = true;
       if (!mounted) {
@@ -5998,7 +5986,7 @@ function create_fragment$1(ctx) {
           if_block0.p(ctx2, dirty);
         }
         transition_in(if_block0, 1);
-        if_block0.m(div1, t1);
+        if_block0.m(div1, t0);
       }
       const hypnsmanager_changes = {};
       if (dirty & 1)
@@ -6074,9 +6062,6 @@ function create_fragment$1(ctx) {
       current = false;
     },
     d(detaching) {
-      detach(link);
-      if (detaching)
-        detach(t0);
       if (detaching)
         detach(div1);
       if_blocks[current_block_type_index].d();
@@ -6112,7 +6097,7 @@ function instance$1($$self, $$props, $$invalidate) {
   }
   onMount(async () => {
     if (!wallet) {
-      $$invalidate(5, { Web3WalletMenu } = await __vitePreload(() => import("../chunks/index-ca95c035.js"), true ? ["chunks/index-ca95c035.js","assets/index-c30dcd19.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js","chunks/index-1b64b11a.js","chunks/cid-d85b89cf.js"] : void 0), Web3WalletMenu);
+      $$invalidate(5, { Web3WalletMenu } = await __vitePreload(() => import("../chunks/index-73f8326a.js"), true ? ["chunks/index-73f8326a.js","assets/index-c30dcd19.css","chunks/index-64ae2edc.js","chunks/preload-helper-ef2a18a4.js","chunks/index-9f669967.js","chunks/cid-ddbe2f79.js","assets/cid-5802fef1.css"] : void 0), Web3WalletMenu);
     }
     return () => ipfsNode.stop();
   });
@@ -6221,4 +6206,4 @@ class Legacy extends SvelteComponent {
   }
 }
 export { Legacy as default };
-//# sourceMappingURL=legacy.svelte-153afd08.js.map
+//# sourceMappingURL=legacy.svelte-090234ce.js.map

@@ -1,4 +1,4 @@
-import { cubicOut } from "./cid-d85b89cf.js";
+import { cubicOut } from "./cid-ddbe2f79.js";
 import { identity } from "./index-64ae2edc.js";
 function fade(node, { delay = 0, duration = 400, easing = identity } = {}) {
   const o = +getComputedStyle(node).opacity;
@@ -27,4 +27,4 @@ function slide(node, { delay = 0, duration = 400, easing = cubicOut } = {}) {
   };
 }
 export { fade, slide };
-//# sourceMappingURL=index-1b64b11a.js.map
+//# sourceMappingURL=index-9f669967.js.map
